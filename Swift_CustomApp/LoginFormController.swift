@@ -89,7 +89,6 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
             alert.addAction(action)
             // Показываем UIAlertController
             present(alert, animated: true, completion: nil)
-            
         }
     }
 }
