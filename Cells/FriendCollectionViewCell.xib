@@ -42,8 +42,8 @@
             </constraints>
             <size key="customSize" width="309" height="231"/>
             <connections>
-                <outlet property="avatarImage" destination="X8U-dF-n3N" id="g6K-kb-LuS"/>
-                <outlet property="nameLabel" destination="idw-6a-Ft3" id="xs1-iZ-e6l"/>
+                <outlet property="fullNameLabel" destination="idw-6a-Ft3" id="1Br-Lh-gjL"/>
+                <outlet property="photoImageView" destination="X8U-dF-n3N" id="YIj-ay-3xW"/>
             </connections>
             <point key="canvasLocation" x="267.39130434782612" y="138.95089285714286"/>
         </collectionViewCell>

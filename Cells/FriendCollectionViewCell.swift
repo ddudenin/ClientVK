@@ -9,8 +9,8 @@ import UIKit
 
 class FriendCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet var avatarImage: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var photoImageView: UIImageView!
+    @IBOutlet var fullNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
