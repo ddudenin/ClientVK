@@ -77,9 +77,18 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
         
         // Проверяем, верны ли они
         if login == userData.login && password == userData.password {
-            print("Добрый день, \(login)")
+            let storyboard = UIStoryboard(name: "Main", bundle: .none)
+            let vc = storyboard.instantiateViewController(withIdentifier: "startScreen")
+            self.present(vc, animated: true, completion: .none)
         } else {
-            print("Ошибка авторизации")
+            // Создаем контроллер
+            let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
+            // Создаем кнопку для UIAlertController
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            // Добавляем кнопку на UIAlertController
+            alert.addAction(action)
+            // Показываем UIAlertController
+            present(alert, animated: true, completion: nil)
         }
     }
 }
