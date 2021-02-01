@@ -7,24 +7,14 @@
 
 import UIKit
 
-class Group {
-    let name: String
-    let avatar: UIImage?
-    
-    init(name: String, avatar: UIImage?) {
-        self.name = name
-        self.avatar = avatar
-    }
-}
+var groups: [Group] = [
+    Group(name: "Быстрые займы за 5 минут", avatar: UIImage(systemName: "bitcoinsign.circle.fill")),
+    Group(name: "Дворец Путина", avatar: UIImage(systemName: "crown.fill")),
+    Group(name: "Психология успешных людей", avatar: UIImage(systemName: "star.fill")),
+    Group(name: "Барахолка", avatar: UIImage(systemName: "giftcard.fill")),
+]
 
 class UserCommunitiesTableViewController: UITableViewController {
-    
-    var groups: [Group] = [
-        Group(name: "Быстрые займы за 5 минут", avatar: UIImage(systemName: "bitcoinsign.circle.fill")),
-        Group(name: "Дворец Путина", avatar: UIImage(systemName: "crown.fill")),
-        Group(name: "Психология успешных людей", avatar: UIImage(systemName: "star.fill")),
-        Group(name: "Барахолка", avatar: UIImage(systemName: "giftcard.fill")),
-    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,15 +47,9 @@ class UserCommunitiesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            groupsGlobal.append(groups[indexPath.row])
             groups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
-    func addGroup(group: Group) {
-        if !groups.contains(where: {$0.name == group.name}) {
-            groups.append(group)
-            tableView.reloadData()
         }
     }
 }

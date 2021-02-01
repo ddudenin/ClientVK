@@ -192,7 +192,7 @@
         <!--Recommended-->
         <scene sceneID="dNw-62-8hR">
             <objects>
-                <tableViewController id="yHi-8h-1SC" customClass="GlobalCommunitiesTableViewController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="GlobalCommunitiesTableView" id="yHi-8h-1SC" customClass="GlobalCommunitiesTableViewController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X17-QQ-tZ9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

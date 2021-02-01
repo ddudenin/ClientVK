@@ -7,16 +7,6 @@
 
 import UIKit
 
-class Friend {
-    let fullName: String
-    let photo: UIImage?
-    
-    init(fullName: String, photo: UIImage?) {
-        self.fullName = fullName
-        self.photo = photo
-    }
-}
-
 struct Section {
     let letter : String
     let friends : [Friend]
@@ -35,10 +25,16 @@ class FriendsTableViewController: UITableViewController {
         Friend(fullName: "Deirdre O’Brien", photo: UIImage(named: "srvpretailpeople_image")),
         Friend(fullName: "Dan Riccio", photo: UIImage(named: "srvphardwareengineering_image")),
         Friend(fullName: "Johny Srouji", photo: UIImage(named: "srvphardwaretech_image")),
-        Friend(fullName: "Jeff Williams", photo: UIImage(named: "cco"))
+        Friend(fullName: "Jeff Williams", photo: UIImage(named: "cco")),
+        Friend(fullName: "Lisa Jackson", photo: UIImage(named: "environmentalpolicysocial_image")),
+        Friend(fullName: "Isabel Ge Mahe", photo: UIImage(named: "greaterchina_image")),
+        Friend(fullName: "Tor Myhren", photo: UIImage(named: "marcom_image")),
+        Friend(fullName: "Adrian Perica", photo: UIImage(named: "corporatedevelopment_image")),
+        Friend(fullName: "Phill Schiller", photo: UIImage(named: "srvpworldwidemarketing_image"))
     ]
     
     var sections = [Section]()
+    var headers = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +44,7 @@ class FriendsTableViewController: UITableViewController {
         let sectionsData = Dictionary(grouping: friendsArray, by: { String($0.fullName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
         sections = keys.map{ Section(letter: $0, friends: sectionsData[$0]!) }
+        headers = sections.map{ $0.letter }
         self.tableView.reloadData()
     }
     
@@ -80,7 +77,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections.map{$0.letter}[section]
+        return headers[section]
     }
     
     //    @IBAction func addFriend(_ sender: UIBarButtonItem) {

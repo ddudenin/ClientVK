@@ -8,3 +8,12 @@
 import Foundation
 import UIKit
 
+class Friend {
+    let fullName: String
+    let photo: UIImage?
+    
+    init(fullName: String, photo: UIImage?) {
+        self.fullName = fullName
+        self.photo = photo
+    }
+}
