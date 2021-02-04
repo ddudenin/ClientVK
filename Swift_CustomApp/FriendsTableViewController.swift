@@ -48,6 +48,20 @@ class FriendsTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    let avatarView: UIView = {
+        let view = AvatarView()
+        view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        return view
+    }()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //self.view.addSubview(self.avatarView)
+        //self.avatarView.setNeedsDisplay()
+        
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
