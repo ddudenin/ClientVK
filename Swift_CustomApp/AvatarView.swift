@@ -21,14 +21,34 @@ import UIKit
         }
     }
     
+    @IBInspectable var shadowOffset: Float = 0.5 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    let containerView = UIView()
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        self.layer.borderWidth = 1
+        let cornerRadius = self.frame.width / 2
+
+        self.backgroundColor = .red
+        let maskLayer = CAShapeLayer()
+        let starPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius)
+        maskLayer.path = starPath.cgPath
         
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        maskLayer.shadowColor = UIColor.black.cgColor
+        maskLayer.shadowOpacity = shadowOffset
+        maskLayer.shadowRadius = 2*cornerRadius
+        maskLayer.shadowOffset = CGSize(width: 10, height: 10)
+
+        self.layer.mask = maskLayer
         
-        context.setFillColor(UIColor.blue.cgColor)
-        context.fill(CGRect(x: 0, y: 0, width: rect.width, height: rect.height))
+        //guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        //context.setFillColor(UIColor.blue.cgColor)
+        //context.fill(CGRect(x: 0, y: 0, width: rect.width, height: rect.height))
     }
 }

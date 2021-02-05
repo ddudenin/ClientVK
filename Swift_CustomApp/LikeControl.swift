@@ -34,7 +34,7 @@ import UIKit
         button.setTitleColor(.white, for: .selected)
         button.setImage(UIImage(systemName: "heart.fill"), for: .selected)
         button.addTarget(self, action: #selector(handleLikeAvatar(_:)), for: .touchUpInside)
-        
+
         let btnState = Bool.random()
         
         if btnState {
