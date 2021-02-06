@@ -33,7 +33,7 @@ import UIKit
         self.button.setImage(UIImage(systemName: "heart"), for: .normal)
         self.button.setTitleColor(.white, for: .selected)
         self.button.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-        self.button.addTarget(self, action: #selector(handleLikeAvatar(_:)), for: .touchUpInside)
+        self.button.addTarget(self, action: #selector(handleLikePhoto(_:)), for: .touchUpInside)
         
         let btnState = Bool.random()
         
@@ -54,9 +54,10 @@ import UIKit
         self.stackView.spacing = 10
         self.stackView.axis = .horizontal
         self.stackView.alignment = .center
+        self.stackView.distribution = .fillEqually
     }
     
-    @objc private func handleLikeAvatar(_ sender: UIButton) {
+    @objc private func handleLikePhoto(_ sender: UIButton) {
         let newState = !self.button.isSelected
         self.button.isSelected = newState
         

@@ -80,6 +80,10 @@ class FriendsTableViewController: UITableViewController {
         return self.headers[section]
     }
     
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return self.headers
+    }
+    
     //    @IBAction func addFriend(_ sender: UIBarButtonItem) {
     //        let alert = UIAlertController(title: "Add friend", message: "", preferredStyle: .alert)
     //        alert.addTextField { (textField) in textField.placeholder = "Enter user name" }
