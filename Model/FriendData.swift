@@ -8,12 +8,19 @@
 import Foundation
 import UIKit
 
-class Friend {
-    let fullName: String
-    let photo: UIImage?
+struct Friend {
+    let name: String
+    let surname: String
     
-    init(fullName: String, photo: UIImage?) {
-        self.fullName = fullName
-        self.photo = photo
+    let photoName: String
+    
+    init(name: String, surname: String, photoName: String) {
+        self.name = name
+        self.surname = surname
+        self.photoName = photoName
+    }
+    
+    func getFullName() -> String {
+        return name + " " + surname
     }
 }

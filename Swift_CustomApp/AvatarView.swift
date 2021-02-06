@@ -22,7 +22,7 @@ class AvatarView: UIView {
             self.layer.cornerRadius = cornerRadius
         }
     }
-  
+    
     @IBInspectable var shadowColor: UIColor = .cyan {
         didSet {
             self.layer.shadowColor = shadowColor.cgColor

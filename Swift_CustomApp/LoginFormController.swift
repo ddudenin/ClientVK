@@ -13,7 +13,7 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordInput: UITextField!
     @IBOutlet var scrollView: UIScrollView!
     
-    let userData = (login: "Tim Cook", password: "Apple1e12$")
+    private let userData = (login: "Tim Cook", password: "Apple1e12$")
     
     // Когда клавиатура появляется
     @objc func keyboardWasShown(notification: Notification) {
@@ -24,14 +24,14 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
         
         // Добавляем отступ внизу UIScrollView, равный размеру клавиатуры
         self.scrollView?.contentInset = contentInsets
-        scrollView?.scrollIndicatorInsets = contentInsets
+        self.scrollView?.scrollIndicatorInsets = contentInsets
     }
     
     //Когда клавиатура исчезает
     @objc func keyboardWillBeHidden(notification: Notification) {
         // Устанавливаем отступ внизу UIScrollView, равный 0
         let contentInsets = UIEdgeInsets.zero
-        scrollView?.contentInset = contentInsets
+        self.scrollView?.contentInset = contentInsets
     }
     
     private func switchBasedNextTextField(_ textField: UITextField) {
@@ -70,25 +70,18 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        // Получаем текст логина
-        let login = loginInput.text!
-        // Получаем текст-пароль
-        let password = passwordInput.text!
+        let login = self.loginInput.text!
+        let password = self.passwordInput.text!
         
-        // Проверяем, верны ли они
-        if login == userData.login && password == userData.password {
+        if login == self.userData.login && password == self.userData.password {
             let storyboard = UIStoryboard(name: "Main", bundle: .none)
             let vc = storyboard.instantiateViewController(withIdentifier: "startScreen")
             self.present(vc, animated: true, completion: .none)
         } else {
-            // Создаем контроллер
             let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
-            // Создаем кнопку для UIAlertController
             let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            // Добавляем кнопку на UIAlertController
             alert.addAction(action)
-            // Показываем UIAlertController
-            present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }

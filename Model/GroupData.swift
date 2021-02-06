@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-class Group {
+struct Group {
     let name: String
-    let avatar: UIImage?
+    let avatarName: String
     
-    init(name: String, avatar: UIImage?) {
+    init(name: String, avatarName: String) {
         self.name = name
-        self.avatar = avatar
+        self.avatarName = avatarName
     }
 }
