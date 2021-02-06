@@ -76,7 +76,7 @@ class FriendsTableViewController: UITableViewController {
         // Configure the cell...
         let friend = sections[indexPath.section].friends[indexPath.row]
         cell.fullNameLabel.text = friend.fullName
-        cell.photoImageView.image = friend.photo
+        cell.photoView.photoImageView.image = friend.photo
         
         return cell
     }

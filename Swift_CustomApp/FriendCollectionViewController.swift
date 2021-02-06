@@ -17,6 +17,7 @@ class FriendCollectionViewController: UICollectionViewController {
         // Register cell classes
         self.collectionView!.register(UINib(nibName: "FriendCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "AvatarCell")
         
+        self.title = "\(friend.fullName)"
         // Do any additional setup after loading the view.
     }
     

@@ -7,48 +7,32 @@
 
 import UIKit
 
-@IBDesignable class AvatarView: UIView {
+@IBDesignable
+class AvatarView: UIView {
     
-    @IBInspectable public var shadowWidth: CGFloat = 4.0 {
+    @IBOutlet var photoImageView: UIImageView! = UIImageView() {
         didSet {
-            setNeedsDisplay()
+            photoImageView.layer.masksToBounds = true
+            photoImageView.layer.cornerRadius = self.cornerRadius
         }
     }
     
+    @IBInspectable var cornerRadius: CGFloat = 0.0 {
+        didSet {
+            self.layer.cornerRadius = cornerRadius
+        }
+    }
+  
     @IBInspectable var shadowColor: UIColor = .cyan {
         didSet {
-            setNeedsDisplay()
+            self.layer.shadowColor = shadowColor.cgColor
         }
     }
     
-    @IBInspectable var shadowOffset: Float = 0.5 {
+    @IBInspectable var shadowOffset: CGSize = CGSize.zero {
         didSet {
-            setNeedsDisplay()
+            self.layer.shadowOffset = shadowOffset
+            self.layer.shadowOpacity = 0.8
         }
-    }
-    
-    let containerView = UIView()
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        let cornerRadius = self.frame.width / 2
-
-        self.backgroundColor = .red
-        let maskLayer = CAShapeLayer()
-        let starPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius)
-        maskLayer.path = starPath.cgPath
-        
-        maskLayer.shadowColor = UIColor.black.cgColor
-        maskLayer.shadowOpacity = shadowOffset
-        maskLayer.shadowRadius = 2*cornerRadius
-        maskLayer.shadowOffset = CGSize(width: 10, height: 10)
-
-        self.layer.mask = maskLayer
-        
-        //guard let context = UIGraphicsGetCurrentContext() else { return }
-        
-        //context.setFillColor(UIColor.blue.cgColor)
-        //context.fill(CGRect(x: 0, y: 0, width: rect.width, height: rect.height))
     }
 }
