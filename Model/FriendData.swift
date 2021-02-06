@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct Friend {
     let name: String

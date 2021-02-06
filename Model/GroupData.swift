@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct Group {
     let name: String

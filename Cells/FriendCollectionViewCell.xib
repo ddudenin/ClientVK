@@ -11,10 +11,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AvatarCell" id="gTV-IL-0wX" customClass="FriendCollectionViewCell" customModule="Swift_CustomApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="170" height="220"/>
+            <rect key="frame" x="0.0" y="0.0" width="170" height="210"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="170" height="220"/>
+                <rect key="frame" x="0.0" y="0.0" width="170" height="210"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X8U-dF-n3N">
@@ -25,24 +25,24 @@
                         </constraints>
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="teI-LP-Ljh" customClass="LikeControl" customModule="Swift_CustomApp" customModuleProvider="target">
-                        <rect key="frame" x="20" y="170" width="130" height="40"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGD-sq-WAi" customClass="LikeControl" customModule="Swift_CustomApp" customModuleProvider="target">
+                        <rect key="frame" x="10" y="165" width="150" height="40"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="VGZ-Su-f45"/>
+                            <constraint firstAttribute="height" constant="40" id="Keq-uX-zax"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="teI-LP-Ljh" secondAttribute="bottom" constant="10" id="Rux-3W-oY8"/>
-                <constraint firstItem="X8U-dF-n3N" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="avn-Ek-AqN"/>
-                <constraint firstItem="teI-LP-Ljh" firstAttribute="top" secondItem="X8U-dF-n3N" secondAttribute="bottom" constant="10" id="eXk-V9-w7K"/>
-                <constraint firstItem="X8U-dF-n3N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="kP7-OF-aLd"/>
-                <constraint firstItem="teI-LP-Ljh" firstAttribute="width" secondItem="X8U-dF-n3N" secondAttribute="width" multiplier="0.866667" id="nac-Xz-GJd"/>
-                <constraint firstItem="teI-LP-Ljh" firstAttribute="centerX" secondItem="X8U-dF-n3N" secondAttribute="centerX" id="wpb-iu-nB3"/>
-                <constraint firstAttribute="trailing" secondItem="X8U-dF-n3N" secondAttribute="trailing" constant="10" id="ySB-vN-bJ9"/>
+                <constraint firstAttribute="trailing" secondItem="X8U-dF-n3N" secondAttribute="trailing" constant="10" id="2zx-jR-FJ6"/>
+                <constraint firstAttribute="bottom" secondItem="CGD-sq-WAi" secondAttribute="bottom" constant="5" id="BFw-FY-aps"/>
+                <constraint firstItem="X8U-dF-n3N" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Bvk-bE-cms"/>
+                <constraint firstItem="CGD-sq-WAi" firstAttribute="top" secondItem="X8U-dF-n3N" secondAttribute="bottom" constant="5" id="Dno-sx-4h5"/>
+                <constraint firstItem="CGD-sq-WAi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="e5T-S9-WsW"/>
+                <constraint firstItem="X8U-dF-n3N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="gLR-Tf-mm1"/>
+                <constraint firstAttribute="trailing" secondItem="CGD-sq-WAi" secondAttribute="trailing" constant="10" id="vb9-a2-9aO"/>
             </constraints>
             <size key="customSize" width="249" height="269"/>
             <connections>

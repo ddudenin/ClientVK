@@ -7,16 +7,16 @@
 
 import UIKit
 
-@IBDesignable class LikeControl: UIControl {
+class LikeControl: UIControl {
     
-    var count: Int = 0
+    var likeCount: Int = 0
     
     private let selectColor: UIColor = UIColor.black
     private let deselectedColor: UIColor = UIColor.lightGray
     
-    private var button : UIButton = UIButton(type: .system)
+    private var likeButton : UIButton = UIButton(type: .system)
+    private var likeCountLabel: UILabel = UILabel()
     private var stackView: UIStackView!
-    private var label: UILabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,25 +29,27 @@ import UIKit
     }
     
     private func setupView() {
-        self.button.setTitleColor(.lightGray, for: .normal)
-        self.button.setImage(UIImage(systemName: "heart"), for: .normal)
-        self.button.setTitleColor(.white, for: .selected)
-        self.button.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-        self.button.addTarget(self, action: #selector(handleLikePhoto(_:)), for: .touchUpInside)
+        self.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        self.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+  
+        //self.likeButton.setImage(UIImage(named: "heart_empty"), for: .normal)
+        //self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
+        
+        self.likeButton.addTarget(self, action: #selector(handleLikePhoto(_:)), for: .touchUpInside)
         
         let btnState = Bool.random()
         
         if btnState {
-            self.button.isSelected = btnState
-            self.count = Int.random(in: 1...100)
-            self.label.textColor = self.selectColor
+            self.likeButton.isSelected = btnState
+            self.likeCount = Int.random(in: 1...100)
+            self.likeCountLabel.textColor = self.selectColor
         } else {
-            self.label.textColor = self.deselectedColor
+            self.likeCountLabel.textColor = self.deselectedColor
         }
         
-        self.label.text = "\(self.count)"
+        self.likeCountLabel.text = "\(self.likeCount)"
         
-        self.stackView = UIStackView(arrangedSubviews: [self.button, self.label])
+        self.stackView = UIStackView(arrangedSubviews: [self.likeButton, self.likeCountLabel])
         
         self.addSubview(stackView)
         
@@ -58,13 +60,13 @@ import UIKit
     }
     
     @objc private func handleLikePhoto(_ sender: UIButton) {
-        let newState = !self.button.isSelected
-        self.button.isSelected = newState
+        let newState = !self.likeButton.isSelected
+        self.likeButton.isSelected = newState
         
-        count += newState ? 1 : -1
+        self.likeCount += newState ? 1 : -1
         
-        self.label.text = "\(self.count)"
-        self.label.textColor = newState && count > 0 ? self.selectColor : self.deselectedColor
+        self.likeCountLabel.text = "\(self.likeCount)"
+        self.likeCountLabel.textColor = newState && self.likeCount > 0 ? self.selectColor : self.deselectedColor
     }
     
     override func layoutSubviews() {
