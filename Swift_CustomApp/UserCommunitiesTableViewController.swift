@@ -21,6 +21,12 @@ class UserCommunitiesTableViewController: UITableViewController {
         
         self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.reloadData()
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1

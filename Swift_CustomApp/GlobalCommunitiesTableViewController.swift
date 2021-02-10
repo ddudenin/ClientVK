@@ -42,12 +42,9 @@ class GlobalCommunitiesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: .none)
-        let vc = storyboard.instantiateViewController(withIdentifier: "UserCommunitiesTableView")
-        
         groups.append(groupsGlobal[indexPath.row])
         groupsGlobal.remove(at: indexPath.row)
         
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }
