@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FriendsTableViewController: UITableViewController {
+class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     
     private let friendsArray = [
         Friend(name: "Katherine", surname: "Adams", photoName: "srvpgeneralcounsel_image"),
@@ -28,6 +28,8 @@ class FriendsTableViewController: UITableViewController {
         Friend(name: "Phill", surname: "Schiller", photoName: "srvpworldwidemarketing_image")
     ]
     
+    private var filteredFriends = [Friend]()
+    
     private struct Section {
         let letter : String
         let friends : [Friend]
@@ -36,15 +38,27 @@ class FriendsTableViewController: UITableViewController {
     private var sections = [Section]()
     private var headers = [String]()
     
+    @IBOutlet var searchBar: UISearchBar!
+    
+    private func CalculateSectionsAndHeaders() {
+        let sectionsData = Dictionary(grouping: self.filteredFriends, by: { String($0.surname.prefix(1)) })
+        let keys = sectionsData.keys.sorted()
+        self.sections = keys.map{ Section(letter: $0, friends: sectionsData[$0]!) }
+        self.headers = self.sections.map{ $0.letter }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UINib(nibName: "FriendsTableViewCell", bundle: .none), forCellReuseIdentifier: "FriendCell")
+        self.tableView.register(UINib(nibName: "FriendSectionHeader", bundle: .none), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
-        let sectionsData = Dictionary(grouping: friendsArray, by: { String($0.surname.prefix(1)) })
-        let keys = sectionsData.keys.sorted()
-        self.sections = keys.map{ Section(letter: $0, friends: sectionsData[$0]!) }
-        self.headers = self.sections.map{ $0.letter }
+        self.searchBar.delegate = self
+        
+        self.filteredFriends = self.friendsArray
+        
+        CalculateSectionsAndHeaders()
+        
         self.tableView.reloadData()
     }
     
@@ -75,32 +89,32 @@ class FriendsTableViewController: UITableViewController {
         (vc as? FriendCollectionViewController)?.friend = self.sections[indexPath.section].friends[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.headers[section]
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "FriendsHeader") as! FriendSectionHeader
+        
+        header.nameLabel.text = self.headers[section]
+        
+        return header
     }
     
-    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.headers
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+          return 50
     }
     
-    //    @IBAction func addFriend(_ sender: UIBarButtonItem) {
-    //        let alert = UIAlertController(title: "Add friend", message: "", preferredStyle: .alert)
-    //        alert.addTextField { (textField) in textField.placeholder = "Enter user name" }
-    //        let action = UIAlertAction(title: "Sumbit",
-    //                                   style: .cancel) { [weak alert] _ in
-    //            guard let textFields = alert?.textFields else { return }
-    //
-    //            if let userName = textFields[0].text {
-    //                let friend = Friend(name: userName, avatar: UIImage(systemName: "person.fill"))
-    //                if !self.friends[0].contains(where: {$0.name == friend.name}){
-    //                    self.friends[0].append(friend)
-    //                    self.tableView.reloadData()
-    //                }
-    //            }
-    //        }
-    //        alert.addAction(action)
-    //        // Показываем UIAlertController
-    //        present(alert, animated: true, completion: nil)
-    //    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredFriends = []
+        
+        if searchText.count == 0 {
+            filteredFriends = friendsArray
+        } else {
+            for friend in friendsArray where friend.getFullName().lowercased().contains(searchText.lowercased()) {
+                filteredFriends.append(friend)
+            }
+        }
+        
+        CalculateSectionsAndHeaders()
+        
+        self.tableView.reloadData()
+    }
 }
