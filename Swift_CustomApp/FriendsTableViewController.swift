@@ -98,10 +98,6 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         return header
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-          return 50
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredFriends = []
         

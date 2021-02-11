@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3917BA3325C861B900C48FA6 /* FriendData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BCA25C5B3110043AF16 /* FriendData.swift */; };
+		391CB80225D598A800085064 /* NewsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391CB80125D598A800085064 /* NewsData.swift */; };
 		393766F025D4267B00FFB8D5 /* FriendSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393766EF25D4267B00FFB8D5 /* FriendSectionHeader.swift */; };
 		393766F325D4271200FFB8D5 /* FriendSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 393766F225D4271200FFB8D5 /* FriendSectionHeader.xib */; };
 		393766F725D471D500FFB8D5 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393766F625D471D500FFB8D5 /* NewsTableViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		391CB80125D598A800085064 /* NewsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsData.swift; sourceTree = "<group>"; };
 		393766EF25D4267B00FFB8D5 /* FriendSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSectionHeader.swift; sourceTree = "<group>"; };
 		393766F225D4271200FFB8D5 /* FriendSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendSectionHeader.xib; sourceTree = "<group>"; };
 		393766F625D471D500FFB8D5 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			children = (
 				8B193BCA25C5B3110043AF16 /* FriendData.swift */,
 				8B193BE125C5FFD50043AF16 /* GroupData.swift */,
+				391CB80125D598A800085064 /* NewsData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				393766FB25D4727700FFB8D5 /* NewsTableViewCell.swift in Sources */,
 				8B193BDC25C5E8A60043AF16 /* UserCommunitiesTableViewController.swift in Sources */,
 				3917BA3325C861B900C48FA6 /* FriendData.swift in Sources */,
+				391CB80225D598A800085064 /* NewsData.swift in Sources */,
 				8B193BCF25C5CBED0043AF16 /* FriendCollectionViewCell.swift in Sources */,
 				8B193BD825C5E8290043AF16 /* CommunitiesTableViewCell.swift in Sources */,
 				8B4ED2D825BC93A800485879 /* LoginFormController.swift in Sources */,

@@ -13,6 +13,9 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet var authorNameLabel: UILabel!
     @IBOutlet var newsTextLabel: UILabel!
     @IBOutlet var newsPhotoImageView: UIImageView!
+    @IBOutlet var viewsCountLabel: UILabel!
+    @IBOutlet var commentsCountLabel: UILabel!
+    @IBOutlet var repostsCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
