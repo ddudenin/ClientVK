@@ -1,5 +1,5 @@
 //
-//  NewsTableViewCell.swift
+//  PostTableViewCell.swift
 //  Swift_CustomApp
 //
 //  Created by user192247 on 2/10/21.
@@ -7,15 +7,17 @@
 
 import UIKit
 
-class NewsTableViewCell: UITableViewCell {
+class PostTableViewCell: UITableViewCell {
 
-    @IBOutlet var authorImageView: UIImageView!
-    @IBOutlet var authorNameLabel: UILabel!
-    @IBOutlet var newsTextLabel: UILabel!
-    @IBOutlet var newsPhotoImageView: UIImageView!
+    @IBOutlet var createdByLabel: UILabel!
+    @IBOutlet var timeAgoLabel: UILabel!
+    @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var postImageView: UIImageView!
+    @IBOutlet var captionLabel: UILabel!
+    @IBOutlet var commentsButton: UIButton!
+    @IBOutlet var sharesButton: UIButton!
     @IBOutlet var viewsCountLabel: UILabel!
-    @IBOutlet var commentsCountLabel: UILabel!
-    @IBOutlet var repostsCountLabel: UILabel!
+    @IBOutlet var likesButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

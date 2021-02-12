@@ -243,16 +243,16 @@
             </objects>
             <point key="canvasLocation" x="2490" y="1663"/>
         </scene>
-        <!--News Table View Controller-->
+        <!--Feed Table View Controller-->
         <scene sceneID="1T7-8P-neW">
             <objects>
-                <tableViewController id="IHd-nJ-65H" customClass="NewsTableViewController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="IHd-nJ-65H" customClass="FeedTableViewController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MWD-Ad-iHh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Cdn-Fy-wz2">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="Cdn-Fy-wz2" customClass="PostTableViewCell" customModule="Swift_CustomApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cdn-Fy-wz2" id="eCZ-CH-2al">

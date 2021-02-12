@@ -9,25 +9,6 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     
-    private let friendsArray = [
-        Friend(name: "Katherine", surname: "Adams", photoName: "srvpgeneralcounsel_image"),
-        Friend(name: "Eddy", surname: "Cue", photoName: "srvpinternetsoftwareandservices_image"),
-        Friend(name: "Craig", surname: "Federighi", photoName: "srvpsoftwareengineering_image"),
-        Friend(name: "John", surname: "Giannandrea", photoName: "svpmachinelearningaistrategy_image"),
-        Friend(name: "Greg “Joz”", surname: "Joswiak", photoName: "greg-joswiak"),
-        Friend(name: "Sabih", surname: "Khan", photoName: "Sabih_Khan_image"),
-        Friend(name: "Luca", surname: "Maestri", photoName: "srvpcfo_image"),
-        Friend(name: "Deirdre", surname: "O’Brien", photoName: "srvpretailpeople_image"),
-        Friend(name: "Dan", surname: "Riccio", photoName: "srvphardwareengineering_image"),
-        Friend(name: "Johny", surname: "Srouji", photoName: "srvphardwaretech_image"),
-        Friend(name: "Jeff ", surname: "Williams", photoName: "cco"),
-        Friend(name: "Lisa", surname: "Jackson", photoName: "environmentalpolicysocial_image"),
-        Friend(name: "Isabel", surname: "Ge Mahe", photoName: "greaterchina_image"),
-        Friend(name: "Tor", surname: "Myhren", photoName: "marcom_image"),
-        Friend(name: "Adrian", surname: "Perica", photoName: "corporatedevelopment_image"),
-        Friend(name: "Phill", surname: "Schiller", photoName: "srvpworldwidemarketing_image")
-    ]
-    
     private var filteredFriends = [Friend]()
     
     private struct Section {
@@ -55,7 +36,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         
         self.searchBar.delegate = self
         
-        self.filteredFriends = self.friendsArray
+        self.filteredFriends = friendsArray
         
         CalculateSectionsAndHeaders()
         
@@ -99,13 +80,13 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredFriends = []
+        self.filteredFriends = []
         
         if searchText.count == 0 {
-            filteredFriends = friendsArray
+            self.filteredFriends = friendsArray
         } else {
             for friend in friendsArray where friend.getFullName().lowercased().contains(searchText.lowercased()) {
-                filteredFriends.append(friend)
+                self.filteredFriends.append(friend)
             }
         }
         

@@ -7,12 +7,13 @@
 
 import UIKit
 
+@IBDesignable
 class LikeControl: UIControl {
     
-    var likeCount: Int = 0
+    var likeCount: UInt = 0
     
     private let selectColor: UIColor = UIColor.black
-    private let deselectedColor: UIColor = UIColor.lightGray
+    private let deselectedColor: UIColor = UIColor.darkGray
     
     private var likeButton : UIButton = UIButton(type: .system)
     private var likeCountLabel: UILabel = UILabel()
@@ -41,19 +42,19 @@ class LikeControl: UIControl {
         
         if btnState {
             self.likeButton.isSelected = btnState
-            self.likeCount = Int.random(in: 1...100)
+            self.likeCount = UInt.random(in: 1...1000000)
             self.likeCountLabel.textColor = self.selectColor
         } else {
             self.likeCountLabel.textColor = self.deselectedColor
         }
         
-        self.likeCountLabel.text = "\(self.likeCount)"
+        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
         
         self.stackView = UIStackView(arrangedSubviews: [self.likeButton, self.likeCountLabel])
         
         self.addSubview(stackView)
         
-        self.stackView.spacing = 10
+        self.stackView.spacing = 3
         self.stackView.axis = .horizontal
         self.stackView.alignment = .center
         self.stackView.distribution = .fillEqually
@@ -63,9 +64,13 @@ class LikeControl: UIControl {
         let newState = !self.likeButton.isSelected
         self.likeButton.isSelected = newState
         
-        self.likeCount += newState ? 1 : -1
-        
-        self.likeCountLabel.text = "\(self.likeCount)"
+        if newState {
+            self.likeCount += 1
+        } else {
+            self.likeCount -= 1
+        }
+
+        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
         self.likeCountLabel.textColor = newState && self.likeCount > 0 ? self.selectColor : self.deselectedColor
     }
     

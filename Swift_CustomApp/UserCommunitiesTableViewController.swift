@@ -7,13 +7,6 @@
 
 import UIKit
 
-var groups: [Group] = [
-    Group(name: "Быстрые займы за 5 минут", avatarName: "bitcoinsign.circle.fill"),
-    Group(name: "Дворец Путина", avatarName: "crown.fill"),
-    Group(name: "Психология успешных людей", avatarName: "star.fill"),
-    Group(name: "Барахолка", avatarName: "giftcard.fill")
-]
-
 class UserCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
     
     var filteredGroups = [Group]()

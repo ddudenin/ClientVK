@@ -7,11 +7,6 @@
 
 import UIKit
 
-var groupsGlobal: [Group] = [
-    Group(name: "American democracy: lie or reality", avatarName: "flag.fill"),
-    Group(name: "Одноклассники", avatarName: "bubble.middle.bottom.fill"),
-]
-
 class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet var searchBar: UISearchBar!
