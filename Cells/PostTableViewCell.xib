@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,30 +43,29 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="srvphardwareengineering_image" translatesAutoresizingMaskIntoConstraints="NO" id="SIf-f3-SC5">
-                        <rect key="frame" x="0.0" y="191.5" width="375" height="375"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="SIf-f3-SC5" secondAttribute="height" multiplier="1:1" id="fgV-y7-Awk"/>
-                        </constraints>
-                    </imageView>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-Tf-m6Z">
+                        <rect key="frame" x="0.0" y="181" width="375" height="403"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <collectionViewLayout key="collectionViewLayout" id="Ytw-fK-dUE" customClass="PostCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>
+                    </collectionView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="DWS-Gl-FnZ">
-                        <rect key="frame" x="12" y="576.5" width="254.5" height="39.5"/>
+                        <rect key="frame" x="12" y="594" width="254.5" height="22"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvJ-GY-nss" userLabel="Like">
-                                <rect key="frame" x="0.0" y="9" width="83" height="22"/>
+                                <rect key="frame" x="0.0" y="0.0" width="83" height="22"/>
                                 <state key="normal" title="  " image="heart" catalog="system">
                                     <color key="titleColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra1-aj-vA6">
-                                <rect key="frame" x="86" y="10" width="82.5" height="19.5"/>
+                                <rect key="frame" x="86" y="1.5" width="82.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="message" catalog="system">
                                     <color key="titleColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUz-Ql-p8e">
-                                <rect key="frame" x="171.5" y="9" width="83" height="22"/>
+                                <rect key="frame" x="171.5" y="0.0" width="83" height="22"/>
                                 <state key="normal" image="arrowshape.turn.up.right" catalog="system">
                                     <color key="titleColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -73,7 +73,7 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="52d-Yz-CwU">
-                        <rect key="frame" x="296.5" y="586.5" width="66.5" height="20"/>
+                        <rect key="frame" x="296.5" y="595" width="66.5" height="20"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="erU-Uw-RY6">
                                 <rect key="frame" x="0.0" y="1.5" width="26" height="16.5"/>
@@ -100,26 +100,26 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="SIf-f3-SC5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1cj-8X-NRf"/>
+                    <constraint firstItem="kPq-Tf-m6Z" firstAttribute="top" secondItem="YX1-Dq-vLX" secondAttribute="bottom" constant="15" id="0Qj-pX-TuF"/>
                     <constraint firstAttribute="trailing" secondItem="RN4-tE-DQi" secondAttribute="trailing" constant="12" id="6RD-ec-SEW"/>
+                    <constraint firstItem="DWS-Gl-FnZ" firstAttribute="top" secondItem="kPq-Tf-m6Z" secondAttribute="bottom" constant="10" id="8Kh-Fe-C1M"/>
+                    <constraint firstItem="kPq-Tf-m6Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9Ot-eq-5ek"/>
                     <constraint firstItem="Rcz-Pi-iJS" firstAttribute="leading" secondItem="fiX-qo-RPf" secondAttribute="trailing" constant="10" id="Caj-gW-VYM"/>
                     <constraint firstItem="YX1-Dq-vLX" firstAttribute="top" secondItem="Rcz-Pi-iJS" secondAttribute="bottom" constant="10" id="En9-Dz-TTr"/>
                     <constraint firstItem="52d-Yz-CwU" firstAttribute="leading" secondItem="DWS-Gl-FnZ" secondAttribute="trailing" constant="30" id="Eu3-PI-cHw"/>
                     <constraint firstItem="52d-Yz-CwU" firstAttribute="centerY" secondItem="DWS-Gl-FnZ" secondAttribute="centerY" id="GL0-C4-bkM"/>
                     <constraint firstItem="YX1-Dq-vLX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Odd-oy-xbl"/>
-                    <constraint firstItem="SIf-f3-SC5" firstAttribute="top" secondItem="YX1-Dq-vLX" secondAttribute="bottom" constant="25.5" id="S0T-o4-SCK"/>
                     <constraint firstItem="DWS-Gl-FnZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="WDw-qh-ONz"/>
                     <constraint firstAttribute="trailing" secondItem="YX1-Dq-vLX" secondAttribute="trailing" constant="12" id="X0L-Hn-rmQ"/>
                     <constraint firstAttribute="trailing" secondItem="Ro9-LH-IA9" secondAttribute="trailing" constant="12" id="a1r-qg-D4D"/>
-                    <constraint firstAttribute="trailing" secondItem="SIf-f3-SC5" secondAttribute="trailing" id="fgh-Pk-1T5"/>
                     <constraint firstItem="RN4-tE-DQi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="iMi-Om-bLw"/>
                     <constraint firstItem="fiX-qo-RPf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="icb-iH-cQN"/>
                     <constraint firstAttribute="bottom" secondItem="DWS-Gl-FnZ" secondAttribute="bottom" constant="12" id="irg-Qo-WT8"/>
                     <constraint firstItem="Ro9-LH-IA9" firstAttribute="centerY" secondItem="fiX-qo-RPf" secondAttribute="centerY" id="mNs-oi-bfY"/>
+                    <constraint firstAttribute="trailing" secondItem="kPq-Tf-m6Z" secondAttribute="trailing" id="n33-mA-kqS"/>
                     <constraint firstItem="Rcz-Pi-iJS" firstAttribute="top" secondItem="RN4-tE-DQi" secondAttribute="bottom" constant="4" id="rFM-9A-6uW"/>
                     <constraint firstItem="fiX-qo-RPf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="uTT-qn-gwz"/>
                     <constraint firstItem="RN4-tE-DQi" firstAttribute="leading" secondItem="fiX-qo-RPf" secondAttribute="trailing" constant="10" id="vDk-LI-zAe"/>
-                    <constraint firstItem="DWS-Gl-FnZ" firstAttribute="top" secondItem="SIf-f3-SC5" secondAttribute="bottom" constant="10" id="xqc-6X-p57"/>
                     <constraint firstAttribute="trailing" secondItem="52d-Yz-CwU" secondAttribute="trailing" constant="12" id="y95-sv-wj1"/>
                 </constraints>
             </tableViewCellContentView>
@@ -128,8 +128,8 @@
                 <outlet property="captionLabel" destination="YX1-Dq-vLX" id="hAS-Jx-GhQ"/>
                 <outlet property="commentsButton" destination="ra1-aj-vA6" id="nYy-SF-HxF"/>
                 <outlet property="createdByLabel" destination="RN4-tE-DQi" id="3Vv-g3-xRl"/>
+                <outlet property="imagesCollectionsViews" destination="kPq-Tf-m6Z" id="9Ax-eG-IXx"/>
                 <outlet property="likesButton" destination="hvJ-GY-nss" id="4by-Ye-4hv"/>
-                <outlet property="postImageView" destination="SIf-f3-SC5" id="Q2t-rv-zSP"/>
                 <outlet property="profileImageView" destination="fiX-qo-RPf" id="7GN-qJ-MSn"/>
                 <outlet property="sharesButton" destination="hUz-Ql-p8e" id="rHC-dV-8Fa"/>
                 <outlet property="timeAgoLabel" destination="Rcz-Pi-iJS" id="WsU-rY-KTj"/>
@@ -145,6 +145,8 @@
         <image name="eye" catalog="system" width="128" height="81"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="message" catalog="system" width="128" height="113"/>
-        <image name="srvphardwareengineering_image" width="460" height="356"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

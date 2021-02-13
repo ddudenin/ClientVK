@@ -15,7 +15,10 @@
 		393766FB25D4727700FFB8D5 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393766F925D4727700FFB8D5 /* PostTableViewCell.swift */; };
 		393766FC25D4727700FFB8D5 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 393766FA25D4727700FFB8D5 /* PostTableViewCell.xib */; };
 		3971559825CC8AA400470CED /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3971559725CC8AA400470CED /* LikeControl.swift */; };
+		39723BD225D7E07900866D33 /* PostCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */; };
 		397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397CD8C425CB3DB900432501 /* AvatarView.swift */; };
+		39AEA5ED25D83E8200384E1C /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AEA5EB25D83E8200384E1C /* PostImageCollectionViewCell.swift */; };
+		39AEA5EE25D83E8200384E1C /* PostImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39AEA5EC25D83E8200384E1C /* PostImageCollectionViewCell.xib */; };
 		8B193BC025C5AE200043AF16 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */; };
 		8B193BC125C5AE200043AF16 /* FriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */; };
 		8B193BCF25C5CBED0043AF16 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BCD25C5CBED0043AF16 /* FriendCollectionViewCell.swift */; };
@@ -42,7 +45,10 @@
 		393766F925D4727700FFB8D5 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		393766FA25D4727700FFB8D5 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		3971559725CC8AA400470CED /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
+		39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewLayout.swift; sourceTree = "<group>"; };
 		397CD8C425CB3DB900432501 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		39AEA5EB25D83E8200384E1C /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		39AEA5EC25D83E8200384E1C /* PostImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
 		8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsTableViewCell.xib; sourceTree = "<group>"; };
 		8B193BCA25C5B3110043AF16 /* FriendData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendData.swift; sourceTree = "<group>"; };
@@ -95,6 +101,8 @@
 				8B193BD725C5E8290043AF16 /* CommunitiesTableViewCell.xib */,
 				393766F925D4727700FFB8D5 /* PostTableViewCell.swift */,
 				393766FA25D4727700FFB8D5 /* PostTableViewCell.xib */,
+				39AEA5EB25D83E8200384E1C /* PostImageCollectionViewCell.swift */,
+				39AEA5EC25D83E8200384E1C /* PostImageCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -144,6 +152,7 @@
 				397CD8C425CB3DB900432501 /* AvatarView.swift */,
 				3971559725CC8AA400470CED /* LikeControl.swift */,
 				393766F625D471D500FFB8D5 /* FeedTableViewController.swift */,
+				39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */,
 			);
 			path = Swift_CustomApp;
 			sourceTree = "<group>";
@@ -209,6 +218,7 @@
 				8B4ED2CD25BC92AF00485879 /* LaunchScreen.storyboard in Resources */,
 				8B4ED2CA25BC92AF00485879 /* Assets.xcassets in Resources */,
 				8B193BD925C5E8290043AF16 /* CommunitiesTableViewCell.xib in Resources */,
+				39AEA5EE25D83E8200384E1C /* PostImageCollectionViewCell.xib in Resources */,
 				393766F325D4271200FFB8D5 /* FriendSectionHeader.xib in Resources */,
 				8B4ED2C825BC92AE00485879 /* Main.storyboard in Resources */,
 				393766FC25D4727700FFB8D5 /* PostTableViewCell.xib in Resources */,
@@ -230,9 +240,11 @@
 				3917BA3325C861B900C48FA6 /* FriendData.swift in Sources */,
 				391CB80225D598A800085064 /* PostData.swift in Sources */,
 				8B193BCF25C5CBED0043AF16 /* FriendCollectionViewCell.swift in Sources */,
+				39AEA5ED25D83E8200384E1C /* PostImageCollectionViewCell.swift in Sources */,
 				8B193BD825C5E8290043AF16 /* CommunitiesTableViewCell.swift in Sources */,
 				8B4ED2D825BC93A800485879 /* LoginFormController.swift in Sources */,
 				8B193BDF25C5E8C90043AF16 /* GlobalCommunitiesTableViewController.swift in Sources */,
+				39723BD225D7E07900866D33 /* PostCollectionViewLayout.swift in Sources */,
 				393766F725D471D500FFB8D5 /* FeedTableViewController.swift in Sources */,
 				393766F025D4267B00FFB8D5 /* FriendSectionHeader.swift in Sources */,
 				8B193BD325C5CDE10043AF16 /* FriendCollectionViewController.swift in Sources */,
