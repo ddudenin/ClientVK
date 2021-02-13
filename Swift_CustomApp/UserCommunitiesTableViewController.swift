@@ -8,10 +8,10 @@
 import UIKit
 
 var groups: [Group] = [
-    Group(name: "Быстрые займы за 5 минут", avatar: UIImage(systemName: "bitcoinsign.circle.fill")),
-    Group(name: "Дворец Путина", avatar: UIImage(systemName: "crown.fill")),
-    Group(name: "Психология успешных людей", avatar: UIImage(systemName: "star.fill")),
-    Group(name: "Барахолка", avatar: UIImage(systemName: "giftcard.fill")),
+    Group(name: "Быстрые займы за 5 минут", avatarName: "bitcoinsign.circle.fill"),
+    Group(name: "Дворец Путина", avatarName: "crown.fill"),
+    Group(name: "Психология успешных людей", avatarName: "star.fill"),
+    Group(name: "Барахолка", avatarName: "giftcard.fill")
 ]
 
 class UserCommunitiesTableViewController: UITableViewController {
@@ -19,7 +19,13 @@ class UserCommunitiesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
+        self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -31,25 +37,25 @@ class UserCommunitiesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
         
         // Configure the cell...
         
         cell.fullNameLabel.text = groups[indexPath.row].name
-        cell.photoImageView.image = groups[indexPath.row].avatar
+        cell.photoImageView.image = UIImage(systemName: groups[indexPath.row].avatarName)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             groupsGlobal.append(groups[indexPath.row])
             groups.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }

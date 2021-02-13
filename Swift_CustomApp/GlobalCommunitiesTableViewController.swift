@@ -8,8 +8,8 @@
 import UIKit
 
 var groupsGlobal: [Group] = [
-    Group(name: "American democracy: lie or reality", avatar: UIImage(systemName: "flag.fill")),
-    Group(name: "Одноклассники", avatar: UIImage(systemName: "bubble.middle.bottom.fill")),
+    Group(name: "American democracy: lie or reality", avatarName: "flag.fill"),
+    Group(name: "Одноклассники", avatarName: "bubble.middle.bottom.fill"),
 ]
 
 class GlobalCommunitiesTableViewController: UITableViewController {
@@ -17,7 +17,7 @@ class GlobalCommunitiesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
+        self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -29,12 +29,12 @@ class GlobalCommunitiesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
         
         // Configure the cell...
         
         cell.fullNameLabel.text = groupsGlobal[indexPath.row].name
-        cell.photoImageView.image = groupsGlobal[indexPath.row].avatar
+        cell.photoImageView.image = UIImage(systemName: groupsGlobal[indexPath.row].avatarName)
         
         return cell
     }
@@ -42,16 +42,9 @@ class GlobalCommunitiesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: .none)
-        let vc = storyboard.instantiateViewController(withIdentifier: "UserCommunitiesTableView")
-        
         groups.append(groupsGlobal[indexPath.row])
         groupsGlobal.remove(at: indexPath.row)
         
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func addGroup(group: Group) {
-        groupsGlobal.append(group)
+        self.navigationController?.popViewController(animated: true)
     }
 }

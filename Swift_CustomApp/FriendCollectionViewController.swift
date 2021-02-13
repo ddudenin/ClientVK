@@ -9,7 +9,7 @@ import UIKit
 
 class FriendCollectionViewController: UICollectionViewController {
     
-    var friend = Friend(fullName: "No name", photo: UIImage(systemName: "person.fill"))
+    var friend = Friend(name: "No", surname: "Name", photoName: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +17,7 @@ class FriendCollectionViewController: UICollectionViewController {
         // Register cell classes
         self.collectionView!.register(UINib(nibName: "FriendCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "AvatarCell")
         
+        self.title = "\(self.friend.getFullName())"
         // Do any additional setup after loading the view.
     }
     
@@ -25,35 +26,19 @@ class FriendCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCell", for: indexPath) as! FriendCollectionViewCell
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCell", for: indexPath) as! FriendCollectionViewCell
         
         // Configure the cell
-        cell.fullNameLabel.text = friend.fullName
-        cell.photoImageView.image = friend.photo?.resize(withWidth: UIScreen.main.bounds.width)
+        cell.photoImageView.image = UIImage(named: self.friend.photoName)
         
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        
-    }
-}
-
-extension UIImage {
-    func resize(withWidth newWidth: CGFloat) -> UIImage? {
-        
-        let scale = newWidth / self.size.width
-        let newHeight = self.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
+        self.collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
