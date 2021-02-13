@@ -20,8 +20,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var commentsButton: UIButton!
     @IBOutlet var sharesButton: UIButton!
     @IBOutlet var viewsCountLabel: UILabel!
-    @IBOutlet var likesButton: UIButton!
     @IBOutlet var imagesCollectionsViews: UICollectionView!
+    @IBOutlet var likeControl: LikeControl!
     
     var imagesNames = [String]()
     

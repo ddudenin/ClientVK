@@ -7,7 +7,6 @@
 
 import UIKit
 
-@IBDesignable
 class LikeControl: UIControl {
     
     var likeCount: UInt = 0
@@ -15,9 +14,9 @@ class LikeControl: UIControl {
     private let selectColor: UIColor = UIColor.black
     private let deselectedColor: UIColor = UIColor.darkGray
     
-    private var likeButton : UIButton = UIButton(type: .system)
+    var likeButton : UIButton = UIButton(type: .system)
     private var likeCountLabel: UILabel = UILabel()
-    private var stackView: UIStackView!
+    //private var stackView: UIStackView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,11 +31,11 @@ class LikeControl: UIControl {
     private func setupView() {
         self.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         self.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-  
+        
         //self.likeButton.setImage(UIImage(named: "heart_empty"), for: .normal)
         //self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
         
-        self.likeButton.addTarget(self, action: #selector(handleLikePhoto(_:)), for: .touchUpInside)
+        self.likeButton.addTarget(self, action: #selector(handleLikeTap(_:)), for: .touchUpInside)
         
         let btnState = Bool.random()
         
@@ -49,18 +48,23 @@ class LikeControl: UIControl {
         }
         
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
+        self.likeCountLabel.font = self.likeCountLabel.font.withSize(12)
         
-        self.stackView = UIStackView(arrangedSubviews: [self.likeButton, self.likeCountLabel])
+        self.addSubview(self.likeButton)
+        self.addSubview(self.likeCountLabel)
         
-        self.addSubview(stackView)
+        self.likeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.likeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.likeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.likeButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         
-        self.stackView.spacing = 3
-        self.stackView.axis = .horizontal
-        self.stackView.alignment = .center
-        self.stackView.distribution = .fillEqually
+        self.likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.likeCountLabel.leadingAnchor.constraint(equalTo: self.likeButton.trailingAnchor, constant: 10).isActive = true
+        self.likeCountLabel.centerYAnchor.constraint(equalTo: self.likeButton.centerYAnchor).isActive = true
+        self.likeCountLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 20).isActive = true
     }
     
-    @objc private func handleLikePhoto(_ sender: UIButton) {
+    @objc private func handleLikeTap(_ sender: UIButton) {
         let newState = !self.likeButton.isSelected
         self.likeButton.isSelected = newState
         
@@ -72,10 +76,5 @@ class LikeControl: UIControl {
 
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
         self.likeCountLabel.textColor = newState && self.likeCount > 0 ? self.selectColor : self.deselectedColor
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.stackView.frame = bounds
     }
 }

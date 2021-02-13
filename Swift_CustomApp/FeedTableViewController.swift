@@ -33,9 +33,8 @@ class FeedTableViewController: UITableViewController {
         cell.createdByLabel.text = post.createdBy.getFullName()
         cell.profileImageView.image = UIImage(named: post.createdBy.photoName)
         cell.captionLabel.text = post.caption
-        //cell.postImageView.image = UIImage(named: post.postImagesNames[0])
         cell.imagesNames = post.imagesNames
-        cell.likesButton.setTitle(convertCountToString(count: post.likesCount), for: .normal)
+        cell.likeControl.likeCount = post.likesCount
         cell.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
         cell.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
         cell.viewsCountLabel.text = convertCountToString(count: post.viewsCount)

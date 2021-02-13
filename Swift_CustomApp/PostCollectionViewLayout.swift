@@ -77,7 +77,6 @@ class PostCollectionViewLayout: UICollectionViewFlowLayout {
                 }
             }
 
-            
             cacheAttributes[indexPath] = attributes
             self.totalCellsHeight = lastY
         }

@@ -20,7 +20,7 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X8U-dF-n3N">
                         <rect key="frame" x="10" y="10" width="150" height="150"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="150" id="Jy5-Lb-Lnt"/>
+                            <constraint firstAttribute="width" constant="150" id="03M-YN-sFG"/>
                             <constraint firstAttribute="height" constant="150" id="iJa-Mh-XkP"/>
                         </constraints>
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
