@@ -28,9 +28,6 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGD-sq-WAi" customClass="LikeControl" customModule="Swift_CustomApp" customModuleProvider="target">
                         <rect key="frame" x="10" y="165" width="150" height="40"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="240-33-sF1"/>
-                        </constraints>
                     </view>
                 </subviews>
             </view>

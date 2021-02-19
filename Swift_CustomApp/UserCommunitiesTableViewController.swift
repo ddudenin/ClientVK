@@ -64,6 +64,23 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         }
     }
     
+    override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? CommunitiesTableViewCell {
+            cell.photoImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            
+            UIView.animate(withDuration: 2.0,
+                           delay: 0,
+                           usingSpringWithDamping: CGFloat(0.25),
+                           initialSpringVelocity: CGFloat(4.0),
+                           options: UIView.AnimationOptions.allowUserInteraction,
+                           animations: {
+                            cell.photoImageView.transform = CGAffineTransform.identity
+                           },
+                           completion: nil
+            )
+        }
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filteredGroups = []
         

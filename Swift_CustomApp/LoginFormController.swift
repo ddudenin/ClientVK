@@ -12,6 +12,7 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
     @IBOutlet var loginInput: UITextField!
     @IBOutlet var passwordInput: UITextField!
     @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var loaderIndicator: DotsLoadingIndicator!
     
     private let userData = (login: "Tim Cook", password: "Apple1e12$")
     
@@ -60,6 +61,8 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWasShown), name: UIResponder.keyboardWillShowNotification, object: nil)
         // Второе — когда она пропадает
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        self.loaderIndicator.startAnimating()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,6 +77,7 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
         let password = self.passwordInput.text!
         
         if login == self.userData.login && password == self.userData.password {
+            
             let storyboard = UIStoryboard(name: "Main", bundle: .none)
             let vc = storyboard.instantiateViewController(withIdentifier: "startScreen")
             self.present(vc, animated: true, completion: .none)

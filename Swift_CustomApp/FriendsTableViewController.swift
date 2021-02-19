@@ -42,7 +42,17 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         
         self.tableView.reloadData()
     }
-    
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+        cell.alpha = 0.0
+        
+        UIView.animate(withDuration: 0.75) {
+            cell.transform = CGAffineTransform.identity
+            cell.alpha = 1.0
+        }
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.sections.count
     }

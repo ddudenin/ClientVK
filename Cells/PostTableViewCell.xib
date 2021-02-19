@@ -49,21 +49,21 @@
                         <collectionViewLayout key="collectionViewLayout" id="Ytw-fK-dUE" customClass="PostCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>
                     </collectionView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="DWS-Gl-FnZ">
-                        <rect key="frame" x="12" y="566" width="261" height="50"/>
+                        <rect key="frame" x="12" y="566" width="271" height="50"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Iz-eQ-KbN" customClass="LikeControl" customModule="Swift_CustomApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="85" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="88.5" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra1-aj-vA6">
-                                <rect key="frame" x="88" y="15.5" width="85" height="19.5"/>
+                                <rect key="frame" x="91.5" y="15.5" width="88" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" image="message" catalog="system">
                                     <color key="titleColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUz-Ql-p8e">
-                                <rect key="frame" x="176" y="16" width="85" height="18.5"/>
+                                <rect key="frame" x="182.5" y="16" width="88.5" height="18.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" image="arrowshape.turn.up.right" catalog="system">
                                     <color key="titleColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -105,7 +105,7 @@
                     <constraint firstItem="kPq-Tf-m6Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9Ot-eq-5ek"/>
                     <constraint firstItem="Rcz-Pi-iJS" firstAttribute="leading" secondItem="fiX-qo-RPf" secondAttribute="trailing" constant="10" id="Caj-gW-VYM"/>
                     <constraint firstItem="YX1-Dq-vLX" firstAttribute="top" secondItem="Rcz-Pi-iJS" secondAttribute="bottom" constant="10" id="En9-Dz-TTr"/>
-                    <constraint firstItem="52d-Yz-CwU" firstAttribute="leading" secondItem="DWS-Gl-FnZ" secondAttribute="trailing" constant="30" id="Eu3-PI-cHw"/>
+                    <constraint firstItem="52d-Yz-CwU" firstAttribute="leading" secondItem="DWS-Gl-FnZ" secondAttribute="trailing" constant="20" id="Eu3-PI-cHw"/>
                     <constraint firstItem="52d-Yz-CwU" firstAttribute="centerY" secondItem="DWS-Gl-FnZ" secondAttribute="centerY" id="GL0-C4-bkM"/>
                     <constraint firstItem="YX1-Dq-vLX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Odd-oy-xbl"/>
                     <constraint firstItem="DWS-Gl-FnZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="WDw-qh-ONz"/>

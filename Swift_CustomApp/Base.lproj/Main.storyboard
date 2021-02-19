@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDv-8o-N50">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="447.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="497.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authorization" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csC-2k-Eu5">
                                                 <rect key="frame" x="115" y="100" width="184" height="36"/>
@@ -75,18 +75,41 @@
                                                     <constraint firstItem="dNx-qh-UFD" firstAttribute="leading" secondItem="W7g-hs-KsT" secondAttribute="leading" id="dFj-cH-T8t"/>
                                                 </constraints>
                                             </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-rH-6x4" customClass="DotsLoadingIndicator" customModule="Swift_CustomApp" customModuleProvider="target">
+                                                <rect key="frame" x="107" y="437.5" width="200" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="BLK-vH-Qfy"/>
+                                                    <constraint firstAttribute="height" constant="50" id="YSO-cq-bRj"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsCount">
+                                                        <integer key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsSpacing">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Gt1-rH-6x4" secondAttribute="trailing" constant="107" id="Au5-HD-5jx"/>
                                             <constraint firstItem="csC-2k-Eu5" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="FIc-GJ-tFH"/>
                                             <constraint firstItem="Uw8-hK-TKe" firstAttribute="top" secondItem="xqA-vh-YJT" secondAttribute="bottom" constant="30" id="I6F-PE-ip2"/>
+                                            <constraint firstItem="Gt1-rH-6x4" firstAttribute="leading" secondItem="BDv-8o-N50" secondAttribute="leading" constant="107" id="KcV-Wp-Qtp"/>
                                             <constraint firstItem="xqA-vh-YJT" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="OaJ-07-YOT"/>
+                                            <constraint firstItem="Gt1-rH-6x4" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="Owm-FL-PvY"/>
+                                            <constraint firstItem="Gt1-rH-6x4" firstAttribute="top" secondItem="Uw8-hK-TKe" secondAttribute="bottom" constant="20" id="Prl-Z1-SiQ"/>
                                             <constraint firstItem="Uw8-hK-TKe" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="cWe-5w-kS2"/>
                                             <constraint firstAttribute="trailing" secondItem="xqA-vh-YJT" secondAttribute="trailing" constant="10" id="cXL-aM-KRt"/>
                                             <constraint firstItem="xqA-vh-YJT" firstAttribute="leading" secondItem="BDv-8o-N50" secondAttribute="leading" constant="10" id="d9z-ji-3eY"/>
                                             <constraint firstItem="xqA-vh-YJT" firstAttribute="top" secondItem="csC-2k-Eu5" secondAttribute="bottom" constant="50" id="g0A-dg-Nd6"/>
+                                            <constraint firstAttribute="bottom" secondItem="Gt1-rH-6x4" secondAttribute="bottom" constant="10" id="lRL-FU-qW7"/>
                                             <constraint firstItem="csC-2k-Eu5" firstAttribute="top" secondItem="BDv-8o-N50" secondAttribute="top" constant="100" id="ozE-du-Xyp"/>
-                                            <constraint firstAttribute="bottom" secondItem="Uw8-hK-TKe" secondAttribute="bottom" constant="30" id="uPF-GC-3Jw"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -112,6 +135,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="X2W-Fo-PpH"/>
                     <connections>
+                        <outlet property="loaderIndicator" destination="Gt1-rH-6x4" id="6XQ-t8-OlJ"/>
                         <outlet property="loginInput" destination="dNx-qh-UFD" id="xcO-NK-YHd"/>
                         <outlet property="passwordInput" destination="W7g-hs-KsT" id="PIm-ZV-wjF"/>
                         <outlet property="scrollView" destination="hbt-4h-YIA" id="v8N-VX-rXS"/>
@@ -119,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="526" y="978"/>
+            <point key="canvasLocation" x="524.63768115942037" y="977.67857142857133"/>
         </scene>
         <!--Friends-->
         <scene sceneID="nsg-R5-4j5">
