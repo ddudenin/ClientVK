@@ -10,6 +10,15 @@ import UIKit
 class FriendCollectionViewController: UICollectionViewController {
     
     var friend = Friend(name: "No", surname: "Name", photoName: "")
+    var photos: [UIImage] = {
+        var arr = [UIImage]()
+        
+        for _ in 1...Int.random(in: 2...10) {
+            arr.append(UIImage(named: friendsArray.randomElement()!.photoName)!)
+        }
+        
+        return arr
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,8 +26,10 @@ class FriendCollectionViewController: UICollectionViewController {
         // Register cell classes
         self.collectionView!.register(UINib(nibName: "FriendCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "AvatarCell")
         
-        self.title = "\(self.friend.getFullName())"
+        photos.insert(UIImage(named: friend.photoName)!, at: 0)
+
         // Do any additional setup after loading the view.
+        self.title = "\(self.friend.getFullName())"
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -26,14 +37,14 @@ class FriendCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCell", for: indexPath) as! FriendCollectionViewCell
         
         // Configure the cell
-        cell.photoImageView.image = UIImage(named: self.friend.photoName)
+        cell.photoImageView.image = photos[indexPath.row]
         
         return cell
     }
@@ -43,7 +54,7 @@ class FriendCollectionViewController: UICollectionViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: .none)
         let vc = storyboard.instantiateViewController(withIdentifier: "FriendPhotosCollectionView")
-        (vc as? FriendsPhotosCollectionViewController)?.photos = Array(repeating: UIImage(named: friend.photoName)!, count: Int.random(in: 1...10))
-
-        self.navigationController?.pushViewController(vc, animated: true)    }
+        (vc as? FriendsPhotosCollectionViewController)?.photos = self.photos
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

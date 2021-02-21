@@ -7,62 +7,13 @@
 
 import UIKit
 
-class SimpleCollectionViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        backgroundColor = .clear
-    }
-    
-    func bind(color: String, imageName: String) {
-        contentView.backgroundColor = color.hexColor
-        titleLabel.text = "\(arc4random_uniform(1000))"
-    }
-}
-
-extension String {
-    var hexColor: UIColor {
-        let hex = trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt64 ()
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            return .clear
-        }
-        return UIColor(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-    }
-}
-
 class FriendsPhotosCollectionViewController: UICollectionViewController {
-    
-    let cellIdentifier = "SimpleCollectionViewCell"
-    let vcs = [("f44336", "nature1"),
-               ("9c27b0", "nature2"),
-               ("3f51b5", "nature3"),
-               ("03a9f4", "animal1"),
-               ("009688", "animal2"),
-               ("8bc34a", "animal3"),
-               ("FFEB3B", "nature1"),
-               ("FF9800", "nature2"),
-               ("795548", "nature3"),
-               ("607D8B", "animal1")]
-    
     var photos = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        collectionView?.isPagingEnabled = true
+        // Register cell classes
+        self.collectionView!.register(UINib(nibName: "FriendPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "FriendPhotoCell")
     }
 }
 
@@ -72,20 +23,16 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(Int16.max)
+        return self.photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let c = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
-        if let cell = c as? SimpleCollectionViewCell {
-            let i = indexPath.row % vcs.count
-            let v = vcs[i]
-            cell.bind(color: v.0, imageName: v.1)
-            cell.clipsToBounds = false
-        }
+        cell.photoImageView.image = self.photos[indexPath.row]
+        cell.clipsToBounds = false
         
-        return c
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -105,35 +52,8 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
     }
 }
 
-struct LinearCardAttributesAnimator {
-    var minAlpha: CGFloat
-    var itemSpacing: CGFloat
-    var scaleRate: CGFloat
-    
-    init(minAlpha: CGFloat = 0.5, itemSpacing: CGFloat = 0.4, scaleRate: CGFloat = 0.7) {
-        self.minAlpha = minAlpha
-        self.itemSpacing = itemSpacing
-        self.scaleRate = scaleRate
-    }
-    
-    func animate(collectionView: UICollectionView, attributes: AnimatedCollectionViewLayoutAttributes) {
-        let position = attributes.middleOffset
-        let scaleFactor = self.scaleRate - 0.1 * abs(position)
-        let scaleTransform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
-        
-        guard attributes.scrollDirection == .horizontal else { return }
-        
-        let width = collectionView.frame.width
-        let translationX = -(width * self.itemSpacing * position)
-        let translationTransform = CGAffineTransform(translationX: translationX, y: 0)
-        
-        attributes.alpha = 1.0 - abs(position) + minAlpha
-        attributes.transform = translationTransform.concatenating(scaleTransform)
-    }
-}
-
 class AnimatedCollectionViewLayout: UICollectionViewFlowLayout {
-    var animator = LinearCardAttributesAnimator()
+    var animator = PageAttributesAnimator()
     
     class override var layoutAttributesClass: AnyClass {
         return AnimatedCollectionViewLayoutAttributes.self
@@ -204,5 +124,28 @@ class AnimatedCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
             && obj.startOffset == self.startOffset
             && obj.middleOffset == self.middleOffset
             && obj.endOffset == self.endOffset
+    }
+}
+
+struct PageAttributesAnimator {
+    var scaleRate: CGFloat
+    
+    init(scaleRate: CGFloat = 0.3) {
+        self.scaleRate = scaleRate
+    }
+    
+    func animate(collectionView: UICollectionView, attributes: AnimatedCollectionViewLayoutAttributes) {
+        let position = attributes.middleOffset
+        let contentOffset = collectionView.contentOffset
+        let itemOrigin = attributes.frame.origin
+        let scaleFactor = self.scaleRate * min(position, 0) + 1.0
+        var transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+        
+        guard attributes.scrollDirection == .horizontal else { return }
+        
+        transform = transform.concatenating(CGAffineTransform(translationX: position < 0 ? contentOffset.x - itemOrigin.x : 0, y: 0))
+        
+        attributes.transform = transform
+        attributes.zIndex = attributes.indexPath.row
     }
 }
