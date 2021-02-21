@@ -399,28 +399,38 @@
             </objects>
             <point key="canvasLocation" x="4261" y="311"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Friends Photos Collection View Controller-->
         <scene sceneID="YK0-So-gd6">
             <objects>
-                <collectionViewController storyboardIdentifier="FriendPhotosCollectionView" id="LNF-LU-QtI" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="FriendPhotosCollectionView" id="LNF-LU-QtI" customClass="FriendsPhotosCollectionViewController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="vjA-Zz-P5k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KS8-VT-OoF">
-                            <size key="itemSize" width="128" height="128"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
+                        <collectionViewLayout key="collectionViewLayout" id="g1t-sP-gpR" customClass="AnimatedCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="N1x-XT-ATv">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SimpleCollectionViewCell" id="N1x-XT-ATv" customClass="SimpleCollectionViewCell" customModule="Swift_CustomApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="3yx-lG-rIX">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXC-gy-1Pt">
+                                            <rect key="frame" x="4" y="14.5" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zXC-gy-1Pt" firstAttribute="centerY" secondItem="3yx-lG-rIX" secondAttribute="centerY" id="7gt-fY-i9s"/>
+                                        <constraint firstItem="zXC-gy-1Pt" firstAttribute="centerX" secondItem="3yx-lG-rIX" secondAttribute="centerX" id="IFm-kS-OXN"/>
+                                    </constraints>
                                 </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="zXC-gy-1Pt" id="ihZ-R5-dNE"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

@@ -43,6 +43,7 @@ class FriendCollectionViewController: UICollectionViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: .none)
         let vc = storyboard.instantiateViewController(withIdentifier: "FriendPhotosCollectionView")
-        //(vc as? FriendCollectionViewController)?.friend = self.sections[indexPath.section].friends[indexPath.row]
+        (vc as? FriendsPhotosCollectionViewController)?.photos = Array(repeating: UIImage(named: friend.photoName)!, count: Int.random(in: 1...10))
+
         self.navigationController?.pushViewController(vc, animated: true)    }
 }
