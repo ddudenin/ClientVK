@@ -40,5 +40,9 @@ class FriendCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.collectionView.deselectItem(at: indexPath, animated: true)
-    }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: .none)
+        let vc = storyboard.instantiateViewController(withIdentifier: "FriendPhotosCollectionView")
+        //(vc as? FriendCollectionViewController)?.friend = self.sections[indexPath.section].friends[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)    }
 }

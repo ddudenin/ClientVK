@@ -66,6 +66,7 @@ public final class DotsLoadingIndicator : UIView {
         }
     }
     
+    
     public func stopAnimating() {
         self.dotLayers.forEach { $0.removeAllAnimations() }
     }
@@ -119,7 +120,7 @@ public final class DotsLoadingIndicator : UIView {
         
         let time = CGFloat(self.dotsCount) * 0.2 + CGFloat(0.4)
         group.duration = CFTimeInterval(time)
-
+    
         return group
     }
 }

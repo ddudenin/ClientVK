@@ -28,36 +28,10 @@ class LikeControl: UIControl {
         super.init(coder: aDecoder)
         self.setupView()
     }
-    
-    private func resizeImage(image: UIImage?, targetSize: CGSize) -> UIImage? {
-        
-        guard image != nil else { return image }
-        
-        let size = image!.size
 
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-        }
-
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image!.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return newImage
-    }
-    
     private func setupView() {
-        self.likeButton.setImage(resizeImage(image: UIImage(named: "heart_empty"), targetSize: CGSize(width: 25, height: 25)), for: .normal)
-        self.likeButton.setImage(resizeImage(image: UIImage(named: "heart_filled"), targetSize: CGSize(width: 25, height: 25)), for: .selected)
+        self.likeButton.setImage(UIImage(named: "heart_empty"), for: .normal)
+        self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
 
         self.likeButton.addTarget(self, action: #selector(handleLikeTap(_:)), for: .touchUpInside)
         
@@ -81,6 +55,8 @@ class LikeControl: UIControl {
         self.likeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.likeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.likeButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.likeButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        self.likeButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         self.likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
         self.likeCountLabel.leadingAnchor.constraint(equalTo: self.likeButton.trailingAnchor, constant: 3).isActive = true
