@@ -83,7 +83,7 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
             
             UIView.animateKeyframes(withDuration: 10,
                                     delay: 0,
-                                    options: .autoreverse,
+                                    options: .calculationModeCubicPaced,
                                     animations: {
                                         UIView.addKeyframe(withRelativeStartTime: 0,
                                                            relativeDuration: 1,
