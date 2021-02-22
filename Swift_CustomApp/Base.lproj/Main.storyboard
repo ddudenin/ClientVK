@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mVJ-AC-Ggt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDv-8o-N50">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="497.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="547.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authorization" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csC-2k-Eu5">
                                                 <rect key="frame" x="115" y="100" width="184" height="36"/>
@@ -75,12 +75,12 @@
                                                     <constraint firstItem="dNx-qh-UFD" firstAttribute="leading" secondItem="W7g-hs-KsT" secondAttribute="leading" id="dFj-cH-T8t"/>
                                                 </constraints>
                                             </stackView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-rH-6x4" customClass="DotsLoadingIndicator" customModule="Swift_CustomApp" customModuleProvider="target">
-                                                <rect key="frame" x="107" y="437.5" width="200" height="50"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-rH-6x4" customClass="CloudLoaderIndicator" customModule="Swift_CustomApp" customModuleProvider="target">
+                                                <rect key="frame" x="157" y="437.5" width="100" height="100"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="BLK-vH-Qfy"/>
-                                                    <constraint firstAttribute="height" constant="50" id="YSO-cq-bRj"/>
+                                                    <constraint firstAttribute="width" constant="100" id="BLK-vH-Qfy"/>
+                                                    <constraint firstAttribute="height" constant="100" id="YSO-cq-bRj"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="dotsCount">
@@ -97,10 +97,8 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Gt1-rH-6x4" secondAttribute="trailing" constant="107" id="Au5-HD-5jx"/>
                                             <constraint firstItem="csC-2k-Eu5" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="FIc-GJ-tFH"/>
                                             <constraint firstItem="Uw8-hK-TKe" firstAttribute="top" secondItem="xqA-vh-YJT" secondAttribute="bottom" constant="30" id="I6F-PE-ip2"/>
-                                            <constraint firstItem="Gt1-rH-6x4" firstAttribute="leading" secondItem="BDv-8o-N50" secondAttribute="leading" constant="107" id="KcV-Wp-Qtp"/>
                                             <constraint firstItem="xqA-vh-YJT" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="OaJ-07-YOT"/>
                                             <constraint firstItem="Gt1-rH-6x4" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="Owm-FL-PvY"/>
                                             <constraint firstItem="Gt1-rH-6x4" firstAttribute="top" secondItem="Uw8-hK-TKe" secondAttribute="bottom" constant="20" id="Prl-Z1-SiQ"/>
