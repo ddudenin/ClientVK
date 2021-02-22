@@ -76,15 +76,29 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
         let login = self.loginInput.text!
         let password = self.passwordInput.text!
         
-        self.loaderIndicator.startAnimating()
-        
-        return
-        
         if login == self.userData.login && password == self.userData.password {
             
             let storyboard = UIStoryboard(name: "Main", bundle: .none)
             let vc = storyboard.instantiateViewController(withIdentifier: "startScreen")
-            self.present(vc, animated: true, completion: .none)
+            
+            UIView.animateKeyframes(withDuration: 10,
+                                    delay: 0,
+                                    options: .autoreverse,
+                                    animations: {
+                                        UIView.addKeyframe(withRelativeStartTime: 0,
+                                                           relativeDuration: 1,
+                                                           animations: {
+                                                            self.loaderIndicator.pathLayer.strokeEnd = 1
+                                                           })
+                                        UIView.addKeyframe(withRelativeStartTime: 1,
+                                                           relativeDuration: 1,
+                                                           animations: {
+                                                            self.loaderIndicator.pathLayer.strokeStart = 0
+                                                           })
+                                    },
+                                    completion: { _ in
+                                        self.present(vc, animated: true, completion: .none)
+                                    })
         } else {
             let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)

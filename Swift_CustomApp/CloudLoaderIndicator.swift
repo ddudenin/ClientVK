@@ -60,17 +60,6 @@ public final class CloudLoaderIndicator : UIView {
         self.layer.addSublayer(shapeLayer)
         self.layer.addSublayer(pathLayer)
         
-      
-    }
-    
-    func startAnimating() {
-        let pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        pathAnimation.fromValue = 0
-        pathAnimation.toValue = 1
         
-        pathAnimation.speed = 0.1
-        pathAnimation.repeatCount = Float.infinity
-
-        pathLayer.add(pathAnimation, forKey: nil)
     }
 }
