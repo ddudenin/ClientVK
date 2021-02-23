@@ -81,24 +81,13 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: .none)
             let vc = storyboard.instantiateViewController(withIdentifier: "startScreen")
             
-            UIView.animateKeyframes(withDuration: 10,
-                                    delay: 0,
-                                    options: .calculationModeCubicPaced,
-                                    animations: {
-                                        UIView.addKeyframe(withRelativeStartTime: 0,
-                                                           relativeDuration: 1,
-                                                           animations: {
-                                                            self.loaderIndicator.pathLayer.strokeEnd = 1
-                                                           })
-                                        UIView.addKeyframe(withRelativeStartTime: 1,
-                                                           relativeDuration: 1,
-                                                           animations: {
-                                                            self.loaderIndicator.pathLayer.strokeStart = 0
-                                                           })
-                                    },
-                                    completion: { _ in
-                                        self.present(vc, animated: true, completion: .none)
-                                    })
+            UIView.animate(withDuration: 1.5,
+                           animations: {
+                            self.loaderIndicator.shapeLayer.opacity = 1
+                           },
+                           completion: { _ in
+                            self.loaderIndicator.startAnimation(compltion: { _ in self.present(vc, animated: true, completion: .none)                            })
+                           })
         } else {
             let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)

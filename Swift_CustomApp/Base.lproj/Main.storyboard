@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDv-8o-N50">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="547.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="477.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authorization" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csC-2k-Eu5">
                                                 <rect key="frame" x="115" y="100" width="184" height="36"/>
@@ -30,7 +30,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uw8-hK-TKe">
-                                                <rect key="frame" x="163" y="369.5" width="88" height="48"/>
+                                                <rect key="frame" x="163" y="419.5" width="88" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <color key="tintColor" systemColor="systemGreenColor"/>
                                                 <state key="normal" title="Sign in"/>
@@ -76,37 +76,26 @@
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-rH-6x4" customClass="CloudLoaderIndicator" customModule="Swift_CustomApp" customModuleProvider="target">
-                                                <rect key="frame" x="157" y="437.5" width="100" height="100"/>
+                                                <rect key="frame" x="182" y="354.5" width="50" height="50"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="100" id="BLK-vH-Qfy"/>
-                                                    <constraint firstAttribute="height" constant="100" id="YSO-cq-bRj"/>
+                                                    <constraint firstAttribute="width" constant="50" id="BLK-vH-Qfy"/>
+                                                    <constraint firstAttribute="height" constant="50" id="YSO-cq-bRj"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsCount">
-                                                        <integer key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsRadius">
-                                                        <real key="value" value="7"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsSpacing">
-                                                        <real key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Uw8-hK-TKe" secondAttribute="bottom" constant="10" id="EW7-1W-z3J"/>
                                             <constraint firstItem="csC-2k-Eu5" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="FIc-GJ-tFH"/>
-                                            <constraint firstItem="Uw8-hK-TKe" firstAttribute="top" secondItem="xqA-vh-YJT" secondAttribute="bottom" constant="30" id="I6F-PE-ip2"/>
+                                            <constraint firstItem="Gt1-rH-6x4" firstAttribute="top" secondItem="xqA-vh-YJT" secondAttribute="bottom" constant="15" id="KzO-fX-bln"/>
                                             <constraint firstItem="xqA-vh-YJT" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="OaJ-07-YOT"/>
                                             <constraint firstItem="Gt1-rH-6x4" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="Owm-FL-PvY"/>
-                                            <constraint firstItem="Gt1-rH-6x4" firstAttribute="top" secondItem="Uw8-hK-TKe" secondAttribute="bottom" constant="20" id="Prl-Z1-SiQ"/>
+                                            <constraint firstItem="Uw8-hK-TKe" firstAttribute="top" secondItem="Gt1-rH-6x4" secondAttribute="bottom" constant="15" id="PzS-sX-8j3"/>
                                             <constraint firstItem="Uw8-hK-TKe" firstAttribute="centerX" secondItem="BDv-8o-N50" secondAttribute="centerX" id="cWe-5w-kS2"/>
                                             <constraint firstAttribute="trailing" secondItem="xqA-vh-YJT" secondAttribute="trailing" constant="10" id="cXL-aM-KRt"/>
                                             <constraint firstItem="xqA-vh-YJT" firstAttribute="leading" secondItem="BDv-8o-N50" secondAttribute="leading" constant="10" id="d9z-ji-3eY"/>
                                             <constraint firstItem="xqA-vh-YJT" firstAttribute="top" secondItem="csC-2k-Eu5" secondAttribute="bottom" constant="50" id="g0A-dg-Nd6"/>
-                                            <constraint firstAttribute="bottom" secondItem="Gt1-rH-6x4" secondAttribute="bottom" constant="10" id="lRL-FU-qW7"/>
                                             <constraint firstItem="csC-2k-Eu5" firstAttribute="top" secondItem="BDv-8o-N50" secondAttribute="top" constant="100" id="ozE-du-Xyp"/>
                                         </constraints>
                                     </view>
