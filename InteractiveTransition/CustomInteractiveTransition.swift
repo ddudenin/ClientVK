@@ -8,38 +8,41 @@
 import UIKit
 
 class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
+    
+    var interactionInProgress = false
+    
+    var shouldCompleteTransition = false
     var viewController: UIViewController? {
         didSet {
-            let recognizer = UIScreenEdgePanGestureRecognizer(target: self,
-                                                                                                   action: #selector(handleScreenEdgeGesture(_:)))
-            recognizer.edges = [.left]
-            viewController?.view.addGestureRecognizer(recognizer)
+            prepareGestureRecognizer(in: viewController?.view)
         }
     }
-    
-    var hasStarted: Bool = false
-    var shouldFinish: Bool = false
 
+    func prepareGestureRecognizer(in view: UIView?) {
+        let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgeGesture(_:)))
+        view?.addGestureRecognizer(gesture)
+    }
+    
     @objc func handleScreenEdgeGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        let translation = recognizer.translation(in: recognizer.view?.superview)
+        var progress = translation.x / (recognizer.view?.bounds.width ?? 1)
+        progress = CGFloat(fminf(fmaxf(Float(progress), 0.0), 1.0))
+                
         switch recognizer.state {
         case .began:
-            self.hasStarted = true
+            self.interactionInProgress = true
             self.viewController?.navigationController?.popViewController(animated: true)
         case .changed:
-            let translation = recognizer.translation(in: recognizer.view)
-            let relativeTranslation = translation.x / (recognizer.view?.bounds.width ?? 1)
-            let progress = max(0, min(1, relativeTranslation))
-            
-            self.shouldFinish = progress > 0.33
-
-            self.update(progress)
+            self.shouldCompleteTransition = progress > 0.33
+            self.update(CGFloat(progress))
         case .ended:
-            self.hasStarted = false
-            self.shouldFinish ? self.finish() : self.cancel()
+            self.interactionInProgress = false
+            self.shouldCompleteTransition ? self.finish() : self.cancel()
         case .cancelled:
-            self.hasStarted = false
+            self.interactionInProgress = false
             self.cancel()
-        default: return
+        default:
+            break
         }
     }
     
