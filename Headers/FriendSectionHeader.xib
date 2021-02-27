@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendsHeader" id="CDa-n8-FfC" customClass="FriendSectionHeader" customModule="Swift_CustomApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CDa-n8-FfC" id="jTM-g9-e5F" customClass="FriendSectionHeader" customModule="Swift_CustomApp" customModuleProvider="target">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVS-n1-TjJ">
+                        <rect key="frame" x="20" y="10" width="384" height="80"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="GVS-n1-TjJ" secondAttribute="trailing" constant="10" id="2IE-CZ-CeQ"/>
+                    <constraint firstItem="GVS-n1-TjJ" firstAttribute="leading" secondItem="jTM-g9-e5F" secondAttribute="leading" constant="20" id="dit-Dp-ATx"/>
+                    <constraint firstAttribute="bottom" secondItem="GVS-n1-TjJ" secondAttribute="bottom" constant="10" id="hAu-T5-qrF"/>
+                    <constraint firstItem="GVS-n1-TjJ" firstAttribute="top" secondItem="jTM-g9-e5F" secondAttribute="top" constant="10" id="oOt-27-wyp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nameLabel" destination="GVS-n1-TjJ" id="rJi-vr-WmD"/>
+            </connections>
+            <point key="canvasLocation" x="-277" y="-93"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

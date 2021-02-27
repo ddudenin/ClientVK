@@ -7,23 +7,26 @@
 
 import UIKit
 
-var groups: [Group] = [
-    Group(name: "Быстрые займы за 5 минут", avatarName: "bitcoinsign.circle.fill"),
-    Group(name: "Дворец Путина", avatarName: "crown.fill"),
-    Group(name: "Психология успешных людей", avatarName: "star.fill"),
-    Group(name: "Барахолка", avatarName: "giftcard.fill")
-]
-
-class UserCommunitiesTableViewController: UITableViewController {
+class UserCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
+    
+    var filteredGroups = [Group]()
+    
+    @IBOutlet var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
+        
+        self.searchBar.delegate = self
+        
+        self.filteredGroups = groups
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.searchBar(self.searchBar, textDidChange: self.searchBar.text ?? "")
         
         self.tableView.reloadData()
     }
@@ -33,7 +36,7 @@ class UserCommunitiesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return self.filteredGroups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,8 +44,9 @@ class UserCommunitiesTableViewController: UITableViewController {
         
         // Configure the cell...
         
-        cell.fullNameLabel.text = groups[indexPath.row].name
-        cell.photoImageView.image = UIImage(systemName: groups[indexPath.row].avatarName)
+        let group = self.filteredGroups[indexPath.row]
+        cell.fullNameLabel.text = group.name
+        cell.photoImageView.image = UIImage(systemName: group.avatarName)
         
         return cell
     }
@@ -53,9 +57,41 @@ class UserCommunitiesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            groupsGlobal.append(groups[indexPath.row])
-            groups.remove(at: indexPath.row)
+            groupsGlobal.append(self.filteredGroups[indexPath.row])
+            groups.removeAll(where: {$0.name == self.filteredGroups[indexPath.row].name})
+            self.filteredGroups.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? CommunitiesTableViewCell {
+            cell.photoImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            
+            UIView.animate(withDuration: 2.0,
+                           delay: 0,
+                           usingSpringWithDamping: CGFloat(0.25),
+                           initialSpringVelocity: CGFloat(4.0),
+                           options: UIView.AnimationOptions.allowUserInteraction,
+                           animations: {
+                            cell.photoImageView.transform = CGAffineTransform.identity
+                           },
+                           completion: nil
+            )
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredGroups = []
+        
+        if searchText.count == 0 {
+            self.filteredGroups = groups
+        } else {
+            for group in groups where group.name.lowercased().contains(searchText.lowercased()) {
+                filteredGroups.append(group)
+            }
+        }
+        
+        self.tableView.reloadData()
     }
 }

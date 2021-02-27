@@ -9,14 +9,15 @@ import UIKit
 
 class LikeControl: UIControl {
     
-    var likeCount: Int = 0
+    var likeCount: UInt = 0
     
     private let selectColor: UIColor = UIColor.black
-    private let deselectedColor: UIColor = UIColor.lightGray
+    private let deselectedColor: UIColor = UIColor.darkGray
     
-    private var likeButton : UIButton = UIButton(type: .system)
+    var likeButton : UIButton = UIButton(type: .custom)
+    
     private var likeCountLabel: UILabel = UILabel()
-    private var stackView: UIStackView!
+    //private var stackView: UIStackView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,50 +28,70 @@ class LikeControl: UIControl {
         super.init(coder: aDecoder)
         self.setupView()
     }
-    
+
     private func setupView() {
-        self.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        self.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-  
-        //self.likeButton.setImage(UIImage(named: "heart_empty"), for: .normal)
-        //self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
-        
-        self.likeButton.addTarget(self, action: #selector(handleLikePhoto(_:)), for: .touchUpInside)
+        self.likeButton.setImage(UIImage(named: "heart_empty"), for: .normal)
+        self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
+
+        self.likeButton.addTarget(self, action: #selector(handleLikeTap(_:)), for: .touchUpInside)
         
         let btnState = Bool.random()
         
         if btnState {
             self.likeButton.isSelected = btnState
-            self.likeCount = Int.random(in: 1...100)
+            self.likeCount = UInt.random(in: 1...1000000)
             self.likeCountLabel.textColor = self.selectColor
         } else {
             self.likeCountLabel.textColor = self.deselectedColor
         }
         
-        self.likeCountLabel.text = "\(self.likeCount)"
+        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
+        self.likeCountLabel.font = self.likeCountLabel.font.withSize(12)
         
-        self.stackView = UIStackView(arrangedSubviews: [self.likeButton, self.likeCountLabel])
+        self.addSubview(self.likeButton)
+        self.addSubview(self.likeCountLabel)
         
-        self.addSubview(stackView)
+        self.likeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.likeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.likeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.likeButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.likeButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        self.likeButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
-        self.stackView.spacing = 10
-        self.stackView.axis = .horizontal
-        self.stackView.alignment = .center
-        self.stackView.distribution = .fillEqually
+        self.likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.likeCountLabel.leadingAnchor.constraint(equalTo: self.likeButton.trailingAnchor, constant: 3).isActive = true
+        self.likeCountLabel.centerYAnchor.constraint(equalTo: self.likeButton.centerYAnchor).isActive = true
+        self.likeCountLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 10).isActive = true
     }
     
-    @objc private func handleLikePhoto(_ sender: UIButton) {
+    @objc private func handleLikeTap(_ sender: UIButton) {
         let newState = !self.likeButton.isSelected
         self.likeButton.isSelected = newState
         
-        self.likeCount += newState ? 1 : -1
+        if newState {
+            self.likeCount += 1
+        } else {
+            self.likeCount -= 1
+        }
         
-        self.likeCountLabel.text = "\(self.likeCount)"
+        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
         self.likeCountLabel.textColor = newState && self.likeCount > 0 ? self.selectColor : self.deselectedColor
+        
+        self.animate()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.stackView.frame = bounds
+    private func animate() {
+        let posY = (self.likeButton.isSelected ? -1 : 1) * self.frame.height / 2
+        self.likeCountLabel.transform = CGAffineTransform(translationX: 0, y: posY)
+        
+        UIView.animate(withDuration: 1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseOut,
+                       animations: {
+                        self.likeCountLabel.transform = .identity
+                       },
+                       completion: nil)
     }
 }
