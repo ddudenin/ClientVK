@@ -19,6 +19,8 @@
 		393766F725D471D500FFB8D5 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393766F625D471D500FFB8D5 /* FeedTableViewController.swift */; };
 		393766FB25D4727700FFB8D5 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393766F925D4727700FFB8D5 /* PostTableViewCell.swift */; };
 		393766FC25D4727700FFB8D5 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 393766FA25D4727700FFB8D5 /* PostTableViewCell.xib */; };
+		394E9F662603D99500895183 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 394E9F652603D99500895183 /* WebKit.framework */; };
+		394E9F692603DA7400895183 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394E9F682603DA7400895183 /* ViewController.swift */; };
 		3971559825CC8AA400470CED /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3971559725CC8AA400470CED /* LikeControl.swift */; };
 		39723BD225D7E07900866D33 /* PostCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */; };
 		397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397CD8C425CB3DB900432501 /* AvatarView.swift */; };
@@ -59,6 +61,8 @@
 		393766F625D471D500FFB8D5 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		393766F925D4727700FFB8D5 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		393766FA25D4727700FFB8D5 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		394E9F652603D99500895183 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		394E9F682603DA7400895183 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3971559725CC8AA400470CED /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewLayout.swift; sourceTree = "<group>"; };
 		397CD8C425CB3DB900432501 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				394E9F662603D99500895183 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +139,14 @@
 				393766F225D4271200FFB8D5 /* FriendSectionHeader.xib */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		394E9F642603D99500895183 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				394E9F652603D99500895183 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8B193BB525C5AC850043AF16 /* Cells */ = {
@@ -176,6 +189,7 @@
 				8B193BB525C5AC850043AF16 /* Cells */,
 				8B4ED2BF25BC92AE00485879 /* Swift_CustomApp */,
 				8B4ED2BE25BC92AE00485879 /* Products */,
+				394E9F642603D99500895183 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -207,6 +221,7 @@
 				39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */,
 				39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */,
 				3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */,
+				394E9F682603DA7400895183 /* ViewController.swift */,
 			);
 			path = Swift_CustomApp;
 			sourceTree = "<group>";
@@ -308,6 +323,7 @@
 				8B4ED2D825BC93A800485879 /* LoginFormController.swift in Sources */,
 				8B193BDF25C5E8C90043AF16 /* GlobalCommunitiesTableViewController.swift in Sources */,
 				39723BD225D7E07900866D33 /* PostCollectionViewLayout.swift in Sources */,
+				394E9F692603DA7400895183 /* ViewController.swift in Sources */,
 				393766F725D471D500FFB8D5 /* FeedTableViewController.swift in Sources */,
 				393766F025D4267B00FFB8D5 /* FriendSectionHeader.swift in Sources */,
 				8B193BD325C5CDE10043AF16 /* FriendCollectionViewController.swift in Sources */,
