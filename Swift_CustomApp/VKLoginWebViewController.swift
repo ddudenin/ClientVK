@@ -2,19 +2,20 @@
 //  ViewController.swift
 //  Swift_CustomApp
 //
-//  Created by user192247 on 3/18/21.
+//  Created by Дмитрий on 3/18/21.
 //
 
 import UIKit
 import WebKit
 
-class VKLoginWtbViewController: UIViewController {
+class VKLoginWebViewController: UIViewController {
     
     @IBOutlet var webView: WKWebView! {
         didSet {
             webView.navigationDelegate = self
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,27 +26,31 @@ class VKLoginWtbViewController: UIViewController {
         urlComponents.path = "/authorize"
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: "7795401"),
-            URLQueryItem(name: "redirect_uri", value: "https://vk.com/groups"),
-            URLQueryItem(name: "group_ids", value: ""),
+            URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "scope", value: "262150"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "v", value: "5.130")
         ]
         
-        let request = URLRequest(url: urlComponents.url!)
+        guard let url = urlComponents.url else { return }
         
+        let request = URLRequest(url: url)
         webView.load(request)
     }
 }
 
-extension VKLoginWtbViewController: WKNavigationDelegate {
+extension VKLoginWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
-        guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment  else {
+        guard let url = navigationResponse.response.url,
+              url.path == "/blank.html",
+              let fragment = url.fragment else {
             decisionHandler(.allow)
             return
         }
+        
+        print(fragment)
         
         let params = fragment
             .components(separatedBy: "&")
@@ -58,19 +63,25 @@ extension VKLoginWtbViewController: WKNavigationDelegate {
                 return dict
             }
         
+        print(params)
+        
         guard let token = params["access_token"],
               let userIdString = params["user_id"],
               let userId = Int(userIdString) else {
-            decisionHandler(.cancel)
+            decisionHandler(.allow)
             return
         }
         
-        Session.shared.token = token
-        Session.shared.userId = userId
+        Session.instance.token = token
+        Session.instance.userId = userId
         
-        //print(userId)
-        //print(token)
+        NetworkManager.instance.loadFriends()
+        NetworkManager.instance.loadPhotos()
+        NetworkManager.instance.loadGroups()
+        NetworkManager.instance.loadGroups(searchText: "Cup")
         
         decisionHandler(.cancel)
+        
+        
     }
 }

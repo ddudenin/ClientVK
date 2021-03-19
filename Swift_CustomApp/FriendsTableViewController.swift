@@ -42,7 +42,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         
         self.tableView.reloadData()
     }
-
+    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
         cell.alpha = 0.0
@@ -52,7 +52,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
             cell.alpha = 1.0
         }
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.sections.count
     }
@@ -80,7 +80,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         (vc as? FriendCollectionViewController)?.friend = self.sections[indexPath.section].friends[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "FriendsHeader") as! FriendSectionHeader
         

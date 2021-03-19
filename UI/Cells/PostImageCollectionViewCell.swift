@@ -8,7 +8,7 @@
 import UIKit
 
 class PostImageCollectionViewCell: UICollectionViewCell {
-
+    
     @IBOutlet var imageView: UIImageView! {
         didSet {
             self.imageView.contentMode = .scaleAspectFill
@@ -18,6 +18,6 @@ class PostImageCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-
+        
     }
 }
