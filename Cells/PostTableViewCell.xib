@@ -43,7 +43,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-Tf-m6Z">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-Tf-m6Z">
                         <rect key="frame" x="0.0" y="181" width="375" height="375"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewLayout key="collectionViewLayout" id="Ytw-fK-dUE" customClass="PostCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>

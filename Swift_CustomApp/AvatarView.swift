@@ -2,7 +2,7 @@
 //  AvatarView.swift
 //  Swift_CustomApp
 //
-//  Created by user192247 on 2/3/21.
+//  Created by Дмитрий on 2/3/21.
 //
 
 import UIKit
