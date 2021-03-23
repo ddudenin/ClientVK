@@ -2,7 +2,7 @@
 //  PhotosData.swift
 //  Swift_CustomApp
 //
-//  Created by user192247 on 3/23/21.
+//  Created by Дмитрий on 3/23/21.
 //
 
 import Foundation
@@ -24,7 +24,7 @@ struct PhotoItem: Codable {
     let text: String
     let likes: Likes
     let reposts: Reposts
-
+    
     enum CodingKeys: String, CodingKey {
         case albumID = "album_id"
         case date, id
@@ -37,7 +37,7 @@ struct PhotoItem: Codable {
 
 struct Likes: Codable {
     let userLikes, count: Int
-
+    
     enum CodingKeys: String, CodingKey {
         case userLikes = "user_likes"
         case count

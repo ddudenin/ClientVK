@@ -30,7 +30,7 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
         cell.configure(withPhoto: self.photos[indexPath.row])
- 
+        
         return cell
     }
     

@@ -22,12 +22,12 @@ class FriendCollectionViewController: UICollectionViewController {
         
         NetworkManager.instance.loadPhotos(userId: friend.id) { [weak self] items in
             self?.photos = items
-
+            
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
         }
-
+        
         // Do any additional setup after loading the view.
         self.title = friend.getFullName()
     }

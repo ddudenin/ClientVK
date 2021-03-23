@@ -45,8 +45,6 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
                 self?.tableView.reloadData()
             }
         }
-
-        self.tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -72,7 +70,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         
         // Configure the cell...
         cell.configure(withFriend: self.sections[indexPath.section].friends[indexPath.row])
-
+        
         return cell
     }
     

@@ -23,7 +23,7 @@ struct FriendItem: Codable {
     let canAccessClosed, isClosed: Bool
     let photo200_Orig: String
     let trackCode: String
-
+    
     enum CodingKeys: String, CodingKey {
         case firstName = "first_name"
         case id

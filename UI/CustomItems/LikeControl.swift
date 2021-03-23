@@ -17,8 +17,7 @@ class LikeControl: UIControl {
     var likeButton : UIButton = UIButton(type: .custom)
     
     private var likeCountLabel: UILabel = UILabel()
-    //private var stackView: UIStackView!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
@@ -34,7 +33,7 @@ class LikeControl: UIControl {
         self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
         
         self.likeButton.addTarget(self, action: #selector(handleLikeTap(_:)), for: .touchUpInside)
-
+        
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
         self.likeCountLabel.font = self.likeCountLabel.font.withSize(12)
         
@@ -77,7 +76,7 @@ class LikeControl: UIControl {
         self.likeButton.isSelected = state
         
         self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
-
+        
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
     }
     

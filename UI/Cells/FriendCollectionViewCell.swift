@@ -18,9 +18,7 @@ class FriendCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(withPhoto photo: PhotoItem) {
-        guard let imgURL = URL(string: photo.sizes[0].url) else { return }
-        guard let imgData = try? Data(contentsOf: imgURL) else { return }
-        self.photoImageView.image = UIImage(data: imgData)
+        self.photoImageView.image = GetImage(fromURL: photo.sizes.last!.url)
         self.likeControl.configure(withLikes: photo.likes)
     }
 }

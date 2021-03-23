@@ -25,9 +25,6 @@ class CommunitiesTableViewCell: UITableViewCell {
     
     func configure(withGroup group: GroupItem) {
         self.fullNameLabel.text = group.name
-        
-        guard let imgURL = URL(string: group.photo50) else { return }
-        guard let imgData = try? Data(contentsOf: imgURL) else { return }
-        self.photoImageView.image = UIImage(data: imgData)
+        self.photoImageView.image = GetImage(fromURL: group.photo50)
     }
 }

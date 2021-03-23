@@ -13,25 +13,7 @@ class NetworkManager {
     private init() {
         
     }
-    
-    private func runRequest(urlComponents: URLComponents) {
-        guard let url = urlComponents.url else { return }
         
-        let session = URLSession.shared
-        
-        let dataTask = session.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) {
-                    print(json)
-                }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        
-        dataTask.resume()
-    }
-    
     func loadFriends(complition: @escaping ([FriendItem]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"

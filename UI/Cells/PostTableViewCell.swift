@@ -40,6 +40,17 @@ class PostTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+    
+    func configure(withPost post: Post) {
+        self.createdByLabel.text = post.createdBy.getFullName()
+        self.profileImageView.image = UIImage(named: post.createdBy.photo200_Orig)
+        self.captionLabel.text = post.caption
+        self.imagesNames = post.imagesNames
+        self.likeControl.likeCount = post.likesCount
+        self.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
+        self.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
+        self.viewsCountLabel.text = convertCountToString(count: post.viewsCount)
+    }
 }
 
 extension PostTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
