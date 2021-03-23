@@ -16,4 +16,10 @@ class FriendPhotoCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
+    func configure(withPhoto photo: PhotoItem) {
+        guard let imgURL = URL(string: photo.sizes.last!.url) else { return }
+        guard let imgData = try? Data(contentsOf: imgURL) else { return }
+        self.photoImageView.image = UIImage(data: imgData)
+        self.clipsToBounds = false
+    }
 }

@@ -7,25 +7,36 @@
 
 import Foundation
 
-struct Group {
-    let name: String
-    let avatarName: String
+struct GroupsJSONData: Codable {
+    let response: GroupsResponse
+}
+
+struct GroupsResponse: Codable {
+    let count: Int
+    let items: [GroupItem]
+}
+
+struct GroupItem: Codable {
+    let id: Int
+    let name, screenName: String
+    let isClosed: Int
+    let type: String
+    let isAdmin, isMember, isAdvertiser: Int
+    let photo50, photo100, photo200: String
     
-    init(name: String, avatarName: String) {
-        self.name = name
-        self.avatarName = avatarName
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case screenName = "screen_name"
+        case isClosed = "is_closed"
+        case type
+        case isAdmin = "is_admin"
+        case isMember = "is_member"
+        case isAdvertiser = "is_advertiser"
+        case photo50 = "photo_50"
+        case photo100 = "photo_100"
+        case photo200 = "photo_200"
     }
 }
 
-
-var groups: [Group] = [
-    Group(name: "Быстрые займы за 5 минут", avatarName: "bitcoinsign.circle.fill"),
-    Group(name: "Дворец Путина", avatarName: "crown.fill"),
-    Group(name: "Психология успешных людей", avatarName: "star.fill"),
-    Group(name: "Барахолка", avatarName: "giftcard.fill")
-]
-
-var groupsGlobal: [Group] = [
-    Group(name: "American democracy: lie or reality", avatarName: "flag.fill"),
-    Group(name: "Одноклассники", avatarName: "bubble.middle.bottom.fill"),
-]
+var groups: [GroupItem] = []
+var groupsGlobal: [GroupItem] = []

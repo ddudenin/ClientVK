@@ -9,7 +9,7 @@ import UIKit
 
 class UserCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
     
-    var filteredGroups = [Group]()
+    var filteredGroups = [GroupItem]()
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -20,7 +20,16 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         
         self.searchBar.delegate = self
         
-        self.filteredGroups = groups
+        if groups.isEmpty {
+            NetworkManager.instance.loadGroups() { [weak self] items in
+                groups = items
+                self?.filteredGroups = groups
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +52,7 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
         
         // Configure the cell...
-        
-        let group = self.filteredGroups[indexPath.row]
-        cell.fullNameLabel.text = group.name
-        cell.photoImageView.image = UIImage(systemName: group.avatarName)
+        cell.configure(withGroup: self.filteredGroups[indexPath.row])
         
         return cell
     }
@@ -82,16 +88,18 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredGroups = []
-        
         if searchText.count == 0 {
             self.filteredGroups = groups
+            self.tableView.reloadData()
+            return
         } else {
-            for group in groups where group.name.lowercased().contains(searchText.lowercased()) {
-                filteredGroups.append(group)
+            NetworkManager.instance.loadGroups(searchText: searchText) { [weak self] items in
+                self?.filteredGroups = items
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
             }
         }
-        
-        self.tableView.reloadData()
     }
 }

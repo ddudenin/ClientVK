@@ -9,11 +9,11 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     
-    private var filteredFriends = [Friend]()
+    private var filteredFriends = [FriendItem]()
     
     private struct Section {
         let letter : String
-        let friends : [Friend]
+        let friends : [FriendItem]
     }
     
     private var sections = [Section]()
@@ -22,7 +22,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet var searchBar: UISearchBar!
     
     private func CalculateSectionsAndHeaders() {
-        let sectionsData = Dictionary(grouping: self.filteredFriends, by: { String($0.surname.prefix(1)) })
+        let sectionsData = Dictionary(grouping: self.filteredFriends, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
         self.sections = keys.map{ Section(letter: $0, friends: sectionsData[$0]!) }
         self.headers = self.sections.map{ $0.letter }
@@ -36,10 +36,16 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         
         self.searchBar.delegate = self
         
-        self.filteredFriends = friendsArray
-        
-        CalculateSectionsAndHeaders()
-        
+        NetworkManager.instance.loadFriends() { [weak self] items in
+            self?.filteredFriends = items
+            friendsArray = items
+            
+            DispatchQueue.main.async {
+                self?.CalculateSectionsAndHeaders()
+                self?.tableView.reloadData()
+            }
+        }
+
         self.tableView.reloadData()
     }
     
@@ -65,10 +71,8 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendsTableViewCell
         
         // Configure the cell...
-        let friend = self.sections[indexPath.section].friends[indexPath.row]
-        cell.fullNameLabel.text = friend.getFullName()
-        cell.photoView.photoImageView.image = UIImage(named: friend.photoName)
-        
+        cell.configure(withFriend: self.sections[indexPath.section].friends[indexPath.row])
+
         return cell
     }
     
@@ -87,6 +91,10 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         header.nameLabel.text = self.headers[section]
         
         return header
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

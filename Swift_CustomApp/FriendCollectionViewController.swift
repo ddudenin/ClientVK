@@ -9,16 +9,8 @@ import UIKit
 
 class FriendCollectionViewController: UICollectionViewController {
     
-    var friend = Friend(name: "No", surname: "Name", photoName: "")
-    var photos: [UIImage] = {
-        var arr = [UIImage]()
-        
-        for _ in 1...Int.random(in: 2...10) {
-            arr.append(UIImage(named: friendsArray.randomElement()!.photoName)!)
-        }
-        
-        return arr
-    }()
+    var friend: FriendItem?
+    var photos: [PhotoItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +18,18 @@ class FriendCollectionViewController: UICollectionViewController {
         // Register cell classes
         self.collectionView!.register(UINib(nibName: "FriendCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "AvatarCell")
         
-        photos.insert(UIImage(named: friend.photoName)!, at: 0)
+        guard let friend = self.friend else { return }
         
+        NetworkManager.instance.loadPhotos(userId: friend.id) { [weak self] items in
+            self?.photos = items
+
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+
         // Do any additional setup after loading the view.
-        self.title = "\(self.friend.getFullName())"
+        self.title = friend.getFullName()
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -44,7 +44,7 @@ class FriendCollectionViewController: UICollectionViewController {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCell", for: indexPath) as! FriendCollectionViewCell
         
         // Configure the cell
-        cell.photoImageView.image = photos[indexPath.row]
+        cell.configure(withPhoto: photos[indexPath.row])
         
         return cell
     }

@@ -8,7 +8,7 @@
 import UIKit
 
 class FriendsPhotosCollectionViewController: UICollectionViewController {
-    var photos = [UIImage]()
+    var photos: [PhotoItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +29,8 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
-        cell.photoImageView.image = self.photos[indexPath.row]
-        cell.clipsToBounds = false
-        
+        cell.configure(withPhoto: self.photos[indexPath.row])
+ 
         return cell
     }
     

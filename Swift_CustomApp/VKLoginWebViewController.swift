@@ -43,45 +43,40 @@ class VKLoginWebViewController: UIViewController {
 extension VKLoginWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
-        guard let url = navigationResponse.response.url,
-              url.path == "/blank.html",
-              let fragment = url.fragment else {
-            decisionHandler(.allow)
-            return
-        }
-        
-        print(fragment)
-        
-        let params = fragment
-            .components(separatedBy: "&")
-            .map { $0.components(separatedBy: "=") }
-            .reduce([String: String]()) { result, param in
-                var dict = result
-                let key = param[0]
-                let value = param[1]
-                dict[key] = value
-                return dict
+        if Session.instance.token.isEmpty {
+            guard let url = navigationResponse.response.url,
+                  url.path == "/blank.html",
+                  let fragment = url.fragment else {
+                decisionHandler(.allow)
+                return
             }
-        
-        print(params)
-        
-        guard let token = params["access_token"],
-              let userIdString = params["user_id"],
-              let userId = Int(userIdString) else {
-            decisionHandler(.allow)
-            return
+            
+            let params = fragment
+                .components(separatedBy: "&")
+                .map { $0.components(separatedBy: "=") }
+                .reduce([String: String]()) { result, param in
+                    var dict = result
+                    let key = param[0]
+                    let value = param[1]
+                    dict[key] = value
+                    return dict
+                }
+            
+            guard let token = params["access_token"],
+                  let userIdString = params["user_id"],
+                  let userId = Int(userIdString) else {
+                decisionHandler(.allow)
+                return
+            }
+            
+            Session.instance.token = token
+            Session.instance.userId = userId
+            
+            decisionHandler(.cancel)
         }
         
-        Session.instance.token = token
-        Session.instance.userId = userId
-        
-        NetworkManager.instance.loadFriends()
-        NetworkManager.instance.loadPhotos()
-        NetworkManager.instance.loadGroups()
-        NetworkManager.instance.loadGroups(searchText: "Cup")
-        
-        decisionHandler(.cancel)
-        
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: .none)
+        let vc = storyboard.instantiateViewController(withIdentifier: "startScreen")
+        self.present(vc, animated: true, completion: .none)
     }
 }

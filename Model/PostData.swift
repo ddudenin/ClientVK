@@ -8,7 +8,7 @@
 import Foundation
 
 struct Post {
-    let createdBy: Friend
+    let createdBy: FriendItem
     let caption: String
     let imagesNames: [String]
     var likesCount: UInt
@@ -16,10 +16,10 @@ struct Post {
     var sharesCount: UInt
     var viewsCount: UInt
     
-    init(user: Friend, caption: String) {
+    init(user: FriendItem, caption: String) {
         self.createdBy = user
         self.caption = caption
-        self.imagesNames = Array(repeating: user.photoName, count: Int.random(in: 1...10))
+        self.imagesNames = Array(repeating: user.photo200_Orig, count: Int.random(in: 1...10))
         
         self.likesCount = UInt.random(in: 0...1000000)
         self.commentsCount = UInt.random(in: 0...1000000)

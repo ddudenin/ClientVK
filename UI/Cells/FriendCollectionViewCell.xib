@@ -43,6 +43,7 @@
             </constraints>
             <size key="customSize" width="249" height="269"/>
             <connections>
+                <outlet property="likeControl" destination="CGD-sq-WAi" id="qqP-7v-vfC"/>
                 <outlet property="photoImageView" destination="X8U-dF-n3N" id="YIj-ay-3xW"/>
             </connections>
             <point key="canvasLocation" x="-523.1884057971015" y="34.151785714285715"/>

@@ -31,7 +31,7 @@ class FeedTableViewController: UITableViewController {
         // Configure the cell...
         let post = postsData[indexPath.row]
         cell.createdByLabel.text = post.createdBy.getFullName()
-        cell.profileImageView.image = UIImage(named: post.createdBy.photoName)
+        cell.profileImageView.image = UIImage(named: post.createdBy.photo200_Orig)
         cell.captionLabel.text = post.caption
         cell.imagesNames = post.imagesNames
         cell.likeControl.likeCount = post.likesCount

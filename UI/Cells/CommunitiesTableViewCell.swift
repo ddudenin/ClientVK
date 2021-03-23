@@ -22,4 +22,12 @@ class CommunitiesTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+    
+    func configure(withGroup group: GroupItem) {
+        self.fullNameLabel.text = group.name
+        
+        guard let imgURL = URL(string: group.photo50) else { return }
+        guard let imgData = try? Data(contentsOf: imgURL) else { return }
+        self.photoImageView.image = UIImage(data: imgData)
+    }
 }

@@ -11,7 +11,7 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
     
     @IBOutlet var searchBar: UISearchBar!
     
-    var filteredGroups = [Group]()
+    var filteredGroups = [GroupItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
         // Configure the cell...
         let group = self.filteredGroups[indexPath.row]
         cell.fullNameLabel.text = group.name
-        cell.photoImageView.image = UIImage(systemName: group.avatarName)
+        cell.photoImageView.image = UIImage(systemName: group.photo50)
         
         return cell
     }
