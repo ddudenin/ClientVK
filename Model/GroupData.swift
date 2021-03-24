@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct GroupsJSONData: Codable {
+class GroupsJSONData: Codable {
     let response: GroupsResponse
 }
 
-struct GroupsResponse: Codable {
+class GroupsResponse: Codable {
     let count: Int
     let items: [GroupItem]
 }
 
-struct GroupItem: Codable {
+class GroupItem: Codable {
     let id: Int
     let name, screenName: String
     let isClosed: Int

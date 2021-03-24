@@ -80,6 +80,16 @@ class LikeControl: UIControl {
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
     }
     
+    func configure(withLikesCount count: UInt, withState state: Bool) {
+        self.likeCount = count
+        
+        self.likeButton.isSelected = state
+        
+        self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
+        
+        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
+    }
+    
     private func animate() {
         let posY = (self.likeButton.isSelected ? -1 : 1) * self.frame.height / 2
         self.likeCountLabel.transform = CGAffineTransform(translationX: 0, y: posY)

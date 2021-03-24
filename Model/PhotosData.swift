@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct PhotosJSONData: Codable {
+class PhotosJSONData: Codable {
     let response: PhotosResponse
 }
 
-struct PhotosResponse: Codable {
+class PhotosResponse: Codable {
     let count: Int
     let items: [PhotoItem]
 }
 
-struct PhotoItem: Codable {
+class PhotoItem: Codable {
     let albumID, date, id, ownerID: Int
     let hasTags: Bool
     let postID: Int?
@@ -35,7 +35,7 @@ struct PhotoItem: Codable {
     }
 }
 
-struct Likes: Codable {
+class Likes: Codable {
     let userLikes, count: Int
     
     enum CodingKeys: String, CodingKey {
@@ -44,11 +44,11 @@ struct Likes: Codable {
     }
 }
 
-struct Reposts: Codable {
+class Reposts: Codable {
     let count: Int
 }
 
-struct Size: Codable {
+class Size: Codable {
     let height: Int
     let url: String
     let type: TypeEnum

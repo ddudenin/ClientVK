@@ -43,10 +43,10 @@ class PostTableViewCell: UITableViewCell {
     
     func configure(withPost post: Post) {
         self.createdByLabel.text = post.createdBy.getFullName()
-        self.profileImageView.image = UIImage(named: post.createdBy.photo200_Orig)
+        self.profileImageView.image = GetImage(fromURL: post.createdBy.photo200_Orig)
         self.captionLabel.text = post.caption
         self.imagesNames = post.imagesNames
-        self.likeControl.likeCount = post.likesCount
+        self.likeControl.configure(withLikesCount: post.likesCount, withState: Bool.random())
         self.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
         self.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
         self.viewsCountLabel.text = convertCountToString(count: post.viewsCount)
@@ -66,7 +66,7 @@ extension PostTableViewCell: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostImageCell", for: indexPath) as! PostImageCollectionViewCell
         
-        cell.imageView.image = UIImage(named: self.imagesNames[indexPath.row])
+        cell.imageView.image = GetImage(fromURL: self.imagesNames[indexPath.row])
         
         return cell
     }

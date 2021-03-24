@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct FriendsJSONData: Codable {
+class FriendsJSONData: Codable {
     let response: FriendsResponse
 }
 
-struct FriendsResponse: Codable {
+class FriendsResponse: Codable {
     let count: Int
     let items: [FriendItem]
 }
 
-struct FriendItem: Codable {
+class FriendItem: Codable {
     let firstName: String
     let id: Int
     let lastName: String
