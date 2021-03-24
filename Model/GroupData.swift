@@ -39,4 +39,3 @@ struct GroupItem: Codable {
 }
 
 var groups: [GroupItem] = []
-var groupsGlobal: [GroupItem] = []

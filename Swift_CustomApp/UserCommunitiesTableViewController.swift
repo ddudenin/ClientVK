@@ -63,7 +63,6 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            groupsGlobal.append(self.filteredGroups[indexPath.row])
             groups.removeAll(where: {$0.name == self.filteredGroups[indexPath.row].name})
             self.filteredGroups.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -88,18 +87,16 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count == 0 {
+        self.filteredGroups = []
+        
+        if searchText.isEmpty {
             self.filteredGroups = groups
-            self.tableView.reloadData()
-            return
         } else {
-            NetworkManager.instance.loadGroups(searchText: searchText) { [weak self] items in
-                self?.filteredGroups = items
-                
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
+            for group in groups where group.name.lowercased().contains(searchText.lowercased()) {
+                self.filteredGroups.append(group)
             }
         }
+        
+        self.tableView.reloadData()
     }
 }
