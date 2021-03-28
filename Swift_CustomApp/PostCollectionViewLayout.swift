@@ -9,7 +9,7 @@ import UIKit
 
 class PostCollectionViewLayout: UICollectionViewFlowLayout {
     var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
-
+    
     var cellHeight: CGFloat = 128
     private var totalCellsHeight: CGFloat = 0
     
@@ -17,11 +17,11 @@ class PostCollectionViewLayout: UICollectionViewFlowLayout {
         super.prepare()
         
         self.cacheAttributes = [:]
-     
+        
         guard let collectionView = self.collectionView else { return }
         
         let itemsCount = collectionView.numberOfItems(inSection: 0)
-
+        
         guard itemsCount > 0 else { return }
         
         let halfCellWidth = collectionView.frame.width / 2
@@ -43,13 +43,13 @@ class PostCollectionViewLayout: UICollectionViewFlowLayout {
             
             return
         }
-
+        
         var halfCount = itemsCount % 3
         if halfCount == 1 {
             halfCount = 4
         }
         var addedCount = 0
-
+        
         for index in 0..<itemsCount {
             let indexPath = IndexPath(item: index, section: 0)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -76,7 +76,7 @@ class PostCollectionViewLayout: UICollectionViewFlowLayout {
                     addedCount += 1
                 }
             }
-
+            
             cacheAttributes[indexPath] = attributes
             self.totalCellsHeight = lastY
         }
@@ -87,13 +87,13 @@ class PostCollectionViewLayout: UICollectionViewFlowLayout {
         
         // Loop through the cache and look for items in the rect
         for attributes in self.cacheAttributes.values {
-          if attributes.frame.intersects(rect) {
-            visibleLayoutAttributes.append(attributes)
-          }
+            if attributes.frame.intersects(rect) {
+                visibleLayoutAttributes.append(attributes)
+            }
         }
         return visibleLayoutAttributes
     }
-
+    
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return cacheAttributes[indexPath]
     }

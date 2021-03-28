@@ -8,12 +8,12 @@
 import UIKit
 
 class FriendPhotoCollectionViewCell: UICollectionViewCell {
-
+    
     @IBOutlet var photoImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
 }

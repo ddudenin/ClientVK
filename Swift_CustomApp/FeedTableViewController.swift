@@ -38,7 +38,7 @@ class FeedTableViewController: UITableViewController {
         cell.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
         cell.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
         cell.viewsCountLabel.text = convertCountToString(count: post.viewsCount)
-    
+        
         return cell
     }
     

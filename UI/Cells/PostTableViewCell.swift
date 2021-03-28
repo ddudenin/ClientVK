@@ -31,7 +31,7 @@ class PostTableViewCell: UITableViewCell {
         
         self.imagesCollectionsViews.dataSource = self
         self.imagesCollectionsViews.delegate = self
-
+        
         self.imagesCollectionsViews.register(UINib(nibName: "PostImageCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "PostImageCell")
     }
     
@@ -43,7 +43,7 @@ class PostTableViewCell: UITableViewCell {
 }
 
 extension PostTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
-
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -56,7 +56,7 @@ extension PostTableViewCell: UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostImageCell", for: indexPath) as! PostImageCollectionViewCell
         
         cell.imageView.image = UIImage(named: self.imagesNames[indexPath.row])
- 
+        
         return cell
     }
 }

@@ -28,11 +28,11 @@ class LikeControl: UIControl {
         super.init(coder: aDecoder)
         self.setupView()
     }
-
+    
     private func setupView() {
         self.likeButton.setImage(UIImage(named: "heart_empty"), for: .normal)
         self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
-
+        
         self.likeButton.addTarget(self, action: #selector(handleLikeTap(_:)), for: .touchUpInside)
         
         let btnState = Bool.random()

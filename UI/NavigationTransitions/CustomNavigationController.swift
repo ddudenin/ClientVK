@@ -9,10 +9,10 @@ import UIKit
 
 class CustomNavigationController: UINavigationController {
     let interactiveTransition = CustomInteractiveTransition()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         self.delegate = self
     }

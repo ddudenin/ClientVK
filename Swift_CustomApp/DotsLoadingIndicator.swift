@@ -12,7 +12,7 @@ public final class DotsLoadingIndicator : UIView {
     
     private var dotLayers = [CAShapeLayer]()
     private var dotsOpacity = 1.0
-
+    
     @IBInspectable public var dotsCount: Int = 3 {
         didSet {
             self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
@@ -71,10 +71,10 @@ public final class DotsLoadingIndicator : UIView {
         self.dotLayers.forEach { $0.removeAllAnimations() }
     }
     
-
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
-    
+        
         let center = CGPoint(x: self.frame.size.width / 2.0, y: self.frame.size.height / 2.0)
         let middle: Int = self.dotsCount / 2
         for (index, layer) in self.dotLayers.enumerated() {
@@ -120,7 +120,7 @@ public final class DotsLoadingIndicator : UIView {
         
         let time = CGFloat(self.dotsCount) * 0.2 + CGFloat(0.4)
         group.duration = CFTimeInterval(time)
-    
+        
         return group
     }
 }

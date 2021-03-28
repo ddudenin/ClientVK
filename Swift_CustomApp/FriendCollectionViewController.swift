@@ -27,7 +27,7 @@ class FriendCollectionViewController: UICollectionViewController {
         self.collectionView!.register(UINib(nibName: "FriendCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "AvatarCell")
         
         photos.insert(UIImage(named: friend.photoName)!, at: 0)
-
+        
         // Do any additional setup after loading the view.
         self.title = "\(self.friend.getFullName())"
     }

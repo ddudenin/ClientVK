@@ -95,4 +95,10 @@ class LoginFormController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    @IBAction func loginVKButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: .none)
+        let vc = storyboard.instantiateViewController(withIdentifier: "loginVKScreen")
+        self.present(vc, animated: true, completion: .none)
+    }
 }
