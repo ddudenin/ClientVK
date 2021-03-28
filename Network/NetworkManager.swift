@@ -105,7 +105,11 @@ class NetworkManager {
         DispatchQueue.main.async {
             do {
                 self.realm?.beginWrite()
-                //self.realm?.add(photos)
+                for photo in photos {
+                    self.realm?.add(photo.likes)
+                    self.realm?.add(photo.reposts)
+                    self.realm?.add(photo.sizes)
+                }
                 try self.realm?.commitWrite()
             } catch {
                 print(error.localizedDescription)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class PhotosJSONData: Codable {
     let response: PhotosResponse
@@ -38,9 +39,9 @@ class PhotoItem: Codable {
     }
 }
 
-class Likes: Codable {
-    var userLikes: Int
-    var count: Int
+class Likes: Object, Codable {
+    @objc dynamic var userLikes: Int
+    @objc dynamic var count: Int
     
     enum CodingKeys: String, CodingKey {
         case userLikes = "user_likes"
@@ -48,15 +49,15 @@ class Likes: Codable {
     }
 }
 
-class Reposts: Codable {
-    var count: Int
+class Reposts: Object, Codable {
+    @objc dynamic var count: Int
 }
 
-class Size: Codable {
-    let height: Int
-    let url: String
-    let type: String
-    let width: Int
+class Size: Object, Codable {
+    @objc dynamic var height: Int
+    @objc dynamic var url: String
+    @objc dynamic var type: String
+    @objc dynamic var width: Int
 }
 
 enum TypeEnum: String, Codable {
