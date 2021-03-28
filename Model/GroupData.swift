@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class GroupsJSONData: Codable {
     let response: GroupsResponse
@@ -16,13 +17,18 @@ class GroupsResponse: Codable {
     let items: [GroupItem]
 }
 
-class GroupItem: Codable {
-    let id: Int
-    let name, screenName: String
-    let isClosed: Int
-    let type: String
-    let isAdmin, isMember, isAdvertiser: Int
-    let photo50, photo100, photo200: String
+class GroupItem: Object, Codable {
+    @objc dynamic var id: Int
+    @objc dynamic var name: String
+    @objc dynamic var screenName: String
+    @objc dynamic var isClosed: Int
+    @objc dynamic var type: String
+    @objc dynamic var isAdmin: Int
+    @objc dynamic var isMember: Int
+    @objc dynamic var isAdvertiser: Int
+    @objc dynamic var photo50: String
+    @objc dynamic var photo100: String
+    @objc dynamic var photo200: String
     
     enum CodingKeys: String, CodingKey {
         case id, name

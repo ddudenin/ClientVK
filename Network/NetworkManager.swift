@@ -119,8 +119,9 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let groups = try JSONDecoder().decode(GroupsJSONData.self, from: data)
-                    complition(groups.response.items)
+                    let groups = try JSONDecoder().decode(GroupsJSONData.self, from: data).response.items
+                    self.saveGroupsData(groups: groups)
+                    complition(groups)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -130,6 +131,18 @@ class NetworkManager {
         }
         
         dataTask.resume()
+    }
+    
+    private func saveGroupsData(groups: [GroupItem]) {
+        DispatchQueue.main.async {
+            do {
+                self.realm?.beginWrite()
+                self.realm?.add(groups)
+                try self.realm?.commitWrite()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func loadGroups(searchText: String, complition: @escaping ([GroupItem]) -> ()) {
