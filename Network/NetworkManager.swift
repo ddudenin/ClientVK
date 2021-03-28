@@ -101,6 +101,18 @@ class NetworkManager {
         dataTask.resume()
     }
     
+    private func savePhotosData(photos: [PhotoItem]) {
+        DispatchQueue.main.async {
+            do {
+                self.realm?.beginWrite()
+                //self.realm?.add(photos)
+                try self.realm?.commitWrite()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func loadGroups(complition: @escaping ([GroupItem]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"

@@ -17,13 +17,16 @@ class PhotosResponse: Codable {
 }
 
 class PhotoItem: Codable {
-    let albumID, date, id, ownerID: Int
-    let hasTags: Bool
-    let postID: Int?
-    let sizes: [Size]
-    let text: String
-    let likes: Likes
-    let reposts: Reposts
+    var albumID: Int
+    var date: Int
+    var id: Int
+    var ownerID: Int
+    var hasTags: Bool
+    var postID: Int?
+    var sizes: [Size]
+    var text: String
+    var likes: Likes
+    var reposts: Reposts
     
     enum CodingKeys: String, CodingKey {
         case albumID = "album_id"
@@ -36,7 +39,8 @@ class PhotoItem: Codable {
 }
 
 class Likes: Codable {
-    let userLikes, count: Int
+    var userLikes: Int
+    var count: Int
     
     enum CodingKeys: String, CodingKey {
         case userLikes = "user_likes"
@@ -45,13 +49,13 @@ class Likes: Codable {
 }
 
 class Reposts: Codable {
-    let count: Int
+    var count: Int
 }
 
 class Size: Codable {
     let height: Int
     let url: String
-    let type: TypeEnum
+    let type: String
     let width: Int
 }
 
