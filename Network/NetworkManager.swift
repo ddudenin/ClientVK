@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class NetworkManager {
     static let instance = NetworkManager()
@@ -13,7 +14,15 @@ class NetworkManager {
     private init() {
         
     }
+    
+    private let realm: Realm? = {
+        #if DEBUG
+        print(Realm.Configuration.defaultConfiguration.fileURL ?? "Realm Error")
+        #endif
         
+        return try? Realm()
+    }()
+    
     func loadFriends(complition: @escaping ([FriendItem]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -33,8 +42,9 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let friends = try JSONDecoder().decode(FriendsJSONData.self, from: data)
-                    complition(friends.response.items)
+                    let friends = try JSONDecoder().decode(FriendsJSONData.self, from: data).response.items
+                    self.saveFriendsData(friends: friends)
+                    complition(friends)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -44,6 +54,18 @@ class NetworkManager {
         }
         
         dataTask.resume()
+    }
+    
+    private func saveFriendsData(friends: [FriendItem]) {
+        DispatchQueue.main.async {
+            do {
+                self.realm?.beginWrite()
+                self.realm?.add(friends)
+                try self.realm?.commitWrite()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     

@@ -6,5 +6,6 @@ target 'Swift_CustomApp' do
   use_frameworks!
 
   # Pods for Swift_CustomApp
+  pod 'RealmSwift', '~> 10.7'
 
 end
