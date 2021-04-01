@@ -17,17 +17,17 @@ class PhotosResponse: Codable {
     let items: [PhotoItem]
 }
 
-class PhotoItem: Codable {
-    var albumID: Int
-    var date: Int
-    var id: Int
-    var ownerID: Int
-    var hasTags: Bool
-    var postID: Int?
+class PhotoItem: Object, Codable {
+    @objc dynamic var albumID: Int = -1
+    @objc dynamic var date: Int = 0
+    @objc dynamic var id: Int = -1
+    @objc dynamic var ownerID: Int = -1
+    @objc dynamic var hasTags: Bool = false
+    var postID = RealmOptional<Int>().value
     var sizes: [Size]
-    var text: String
-    var likes: Likes
-    var reposts: Reposts
+    @objc dynamic var text: String = ""
+    @objc dynamic var likes: Likes?
+    @objc dynamic var reposts: Reposts?
     
     enum CodingKeys: String, CodingKey {
         case albumID = "album_id"
@@ -37,11 +37,15 @@ class PhotoItem: Codable {
         case postID = "post_id"
         case sizes, text, likes, reposts
     }
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }
 
 class Likes: Object, Codable {
-    @objc dynamic var userLikes: Int
-    @objc dynamic var count: Int
+    @objc dynamic var userLikes: Int = 0
+    @objc dynamic var count: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case userLikes = "user_likes"
@@ -50,14 +54,14 @@ class Likes: Object, Codable {
 }
 
 class Reposts: Object, Codable {
-    @objc dynamic var count: Int
+    @objc dynamic var count: Int = 0
 }
 
 class Size: Object, Codable {
-    @objc dynamic var height: Int
-    @objc dynamic var url: String
-    @objc dynamic var type: String
-    @objc dynamic var width: Int
+    @objc dynamic var height: Int = 0
+    @objc dynamic var url: String = ""
+    @objc dynamic var type: String = ""
+    @objc dynamic var width: Int = 0
 }
 
 enum TypeEnum: String, Codable {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,6 +33,7 @@
 		39C00A7425E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */; };
 		39C00A7925E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7725E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift */; };
 		39C00A7A25E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C00A7825E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib */; };
+		39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E66E7926165CA70036C738 /* RealmManager.swift */; };
 		39FFA62C25DDB5CB003B7265 /* DotsLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */; };
 		8B193BC025C5AE200043AF16 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */; };
 		8B193BC125C5AE200043AF16 /* FriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */; };
@@ -80,6 +81,7 @@
 		39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		39C00A7725E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		39C00A7825E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
+		39E66E7926165CA70036C738 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsLoadingIndicator.swift; sourceTree = "<group>"; };
 		5AA4795B742FB570B9B06AFD /* Pods-Swift_CustomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift_CustomApp.release.xcconfig"; path = "Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp.release.xcconfig"; sourceTree = "<group>"; };
 		8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
@@ -183,6 +185,14 @@
 			path = CustomItems;
 			sourceTree = "<group>";
 		};
+		39E66E7826165C850036C738 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				39E66E7926165CA70036C738 /* RealmManager.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		8B193BB525C5AC850043AF16 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +226,7 @@
 		8B4ED2B425BC92AE00485879 = {
 			isa = PBXGroup;
 			children = (
+				39E66E7826165C850036C738 /* Realm */,
 				39CCFB612604C0A90031D326 /* UI */,
 				39312D4C260146D9002997E0 /* Network */,
 				8B193BC325C5AF6A0043AF16 /* Model */,
@@ -264,7 +275,6 @@
 				2C34517722B321A4400109A4 /* Pods-Swift_CustomApp.debug.xcconfig */,
 				5AA4795B742FB570B9B06AFD /* Pods-Swift_CustomApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -391,6 +401,7 @@
 			files = (
 				39312D4E260146FB002997E0 /* Session.swift in Sources */,
 				3992149525E453570092E1E8 /* CloudLoaderIndicator.swift in Sources */,
+				39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */,
 				8B193BE225C5FFD50043AF16 /* GroupData.swift in Sources */,
 				39C00A7925E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift in Sources */,
 				397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */,
