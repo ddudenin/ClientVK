@@ -6,30 +6,52 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendCollectionViewController: UICollectionViewController {
     
     var friend: FriendItem?
-    var photos: [PhotoItem] = []
+
+    private var photos: [PhotoItem] {
+        get {
+            guard let friend = self.friend else { return [] }
+
+            let photos: Results<PhotoItem>? = realmManager?.getObjects()
+            return photos?.filter("ownerID = %@", friend.id).toArray() ?? []
+        }
+        
+        set { }
+    }
     
+    private let networkManager = NetworkManager.instance
+    private let realmManager = RealmManager.instance
+    
+    private func loadData() {
+        guard let friend = self.friend else { return }
+
+        networkManager.loadPhotos(userId: friend.id) { [weak self] items in
+            DispatchQueue.main.async {
+                try? self?.realmManager?.add(objects: items)
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Register cell classes
         self.collectionView!.register(UINib(nibName: "FriendCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "AvatarCell")
         
-        guard let friend = self.friend else { return }
-        
-        NetworkManager.instance.loadPhotos(userId: friend.id) { [weak self] items in
-            self?.photos = items
-            
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
-        
         // Do any additional setup after loading the view.
+        guard let friend = self.friend else { return }
         self.title = friend.getFullName()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadData()
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -23,8 +23,8 @@ class PhotoItem: Object, Codable {
     @objc dynamic var id: Int = -1
     @objc dynamic var ownerID: Int = -1
     @objc dynamic var hasTags: Bool = false
-    var postID = RealmOptional<Int>().value
-    var sizes: [Size]
+    var postID: Int?
+    var sizes = List<Size>()
     @objc dynamic var text: String = ""
     @objc dynamic var likes: Likes?
     @objc dynamic var reposts: Reposts?

@@ -10,10 +10,15 @@ import RealmSwift
 
 class UserCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
     
+    private var searchText: String = ""
+    
     private var filteredGroups: [GroupItem] {
         get {
             let groups: Results<GroupItem>? = realmManager?.getObjects()
-            return groups?.toArray() ?? []
+            
+            guard !searchText.isEmpty else { return groups?.toArray() ?? [] }
+            
+            return groups?.filter("name CONTAINS %@", searchText).toArray() ?? []
         }
         
         set { }
@@ -103,7 +108,8 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredGroups = []
+        self.searchText = searchText
+        /*self.filteredGroups = []
         
         if searchText.isEmpty {
             self.filteredGroups = groups
@@ -111,7 +117,7 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
             for group in groups where group.name.lowercased().contains(searchText.lowercased()) {
                 self.filteredGroups.append(group)
             }
-        }
+        }*/
         
         self.tableView.reloadData()
     }
