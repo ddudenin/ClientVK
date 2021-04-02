@@ -32,7 +32,6 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     private func loadData() {
         networkManager.loadGroups() { [weak self] items in
             DispatchQueue.main.async {
-                groups = items
                 try? self?.realmManager?.add(objects: items)
                 self?.tableView.reloadData()
             }
@@ -55,6 +54,8 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         if self.filteredGroups.isEmpty {
             loadData()
         }
+        
+        groups = self.filteredGroups
         
         self.tableView.reloadData()
     }
@@ -111,16 +112,6 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText
-        /*self.filteredGroups = []
-        
-        if searchText.isEmpty {
-            self.filteredGroups = groups
-        } else {
-            for group in groups where group.name.lowercased().contains(searchText.lowercased()) {
-                self.filteredGroups.append(group)
-            }
-        }*/
-        
         self.tableView.reloadData()
     }
 }

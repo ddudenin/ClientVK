@@ -9,10 +9,15 @@ import UIKit
 import RealmSwift
 
 class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
+    private var searchText: String = ""
+    
     private var filteredFriends: [FriendItem] {
         get {
             let friends: Results<FriendItem>? = realmManager?.getObjects()
-            return friends?.toArray() ?? []
+            
+            guard !searchText.isEmpty else { return friends?.toArray() ?? [] }
+            
+            return friends?.filter("firstName CONTAINS %@ OR lastName  CONTAINS %@", searchText, searchText).toArray() ?? []
         }
         
         set { }
@@ -41,7 +46,6 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     private func loadData() {
         networkManager.loadFriends() { [weak self] items in
             DispatchQueue.main.async {
-                friendsArray = items
                 try? self?.realmManager?.add(objects: items)
                 self?.tableView.reloadData()
             }
@@ -63,7 +67,8 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         if self.filteredFriends.isEmpty {
             loadData()
         }
-
+        
+        friendsArray = self.filteredFriends
         CalculateSectionsAndHeaders()
     }
     
@@ -116,18 +121,8 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredFriends = []
-        
-        if searchText.count == 0 {
-            self.filteredFriends = friendsArray
-        } else {
-            for friend in friendsArray where friend.getFullName().lowercased().contains(searchText.lowercased()) {
-                self.filteredFriends.append(friend)
-            }
-        }
-        
+        self.searchText = searchText
         CalculateSectionsAndHeaders()
-        
         self.tableView.reloadData()
     }
 }
