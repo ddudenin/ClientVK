@@ -52,7 +52,9 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         
         self.searchBar(self.searchBar, textDidChange: self.searchBar.text ?? "")
         
-        loadData()
+        if self.filteredGroups.isEmpty {
+            loadData()
+        }
         
         self.tableView.reloadData()
     }

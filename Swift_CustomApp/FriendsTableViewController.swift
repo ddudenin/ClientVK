@@ -60,7 +60,9 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadData()
+        if self.filteredFriends.isEmpty {
+            loadData()
+        }
 
         CalculateSectionsAndHeaders()
     }

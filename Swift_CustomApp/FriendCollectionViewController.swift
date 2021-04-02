@@ -51,7 +51,9 @@ class FriendCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadData()
+        if self.photos.isEmpty {
+            loadData()
+        }
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
