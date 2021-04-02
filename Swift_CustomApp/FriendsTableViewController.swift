@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
-    
-    private var filteredFriends = [FriendItem]()
+    private var filteredFriends: [FriendItem] {
+        get {
+            let friends: Results<FriendItem>? = realmManager?.getObjects()
+            return friends?.toArray() ?? []
+        }
+        
+        set { }
+    }
     
     private struct Section {
         let letter : String
@@ -21,11 +28,24 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet var searchBar: UISearchBar!
     
+    private let networkManager = NetworkManager.instance
+    private let realmManager = RealmManager.instance
+    
     private func CalculateSectionsAndHeaders() {
         let sectionsData = Dictionary(grouping: self.filteredFriends, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
         self.sections = keys.map{ Section(letter: $0, friends: sectionsData[$0]!) }
         self.headers = self.sections.map{ $0.letter }
+    }
+    
+    private func loadData() {
+        networkManager.loadFriends() { [weak self] items in
+            DispatchQueue.main.async {
+                friendsArray = items
+                try? self?.realmManager?.add(objects: items)
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -35,16 +55,14 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         self.tableView.register(UINib(nibName: "FriendSectionHeader", bundle: .none), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
         self.searchBar.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        NetworkManager.instance.loadFriends() { [weak self] items in
-            self?.filteredFriends = items
-            friendsArray = items
-            
-            DispatchQueue.main.async {
-                self?.CalculateSectionsAndHeaders()
-                self?.tableView.reloadData()
-            }
-        }
+        loadData()
+
+        CalculateSectionsAndHeaders()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
