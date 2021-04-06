@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CommunitiesTableViewCell: UITableViewCell {
     
@@ -25,6 +26,6 @@ class CommunitiesTableViewCell: UITableViewCell {
     
     func configure(withGroup group: GroupItem) {
         self.fullNameLabel.text = group.name
-        self.photoImageView.image = GetImage(fromURL: group.photo50)
+        self.photoImageView.sd_setImage(with: URL(string: group.photo50))
     }
 }

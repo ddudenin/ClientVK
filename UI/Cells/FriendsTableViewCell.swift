@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FriendsTableViewCell: UITableViewCell {
     
@@ -25,6 +26,6 @@ class FriendsTableViewCell: UITableViewCell {
     
     func configure(withFriend friend: FriendItem) {
         self.fullNameLabel.text = friend.getFullName()
-        self.photoView.photoImageView.image = GetImage(fromURL: friend.photo200_Orig)
+        self.photoView.photoImageView.sd_setImage(with: URL(string: friend.photo200_Orig))
     }
 }

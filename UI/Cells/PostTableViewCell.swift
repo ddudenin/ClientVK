@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -43,7 +44,7 @@ class PostTableViewCell: UITableViewCell {
     
     func configure(withPost post: Post) {
         self.createdByLabel.text = post.createdBy.getFullName()
-        self.profileImageView.image = GetImage(fromURL: post.createdBy.photo200_Orig)
+        self.profileImageView.sd_setImage(with: URL(string: post.createdBy.photo200_Orig))
         self.captionLabel.text = post.caption
         self.imagesNames = post.imagesNames
         self.likeControl.configure(withLikesCount: post.likesCount, withState: Bool.random())
@@ -66,8 +67,8 @@ extension PostTableViewCell: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostImageCell", for: indexPath) as! PostImageCollectionViewCell
         
-        cell.imageView.image = GetImage(fromURL: self.imagesNames[indexPath.row])
-        
+        cell.imageView.sd_setImage(with: URL(string: self.imagesNames[indexPath.row]))
+
         return cell
     }
 }

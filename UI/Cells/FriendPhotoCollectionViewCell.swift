@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FriendPhotoCollectionViewCell: UICollectionViewCell {
     
@@ -17,7 +18,7 @@ class FriendPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(withPhoto photo: PhotoItem) {
-        self.photoImageView.image = GetImage(fromURL: photo.sizes.last!.url)
+        self.photoImageView.sd_setImage(with: URL(string: photo.sizes.last!.url))
         self.clipsToBounds = false
     }
 }
