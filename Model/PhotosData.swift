@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class PhotosJSONData: Codable {
     let response: PhotosResponse
@@ -16,14 +17,17 @@ class PhotosResponse: Codable {
     let items: [PhotoItem]
 }
 
-class PhotoItem: Codable {
-    let albumID, date, id, ownerID: Int
-    let hasTags: Bool
-    let postID: Int?
-    let sizes: [Size]
-    let text: String
-    let likes: Likes
-    let reposts: Reposts
+class PhotoItem: Object, Codable {
+    @objc dynamic var albumID: Int = -1
+    @objc dynamic var date: Int = 0
+    @objc dynamic var id: Int = -1
+    @objc dynamic var ownerID: Int = -1
+    @objc dynamic var hasTags: Bool = false
+    var postID = RealmOptional<Int>().value
+    var sizes: [Size]
+    @objc dynamic var text: String = ""
+    @objc dynamic var likes: Likes?
+    @objc dynamic var reposts: Reposts?
     
     enum CodingKeys: String, CodingKey {
         case albumID = "album_id"
@@ -33,10 +37,15 @@ class PhotoItem: Codable {
         case postID = "post_id"
         case sizes, text, likes, reposts
     }
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }
 
-class Likes: Codable {
-    let userLikes, count: Int
+class Likes: Object, Codable {
+    @objc dynamic var userLikes: Int = 0
+    @objc dynamic var count: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case userLikes = "user_likes"
@@ -44,15 +53,15 @@ class Likes: Codable {
     }
 }
 
-class Reposts: Codable {
-    let count: Int
+class Reposts: Object, Codable {
+    @objc dynamic var count: Int = 0
 }
 
-class Size: Codable {
-    let height: Int
-    let url: String
-    let type: TypeEnum
-    let width: Int
+class Size: Object, Codable {
+    @objc dynamic var height: Int = 0
+    @objc dynamic var url: String = ""
+    @objc dynamic var type: String = ""
+    @objc dynamic var width: Int = 0
 }
 
 enum TypeEnum: String, Codable {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,6 +33,7 @@
 		39C00A7425E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */; };
 		39C00A7925E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7725E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift */; };
 		39C00A7A25E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C00A7825E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib */; };
+		39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E66E7926165CA70036C738 /* RealmManager.swift */; };
 		39FFA62C25DDB5CB003B7265 /* DotsLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */; };
 		8B193BC025C5AE200043AF16 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */; };
 		8B193BC125C5AE200043AF16 /* FriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */; };
@@ -50,9 +51,11 @@
 		8B4ED2CD25BC92AF00485879 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B4ED2CB25BC92AF00485879 /* LaunchScreen.storyboard */; };
 		8B4ED2D825BC93A800485879 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4ED2D725BC93A800485879 /* LoginFormController.swift */; };
 		8B765CA925C1C2E40079984A /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B765CA825C1C2E40079984A /* FriendsTableViewController.swift */; };
+		90C35D40CA3704D944C4CA52 /* Pods_Swift_CustomApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54675FF79E537326983F5B9 /* Pods_Swift_CustomApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C34517722B321A4400109A4 /* Pods-Swift_CustomApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift_CustomApp.debug.xcconfig"; path = "Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp.debug.xcconfig"; sourceTree = "<group>"; };
 		391CB80125D598A800085064 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		392A7D6E25E58D8B007A6290 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
 		392A7D7225E58E59007A6290 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
@@ -78,7 +81,9 @@
 		39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		39C00A7725E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		39C00A7825E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
+		39E66E7926165CA70036C738 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsLoadingIndicator.swift; sourceTree = "<group>"; };
+		5AA4795B742FB570B9B06AFD /* Pods-Swift_CustomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift_CustomApp.release.xcconfig"; path = "Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp.release.xcconfig"; sourceTree = "<group>"; };
 		8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
 		8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsTableViewCell.xib; sourceTree = "<group>"; };
 		8B193BCA25C5B3110043AF16 /* FriendData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendData.swift; sourceTree = "<group>"; };
@@ -98,6 +103,7 @@
 		8B4ED2CE25BC92AF00485879 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B4ED2D725BC93A800485879 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
 		8B765CA825C1C2E40079984A /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
+		F54675FF79E537326983F5B9 /* Pods_Swift_CustomApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swift_CustomApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				394E9F662603D99500895183 /* WebKit.framework in Frameworks */,
+				90C35D40CA3704D944C4CA52 /* Pods_Swift_CustomApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				394E9F652603D99500895183 /* WebKit.framework */,
+				F54675FF79E537326983F5B9 /* Pods_Swift_CustomApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,6 +183,14 @@
 				3971559725CC8AA400470CED /* LikeControl.swift */,
 			);
 			path = CustomItems;
+			sourceTree = "<group>";
+		};
+		39E66E7826165C850036C738 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				39E66E7926165CA70036C738 /* RealmManager.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		8B193BB525C5AC850043AF16 /* Cells */ = {
@@ -210,12 +226,14 @@
 		8B4ED2B425BC92AE00485879 = {
 			isa = PBXGroup;
 			children = (
+				39E66E7826165C850036C738 /* Realm */,
 				39CCFB612604C0A90031D326 /* UI */,
 				39312D4C260146D9002997E0 /* Network */,
 				8B193BC325C5AF6A0043AF16 /* Model */,
 				8B4ED2BF25BC92AE00485879 /* Swift_CustomApp */,
 				8B4ED2BE25BC92AE00485879 /* Products */,
 				394E9F642603D99500895183 /* Frameworks */,
+				DF6382806A5BEB60A44DAD7A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -251,6 +269,15 @@
 			path = Swift_CustomApp;
 			sourceTree = "<group>";
 		};
+		DF6382806A5BEB60A44DAD7A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2C34517722B321A4400109A4 /* Pods-Swift_CustomApp.debug.xcconfig */,
+				5AA4795B742FB570B9B06AFD /* Pods-Swift_CustomApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -258,9 +285,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B4ED2D125BC92AF00485879 /* Build configuration list for PBXNativeTarget "Swift_CustomApp" */;
 			buildPhases = (
+				A26349906DD2ECD9076A0D9A /* [CP] Check Pods Manifest.lock */,
 				8B4ED2B925BC92AE00485879 /* Sources */,
 				8B4ED2BA25BC92AE00485879 /* Frameworks */,
 				8B4ED2BB25BC92AE00485879 /* Resources */,
+				FBF25D8FBF46049D2744A811 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -323,6 +352,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A26349906DD2ECD9076A0D9A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Swift_CustomApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBF25D8FBF46049D2744A811 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8B4ED2B925BC92AE00485879 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -330,6 +401,7 @@
 			files = (
 				39312D4E260146FB002997E0 /* Session.swift in Sources */,
 				3992149525E453570092E1E8 /* CloudLoaderIndicator.swift in Sources */,
+				39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */,
 				8B193BE225C5FFD50043AF16 /* GroupData.swift in Sources */,
 				39C00A7925E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift in Sources */,
 				397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */,
@@ -503,6 +575,7 @@
 		};
 		8B4ED2D225BC92AF00485879 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C34517722B321A4400109A4 /* Pods-Swift_CustomApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -522,6 +595,7 @@
 		};
 		8B4ED2D325BC92AF00485879 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AA4795B742FB570B9B06AFD /* Pods-Swift_CustomApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
