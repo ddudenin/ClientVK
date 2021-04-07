@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mVJ-AC-Ggt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -307,7 +307,7 @@
             </objects>
             <point key="canvasLocation" x="3422" y="1663"/>
         </scene>
-        <!--Recommended-->
+        <!--Global search-->
         <scene sceneID="dNw-62-8hR">
             <objects>
                 <tableViewController storyboardIdentifier="GlobalCommunitiesTableView" id="yHi-8h-1SC" customClass="GlobalCommunitiesTableViewController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -346,7 +346,7 @@
                             <outlet property="delegate" destination="yHi-8h-1SC" id="w6e-55-5L6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Recommended" id="eev-IY-5eG"/>
+                    <navigationItem key="navigationItem" title="Global search" id="eev-IY-5eG"/>
                     <connections>
                         <outlet property="searchBar" destination="MBL-BJ-taz" id="AAX-ES-uG0"/>
                     </connections>

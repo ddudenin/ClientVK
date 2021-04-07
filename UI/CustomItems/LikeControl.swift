@@ -17,8 +17,7 @@ class LikeControl: UIControl {
     var likeButton : UIButton = UIButton(type: .custom)
     
     private var likeCountLabel: UILabel = UILabel()
-    //private var stackView: UIStackView!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
@@ -34,16 +33,6 @@ class LikeControl: UIControl {
         self.likeButton.setImage(UIImage(named: "heart_filled"), for: .selected)
         
         self.likeButton.addTarget(self, action: #selector(handleLikeTap(_:)), for: .touchUpInside)
-        
-        let btnState = Bool.random()
-        
-        if btnState {
-            self.likeButton.isSelected = btnState
-            self.likeCount = UInt.random(in: 1...1000000)
-            self.likeCountLabel.textColor = self.selectColor
-        } else {
-            self.likeCountLabel.textColor = self.deselectedColor
-        }
         
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
         self.likeCountLabel.font = self.likeCountLabel.font.withSize(12)
@@ -78,6 +67,27 @@ class LikeControl: UIControl {
         self.likeCountLabel.textColor = newState && self.likeCount > 0 ? self.selectColor : self.deselectedColor
         
         self.animate()
+    }
+    
+    func configure(withLikes like: Likes) {
+        self.likeCount = UInt(like.count)
+        
+        let state = like.userLikes == 1
+        self.likeButton.isSelected = state
+        
+        self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
+        
+        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
+    }
+    
+    func configure(withLikesCount count: UInt, withState state: Bool) {
+        self.likeCount = count
+        
+        self.likeButton.isSelected = state
+        
+        self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
+        
+        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
     }
     
     private func animate() {

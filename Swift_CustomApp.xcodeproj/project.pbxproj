@@ -25,9 +25,11 @@
 		3971559825CC8AA400470CED /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3971559725CC8AA400470CED /* LikeControl.swift */; };
 		39723BD225D7E07900866D33 /* PostCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */; };
 		397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397CD8C425CB3DB900432501 /* AvatarView.swift */; };
+		398AA3BB260A8459008B0F14 /* UsefulFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */; };
 		3992149525E453570092E1E8 /* CloudLoaderIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */; };
 		39AEA5ED25D83E8200384E1C /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AEA5EB25D83E8200384E1C /* PostImageCollectionViewCell.swift */; };
 		39AEA5EE25D83E8200384E1C /* PostImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39AEA5EC25D83E8200384E1C /* PostImageCollectionViewCell.xib */; };
+		39B042E82609EC1A0006802A /* PhotosData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B042E72609EC1A0006802A /* PhotosData.swift */; };
 		39C00A7425E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */; };
 		39C00A7925E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7725E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift */; };
 		39C00A7A25E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C00A7825E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib */; };
@@ -68,9 +70,11 @@
 		3971559725CC8AA400470CED /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewLayout.swift; sourceTree = "<group>"; };
 		397CD8C425CB3DB900432501 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulFunctions.swift; sourceTree = "<group>"; };
 		3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudLoaderIndicator.swift; sourceTree = "<group>"; };
 		39AEA5EB25D83E8200384E1C /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		39AEA5EC25D83E8200384E1C /* PostImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		39B042E72609EC1A0006802A /* PhotosData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosData.swift; sourceTree = "<group>"; };
 		39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		39C00A7725E2D035008FFB25 /* FriendPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		39C00A7825E2D035008FFB25 /* FriendPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				8B193BCA25C5B3110043AF16 /* FriendData.swift */,
 				8B193BE125C5FFD50043AF16 /* GroupData.swift */,
 				391CB80125D598A800085064 /* PostData.swift */,
+				39B042E72609EC1A0006802A /* PhotosData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */,
 				3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */,
 				394E9F682603DA7400895183 /* VKLoginWebViewController.swift */,
+				398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */,
 			);
 			path = Swift_CustomApp;
 			sourceTree = "<group>";
@@ -349,7 +355,9 @@
 				8B193BD325C5CDE10043AF16 /* FriendCollectionViewController.swift in Sources */,
 				3971559825CC8AA400470CED /* LikeControl.swift in Sources */,
 				8B765CA925C1C2E40079984A /* FriendsTableViewController.swift in Sources */,
+				39B042E82609EC1A0006802A /* PhotosData.swift in Sources */,
 				8B4ED2C125BC92AE00485879 /* AppDelegate.swift in Sources */,
+				398AA3BB260A8459008B0F14 /* UsefulFunctions.swift in Sources */,
 				392A7D7325E58E59007A6290 /* CustomPopAnimator.swift in Sources */,
 				8B193BC025C5AE200043AF16 /* FriendsTableViewCell.swift in Sources */,
 			);

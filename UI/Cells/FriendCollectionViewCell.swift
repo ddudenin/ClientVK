@@ -10,10 +10,15 @@ import UIKit
 class FriendCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var photoImageView: UIImageView!
+    @IBOutlet var likeControl: LikeControl!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
+    func configure(withPhoto photo: PhotoItem) {
+        self.photoImageView.image = GetImage(fromURL: photo.sizes.last!.url)
+        self.likeControl.configure(withLikes: photo.likes)
+    }
 }

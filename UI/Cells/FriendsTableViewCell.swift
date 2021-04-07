@@ -22,4 +22,9 @@ class FriendsTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+    
+    func configure(withFriend friend: FriendItem) {
+        self.fullNameLabel.text = friend.getFullName()
+        self.photoView.photoImageView.image = GetImage(fromURL: friend.photo200_Orig)
+    }
 }

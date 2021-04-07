@@ -8,7 +8,7 @@
 import Foundation
 
 struct Post {
-    let createdBy: Friend
+    let createdBy: FriendItem
     let caption: String
     let imagesNames: [String]
     var likesCount: UInt
@@ -16,10 +16,10 @@ struct Post {
     var sharesCount: UInt
     var viewsCount: UInt
     
-    init(user: Friend, caption: String) {
+    init(user: FriendItem, caption: String) {
         self.createdBy = user
         self.caption = caption
-        self.imagesNames = Array(repeating: user.photoName, count: Int.random(in: 1...10))
+        self.imagesNames = Array(repeating: user.photo200_Orig, count: Int.random(in: 1...10))
         
         self.likesCount = UInt.random(in: 0...1000000)
         self.commentsCount = UInt.random(in: 0...1000000)
@@ -36,19 +36,3 @@ var postsData = [
     Post(user: friendsArray.randomElement()!, caption: "Apple launches major new Racial Equity and Justice Initiative projects to challenge systemic racism, advance racial equity nationwide. Commitments build on Apple’s $100 million pledge and include a first-of-its-kind education hub for HBCUs and an Apple Developer Academy in Detroit"),
     Post(user: friendsArray.randomElement()!, caption: "Monica Lozano joins Apple’s board of directors")
 ]
-
-func convertCountToString(count number: UInt) -> String {
-    let unitAbbreviations = ["K", "M", "B"]
-    
-    var value = Float(number)
-    var index = -1
-    
-    while value >= 1000 {
-        value /= 1000
-        index += 1
-    }
-    
-    guard index != -1 else { return "\(number)" }
-    
-    return  String(format: "%.1f", value) + unitAbbreviations[index]
-}

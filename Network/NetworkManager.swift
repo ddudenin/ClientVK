@@ -13,16 +13,30 @@ class NetworkManager {
     private init() {
         
     }
-    
-    private func runRequest(urlComponents: URLComponents) {
+        
+    func loadFriends(complition: @escaping ([FriendItem]) -> ()) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.vk.com"
+        urlComponents.path = "/method/friends.get"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "access_token", value: Session.instance.token),
+            URLQueryItem(name: "order", value: "hints"),
+            URLQueryItem(name: "fields", value: "name, photo_200_orig"),
+            URLQueryItem(name: "v", value: "5.130")
+        ]
+        
         guard let url = urlComponents.url else { return }
         
         let session = URLSession.shared
         
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
-                if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) {
-                    print(json)
+                do {
+                    let friends = try JSONDecoder().decode(FriendsJSONData.self, from: data)
+                    complition(friends.response.items)
+                } catch {
+                    print(error.localizedDescription)
                 }
             } else if let error = error {
                 print(error.localizedDescription)
@@ -32,39 +46,40 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadFriends() {
+    
+    func loadPhotos(userId: Int, complition: @escaping ([PhotoItem]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
-        urlComponents.path = "/method/friends.get"
+        urlComponents.path = "/method/photos.getAll"
         urlComponents.queryItems = [
             URLQueryItem(name: "access_token", value: Session.instance.token),
-            URLQueryItem(name: "order", value: "hints"),
-            URLQueryItem(name: "fields", value: "nickname"),
-            URLQueryItem(name: "v", value: "5.130")
-        ]
-        
-        runRequest(urlComponents: urlComponents)
-    }
-    
-    
-    func loadPhotos() {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "api.vk.com"
-        urlComponents.path = "/method/photos.get"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "access_token", value: Session.instance.token),
-            URLQueryItem(name: "owner_id", value: "\(Session.instance.userId)"),
-            URLQueryItem(name: "album_id", value: "profile"),
+            URLQueryItem(name: "owner_id", value: "\(userId)"),
             URLQueryItem(name: "extended", value: "1"),
             URLQueryItem(name: "v", value: "5.130")
         ]
         
-        runRequest(urlComponents: urlComponents)
+        guard let url = urlComponents.url else { return }
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                do {
+                    let photos = try JSONDecoder().decode(PhotosJSONData.self, from: data)
+                    complition(photos.response.items)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        dataTask.resume()
     }
     
-    func loadGroups() {
+    func loadGroups(complition: @escaping ([GroupItem]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -75,10 +90,27 @@ class NetworkManager {
             URLQueryItem(name: "v", value: "5.130")
         ]
         
-        runRequest(urlComponents: urlComponents)
+        guard let url = urlComponents.url else { return }
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                do {
+                    let groups = try JSONDecoder().decode(GroupsJSONData.self, from: data)
+                    complition(groups.response.items)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        dataTask.resume()
     }
     
-    func loadGroups(searchText: String) {
+    func loadGroups(searchText: String, complition: @escaping ([GroupItem]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -90,6 +122,23 @@ class NetworkManager {
             URLQueryItem(name: "v", value: "5.130")
         ]
         
-        runRequest(urlComponents: urlComponents)
+        guard let url = urlComponents.url else { return }
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                do {
+                    let groups = try JSONDecoder().decode(GroupsJSONData.self, from: data)
+                    complition(groups.response.items)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        dataTask.resume()
     }
 }

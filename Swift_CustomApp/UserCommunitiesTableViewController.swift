@@ -9,7 +9,7 @@ import UIKit
 
 class UserCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
     
-    var filteredGroups = [Group]()
+    var filteredGroups = [GroupItem]()
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -20,7 +20,16 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         
         self.searchBar.delegate = self
         
-        self.filteredGroups = groups
+        if groups.isEmpty {
+            NetworkManager.instance.loadGroups() { [weak self] items in
+                groups = items
+                self?.filteredGroups = groups
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +52,7 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
         
         // Configure the cell...
-        
-        let group = self.filteredGroups[indexPath.row]
-        cell.fullNameLabel.text = group.name
-        cell.photoImageView.image = UIImage(systemName: group.avatarName)
+        cell.configure(withGroup: self.filteredGroups[indexPath.row])
         
         return cell
     }
@@ -57,7 +63,6 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            groupsGlobal.append(self.filteredGroups[indexPath.row])
             groups.removeAll(where: {$0.name == self.filteredGroups[indexPath.row].name})
             self.filteredGroups.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -84,11 +89,11 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filteredGroups = []
         
-        if searchText.count == 0 {
+        if searchText.isEmpty {
             self.filteredGroups = groups
         } else {
             for group in groups where group.name.lowercased().contains(searchText.lowercased()) {
-                filteredGroups.append(group)
+                self.filteredGroups.append(group)
             }
         }
         
