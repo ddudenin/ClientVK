@@ -14,15 +14,14 @@ class FriendsJSONData: Codable {
 
 class FriendsResponse: Codable {
     let count: Int
-    let items: [FriendItem]
+    let items: [User]
 }
 
-class FriendItem: Object, Codable {
+class User: Object, Codable {
     @objc dynamic var firstName: String = ""
     @objc dynamic var id: Int = -1
     @objc dynamic var lastName: String = ""
     @objc dynamic var canAccessClosed: Bool = false
-    @objc dynamic var isClosed: Bool = false
     @objc dynamic var photo200_Orig: String = ""
     @objc dynamic var trackCode: String = ""
     
@@ -31,7 +30,6 @@ class FriendItem: Object, Codable {
         case id
         case lastName = "last_name"
         case canAccessClosed = "can_access_closed"
-        case isClosed = "is_closed"
         case photo200_Orig = "photo_200_orig"
         case trackCode = "track_code"
     }
@@ -44,5 +42,3 @@ class FriendItem: Object, Codable {
         return "id"
     }
 }
-
-var friendsArray: [FriendItem] = []

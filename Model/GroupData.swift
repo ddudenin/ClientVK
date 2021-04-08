@@ -14,10 +14,10 @@ class GroupsJSONData: Codable {
 
 class GroupsResponse: Codable {
     let count: Int
-    let items: [GroupItem]
+    let items: [Group]
 }
 
-class GroupItem: Object, Codable {
+class Group: Object, Codable {
     @objc dynamic var id: Int = -1
     @objc dynamic var name: String = ""
     @objc dynamic var screenName: String = ""
@@ -47,5 +47,3 @@ class GroupItem: Object, Codable {
         return "id"
     }
 }
-
-var groups: [GroupItem] = []

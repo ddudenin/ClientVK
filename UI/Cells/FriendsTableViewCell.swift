@@ -24,7 +24,7 @@ class FriendsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withFriend friend: FriendItem) {
+    func configure(withFriend friend: User) {
         self.fullNameLabel.text = friend.getFullName()
         self.photoView.photoImageView.sd_setImage(with: URL(string: friend.photo200_Orig))
     }

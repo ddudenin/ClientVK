@@ -12,7 +12,7 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
     
     @IBOutlet var searchBar: UISearchBar!
     
-    var searchGroups = [GroupItem]()
+    var searchGroups = [Group]()
     
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance

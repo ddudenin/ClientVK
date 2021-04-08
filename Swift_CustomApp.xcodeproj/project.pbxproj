@@ -167,6 +167,7 @@
 		39CCFB612604C0A90031D326 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				39EB3EE2261F838C00DA36DD /* Screens */,
 				39CCFB622604C11A0031D326 /* CustomItems */,
 				8B193BB525C5AC850043AF16 /* Cells */,
 				393766EE25D4264600FFB8D5 /* Headers */,
@@ -181,6 +182,8 @@
 			children = (
 				397CD8C425CB3DB900432501 /* AvatarView.swift */,
 				3971559725CC8AA400470CED /* LikeControl.swift */,
+				39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */,
+				3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */,
 			);
 			path = CustomItems;
 			sourceTree = "<group>";
@@ -191,6 +194,22 @@
 				39E66E7926165CA70036C738 /* RealmManager.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		39EB3EE2261F838C00DA36DD /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				8B4ED2D725BC93A800485879 /* LoginFormController.swift */,
+				394E9F682603DA7400895183 /* VKLoginWebViewController.swift */,
+				8B765CA825C1C2E40079984A /* FriendsTableViewController.swift */,
+				8B193BD225C5CDE10043AF16 /* FriendCollectionViewController.swift */,
+				39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */,
+				8B193BDB25C5E8A60043AF16 /* UserCommunitiesTableViewController.swift */,
+				8B193BDE25C5E8C90043AF16 /* GlobalCommunitiesTableViewController.swift */,
+				393766F625D471D500FFB8D5 /* FeedTableViewController.swift */,
+				39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		8B193BB525C5AC850043AF16 /* Cells */ = {
@@ -248,22 +267,11 @@
 		8B4ED2BF25BC92AE00485879 /* Swift_CustomApp */ = {
 			isa = PBXGroup;
 			children = (
-				8B765CA825C1C2E40079984A /* FriendsTableViewController.swift */,
 				8B4ED2C025BC92AE00485879 /* AppDelegate.swift */,
 				8B4ED2C625BC92AE00485879 /* Main.storyboard */,
 				8B4ED2C925BC92AF00485879 /* Assets.xcassets */,
 				8B4ED2CB25BC92AF00485879 /* LaunchScreen.storyboard */,
-				8B193BD225C5CDE10043AF16 /* FriendCollectionViewController.swift */,
 				8B4ED2CE25BC92AF00485879 /* Info.plist */,
-				8B4ED2D725BC93A800485879 /* LoginFormController.swift */,
-				8B193BDB25C5E8A60043AF16 /* UserCommunitiesTableViewController.swift */,
-				8B193BDE25C5E8C90043AF16 /* GlobalCommunitiesTableViewController.swift */,
-				393766F625D471D500FFB8D5 /* FeedTableViewController.swift */,
-				39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */,
-				39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */,
-				39C00A7325E2B1CC008FFB25 /* FriendsPhotosCollectionViewController.swift */,
-				3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */,
-				394E9F682603DA7400895183 /* VKLoginWebViewController.swift */,
 				398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */,
 			);
 			path = Swift_CustomApp;

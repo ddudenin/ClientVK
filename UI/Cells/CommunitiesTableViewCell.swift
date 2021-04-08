@@ -24,7 +24,7 @@ class CommunitiesTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withGroup group: GroupItem) {
+    func configure(withGroup group: Group) {
         self.fullNameLabel.text = group.name
         self.photoImageView.sd_setImage(with: URL(string: group.photo50))
     }

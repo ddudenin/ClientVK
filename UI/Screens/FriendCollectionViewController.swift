@@ -10,14 +10,14 @@ import RealmSwift
 
 class FriendCollectionViewController: UICollectionViewController {
     
-    var friend: FriendItem?
+    var friend: User?
 
-    private var photos: [PhotoItem] {
+    private var photos: Results<PhotoItem>? {
         get {
-            guard let friend = self.friend else { return [] }
+            guard let friend = self.friend else { return nil }
 
             let photos: Results<PhotoItem>? = realmManager?.getObjects()
-            return photos?.filter("ownerID = %@", friend.id).toArray() ?? []
+            return photos?.filter("ownerID = %@", friend.id)
         }
         
         set { }
@@ -51,8 +51,8 @@ class FriendCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.photos.isEmpty {
-            loadData()
+        if let userPhoto = self.photos, userPhoto.isEmpty {
+                loadData()
         }
     }
     
@@ -61,14 +61,18 @@ class FriendCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return photos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCell", for: indexPath) as! FriendCollectionViewCell
         
         // Configure the cell
-        cell.configure(withPhoto: photos[indexPath.row])
+        guard let photo = self.photos?[indexPath.row] else {
+            return UICollectionViewCell()
+        }
+        
+        cell.configure(withPhoto: photo)
         
         return cell
     }

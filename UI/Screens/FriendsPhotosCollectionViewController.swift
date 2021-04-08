@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsPhotosCollectionViewController: UICollectionViewController {
-    var photos: [PhotoItem] = []
+    var photos: Results<PhotoItem>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +24,17 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photos.count
+        return self.photos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
-        cell.configure(withPhoto: self.photos[indexPath.row])
+        guard let photo = self.photos?[indexPath.row] else {
+            return UICollectionViewCell()
+        }
+        
+        cell.configure(withPhoto: photo)
         
         return cell
     }

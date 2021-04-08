@@ -9,31 +9,58 @@ import UIKit
 import RealmSwift
 
 class UserCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
+    private var searchText = ""
     
-    private var searchText: String = ""
+    @IBOutlet var searchBar: UISearchBar!
     
-    private var filteredGroups: [GroupItem] {
+    private var userGroups: Results<Group>? {
         get {
-            let groups: Results<GroupItem>? = realmManager?.getObjects()
+            let groups: Results<Group>? = realmManager?.getObjects()
             
-            guard !searchText.isEmpty else { return groups?.toArray() ?? [] }
+            guard !self.searchText.isEmpty else { return groups }
             
-            return groups?.filter("name CONTAINS %@", searchText).toArray() ?? []
+            return groups?.filter("name CONTAINS %@", self.searchText)
         }
         
         set { }
     }
     
-    @IBOutlet var searchBar: UISearchBar!
-    
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance
+    private var notificationToken: NotificationToken?
     
     private func loadData() {
         networkManager.loadGroups() { [weak self] items in
             DispatchQueue.main.async {
                 try? self?.realmManager?.add(objects: items)
-                self?.tableView.reloadData()
+            }
+        }
+    }
+    
+    private func signToFilteredGroupsChanges() {
+        notificationToken = self.userGroups?.observe { [weak self] (change) in
+            switch change {
+            case .initial(let groups):
+                #if DEBUG
+                print("Initialized \(groups.count)")
+                #endif
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                self?.tableView.beginUpdates()
+                
+                let deletionsIndexPaths = deletions.map { IndexPath(row: $0, section: 0) }
+                let insertionsIndexPaths = insertions.map { IndexPath(row: $0, section: 0) }
+                let modificationsIndexPaths = modifications.map { IndexPath(row: $0, section: 0) }
+                
+                print(deletions, insertions, modifications)
+                
+                self?.tableView.deleteRows(at: deletionsIndexPaths, with: .automatic)
+                self?.tableView.insertRows(at: insertionsIndexPaths, with: .automatic)
+                self?.tableView.reloadRows(at: modificationsIndexPaths, with: .automatic)
+                
+                self?.tableView.endUpdates()
+                
+            case .error(let error):
+                print(error.localizedDescription)
             }
         }
     }
@@ -44,20 +71,24 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
         
         self.searchBar.delegate = self
+        signToFilteredGroupsChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.searchBar(self.searchBar, textDidChange: self.searchBar.text ?? "")
-        
-        if self.filteredGroups.isEmpty {
+        if let userGroups = self.userGroups, userGroups.isEmpty {
             loadData()
         }
-        
-        groups = self.filteredGroups
-        
-        self.tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchBar.text = ""
+        searchBar(self.searchBar, textDidChange: "")
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,14 +96,18 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredGroups.count
+        return self.userGroups?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
         
         // Configure the cell...
-        cell.configure(withGroup: self.filteredGroups[indexPath.row])
+        guard let group = self.userGroups?[indexPath.row] else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(withGroup: group)
         
         return cell
     }
@@ -84,10 +119,9 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             do {
-                try realmManager?.delete(object: self.filteredGroups[indexPath.row])
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            catch {
+                guard let userGroups = self.userGroups else { return }
+                try realmManager?.delete(object: userGroups[indexPath.row])
+            } catch {
                 print(error.localizedDescription)
             }
         }

@@ -11,9 +11,9 @@ import RealmSwift
 class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     private var searchText: String = ""
     
-    private var filteredFriends: [FriendItem] {
+    private var friends: [User] {
         get {
-            let friends: Results<FriendItem>? = realmManager?.getObjects()
+            let friends: Results<User>? = realmManager?.getObjects()
             
             guard !searchText.isEmpty else { return friends?.toArray() ?? [] }
             
@@ -25,7 +25,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     
     private struct Section {
         let letter : String
-        let friends : [FriendItem]
+        let friends : [User]
     }
     
     private var sections = [Section]()
@@ -37,7 +37,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     private let realmManager = RealmManager.instance
     
     private func CalculateSectionsAndHeaders() {
-        let sectionsData = Dictionary(grouping: self.filteredFriends, by: { String($0.lastName.prefix(1)) })
+        let sectionsData = Dictionary(grouping: self.friends, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
         self.sections = keys.map{ Section(letter: $0, friends: sectionsData[$0]!) }
         self.headers = self.sections.map{ $0.letter }
@@ -64,11 +64,10 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.filteredFriends.isEmpty {
+        if self.friends.isEmpty {
             loadData()
         }
         
-        friendsArray = self.filteredFriends
         CalculateSectionsAndHeaders()
     }
     
@@ -119,6 +118,8 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
+    
+
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText

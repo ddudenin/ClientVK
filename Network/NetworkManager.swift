@@ -15,7 +15,7 @@ class NetworkManager {
         
     }
     
-    func loadFriends(complition: @escaping ([FriendItem]) -> ()) {
+    func loadFriends(complition: @escaping ([User]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -79,7 +79,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadGroups(complition: @escaping ([GroupItem]) -> ()) {
+    func loadGroups(complition: @escaping ([Group]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -110,7 +110,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadGroups(searchText: String, complition: @escaping ([GroupItem]) -> ()) {
+    func loadGroups(searchText: String, complition: @escaping ([Group]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
