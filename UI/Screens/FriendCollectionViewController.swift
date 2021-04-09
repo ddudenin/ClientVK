@@ -12,11 +12,11 @@ class FriendCollectionViewController: UICollectionViewController {
     
     var friend: User?
 
-    private var photos: Results<PhotoItem>? {
+    private var photos: Results<Photo>? {
         get {
             guard let friend = self.friend else { return nil }
 
-            let photos: Results<PhotoItem>? = realmManager?.getObjects()
+            let photos: Results<Photo>? = realmManager?.getObjects()
             return photos?.filter("ownerID = %@", friend.id)
         }
         
@@ -25,6 +25,7 @@ class FriendCollectionViewController: UICollectionViewController {
     
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance
+    private var notificationToken: NotificationToken?
     
     private func loadData() {
         guard let friend = self.friend else { return }
@@ -36,7 +37,35 @@ class FriendCollectionViewController: UICollectionViewController {
             }
         }
     }
-        
+    
+    private func signToPhotosChanges() {
+        notificationToken = self.photos?.observe { [weak self] (change) in
+            switch change {
+            case .initial(let photos):
+                #if DEBUG
+                print("Initialized \(photos.count)")
+                #endif
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+
+                let deletionsIndexPaths = deletions.map { IndexPath(row: $0, section: 0) }
+                let insertionsIndexPaths = insertions.map { IndexPath(row: $0, section: 0) }
+                let modificationsIndexPaths = modifications.map { IndexPath(row: $0, section: 0) }
+                
+                #if DEBUG
+                print(deletions, insertions, modifications)
+                #endif
+                
+                self?.collectionView.performBatchUpdates {
+                    self?.collectionView.deleteItems(at: deletionsIndexPaths)
+                    self?.collectionView.insertItems(at: insertionsIndexPaths)
+                    self?.collectionView.reloadItems(at: modificationsIndexPaths)
+                }
+            case .error(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +75,8 @@ class FriendCollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
         guard let friend = self.friend else { return }
         self.title = friend.getFullName()
+        
+        signToPhotosChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +85,10 @@ class FriendCollectionViewController: UICollectionViewController {
         if let userPhoto = self.photos, userPhoto.isEmpty {
                 loadData()
         }
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -73,7 +108,7 @@ class FriendCollectionViewController: UICollectionViewController {
         }
         
         cell.configure(withPhoto: photo)
-        
+ 
         return cell
     }
     

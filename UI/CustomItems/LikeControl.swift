@@ -70,14 +70,7 @@ class LikeControl: UIControl {
     }
     
     func configure(withLikes like: Likes) {
-        self.likeCount = UInt(like.count)
-        
-        let state = like.userLikes == 1
-        self.likeButton.isSelected = state
-        
-        self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
-        
-        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
+        configure(withLikesCount: UInt(like.count), withState: like.userLikes == 1)
     }
     
     func configure(withLikesCount count: UInt, withState state: Bool) {

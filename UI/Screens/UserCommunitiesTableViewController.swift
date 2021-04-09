@@ -37,7 +37,7 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         }
     }
     
-    private func signToFilteredGroupsChanges() {
+    private func signToGroupsChanges() {
         notificationToken = self.userGroups?.observe { [weak self] (change) in
             switch change {
             case .initial(let groups):
@@ -45,13 +45,16 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
                 print("Initialized \(groups.count)")
                 #endif
             case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                self?.tableView.beginUpdates()
-                
+   
                 let deletionsIndexPaths = deletions.map { IndexPath(row: $0, section: 0) }
                 let insertionsIndexPaths = insertions.map { IndexPath(row: $0, section: 0) }
                 let modificationsIndexPaths = modifications.map { IndexPath(row: $0, section: 0) }
                 
+                #if DEBUG
                 print(deletions, insertions, modifications)
+                #endif
+                
+                self?.tableView.beginUpdates()
                 
                 self?.tableView.deleteRows(at: deletionsIndexPaths, with: .automatic)
                 self?.tableView.insertRows(at: insertionsIndexPaths, with: .automatic)
@@ -71,7 +74,7 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
         
         self.searchBar.delegate = self
-        signToFilteredGroupsChanges()
+        signToGroupsChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -47,7 +47,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadPhotos(userId: Int, complition: @escaping ([PhotoItem]) -> ()) {
+    func loadPhotos(userId: Int, complition: @escaping ([Photo]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"

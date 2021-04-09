@@ -18,7 +18,7 @@ class FriendCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func configure(withPhoto photo: PhotoItem) {
+    func configure(withPhoto photo: Photo) {
         self.photoImageView.sd_setImage(with: URL(string: photo.sizes.last!.url))
         self.likeControl.configure(withLikes: photo.likes!)
     }

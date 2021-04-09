@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 class FriendsPhotosCollectionViewController: UICollectionViewController {
-    var photos: Results<PhotoItem>?
+    var photos: Results<Photo>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
