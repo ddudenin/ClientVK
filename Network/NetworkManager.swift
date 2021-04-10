@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 class NetworkManager {
     static let instance = NetworkManager()
