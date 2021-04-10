@@ -111,8 +111,19 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
+        let handle: (Bool, Int) -> Void = { [weak self] state, count in
+            do {
+                self?.realmManager?.beginWrite()
+                photo.likes?.userLikes = state ? 1 : 0
+                photo.likes?.count = count
+                try self?.realmManager?.endWrite()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
         // Configure the cell
-        cell.configure(withPhoto: photo)
+        cell.configure(withPhoto: photo, handler: handle)
         
         return cell
     }

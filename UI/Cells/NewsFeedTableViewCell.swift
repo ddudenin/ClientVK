@@ -48,7 +48,7 @@ final class NewsFeedTableViewCell: UITableViewCell {
         self.profileImageView.sd_setImage(with: URL(string: post.createdBy.photo200_Orig))
         self.captionLabel.text = post.caption
         self.imagesNames = post.imagesNames
-        self.likeControl.configure(withLikesCount: post.likesCount, state: Bool.random())
+        self.likeControl.configure(withLikesCount: Int(post.likesCount), state: Bool.random())
         self.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
         self.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
         self.viewsCountLabel.text = convertCountToString(count: post.viewsCount)

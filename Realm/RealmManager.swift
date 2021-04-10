@@ -51,4 +51,12 @@ final class RealmManager {
             realm.deleteAll()
         }
     }
+    
+    func beginWrite() {
+        realm.beginWrite()
+    }
+    
+    func endWrite() throws {
+        try realm.commitWrite()
+    }
 }
