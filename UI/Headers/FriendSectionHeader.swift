@@ -9,9 +9,13 @@ import UIKit
 
 final class FriendSectionHeader: UITableViewHeaderFooterView {
     
-    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var sectionNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    func configure(withName name: String) {
+        self.sectionNameLabel.text = name
     }
 }
