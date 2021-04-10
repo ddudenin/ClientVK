@@ -9,4 +9,9 @@ target 'Swift_CustomApp' do
   pod 'RealmSwift', '~> 10.7'
   pod 'SDWebImage', '~> 5.11'
 
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+
 end

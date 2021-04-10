@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RealmSwift
+import FirebaseDatabase
 
 final class SearchGroupTableViewController: UITableViewController {
     
@@ -15,7 +15,7 @@ final class SearchGroupTableViewController: UITableViewController {
     private var searchGroups = [Group]()
     
     private let networkManager = NetworkManager.instance
-    private let realmManager = RealmManager.instance
+    private var groupsRef = Database.database().reference(withPath: "Groups")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,14 +42,20 @@ final class SearchGroupTableViewController: UITableViewController {
         return cell
     }
     
+    private func saveGroupToDatabse(group: Group) {
+        groupsRef.child("\(group.id)").setValue(group.toAnyObject()) {
+            [weak self] (error, _) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        do {
-            try realmManager?.add(object: self.searchGroups[indexPath.row])
-        } catch {
-            print(error.localizedDescription)
-        }
-        self.navigationController?.popViewController(animated: true)
+        saveGroupToDatabse(group: self.searchGroups[indexPath.row])
     }
 }
 

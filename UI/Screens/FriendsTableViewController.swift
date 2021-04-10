@@ -7,24 +7,16 @@
 
 import UIKit
 import RealmSwift
+import FirebaseDatabase
 
 class FriendsTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
     
-    private var searchText: String = ""
+    private var friendsRef = Database.database().reference(withPath: "Friends")
     
-    private var friends: Results<User>? {
-        get {
-            let friends: Results<User>? = realmManager?.getObjects()
-            
-            guard !self.searchText.isEmpty else { return friends }
-            
-            return friends?.filter("firstName CONTAINS %@ OR lastName  CONTAINS %@", self.searchText, self.searchText)
-        }
-        
-        set { }
-    }
+    private var friends = [User]()
+    private var filtered = [User]()
     
     private struct Section {
         let name: String
@@ -34,26 +26,48 @@ class FriendsTableViewController: UITableViewController {
     private var sections = [Section]()
     
     private let networkManager = NetworkManager.instance
-    private let realmManager = RealmManager.instance
     
     private func CalculateSectionsAndHeaders() {
-        guard let friends = self.friends else { return }
-        let sectionsData = Dictionary(grouping: friends, by: { String($0.lastName.prefix(1)) })
+        let sectionsData = Dictionary(grouping: self.filtered, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
         self.sections = keys.map{ Section(name: $0, items: sectionsData[$0]!) }
     }
     
     private func loadData() {
         self.networkManager.loadFriends() { [weak self] items in
-            DispatchQueue.main.async {
-                do {
-                    try self?.realmManager?.add(objects: items)
-                } catch {
-                    print(error.localizedDescription)
+            let firebaseUsers = items.map { User(from: $0) }
+            
+            for user in firebaseUsers {
+                self?.friendsRef.child("\(user.id)").setValue(user.toAnyObject())
+            }
+            
+            self?.CalculateSectionsAndHeaders()
+            self?.tableView.reloadData()
+        }
+    }
+    
+    private func loadDataFromFirebase() {
+        self.friendsRef.observe(.value) { [weak self] (snapshot) in
+            self?.friends.removeAll()
+            
+            guard !snapshot.children.allObjects.isEmpty else {
+                self?.loadData()
+                return
+            }
+            
+            for child in snapshot.children {
+                guard let child = child as? DataSnapshot,
+                      let user = User(snapshot: child) else {
+                    continue
                 }
                 
-                self?.tableView.reloadData()
+                self?.friends.append(user)
             }
+            
+            self?.filtered = self?.friends ?? []
+            friendsArray = self?.friends ?? []
+            self?.CalculateSectionsAndHeaders()
+            self?.tableView.reloadData()
         }
     }
     
@@ -64,16 +78,7 @@ class FriendsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "FriendSectionHeader", bundle: .none), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
         self.searchBar.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let friends = self.friends, friends.isEmpty {
-            loadData()
-        }
-        
-        CalculateSectionsAndHeaders()
+        loadDataFromFirebase()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -125,7 +130,12 @@ class FriendsTableViewController: UITableViewController {
 extension FriendsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchText = searchText
+        if searchText.isEmpty {
+            self.filtered = self.friends
+        } else {
+            self.filtered = self.friends.filter { $0.getFullName().lowercased().contains(searchText.lowercased())}
+        }
+        
         CalculateSectionsAndHeaders()
         self.tableView.reloadData()
     }

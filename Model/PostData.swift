@@ -29,7 +29,7 @@ struct Post {
     }
 }
 
-var friendsArray: [User] = RealmManager.instance?.getObjects().toArray() ?? []
+var friendsArray = [User]()
 
 var postsData = !friendsArray.isEmpty ? [
     Post(user: friendsArray.randomElement()!, caption: "Data Privacy Day at Apple: Improving transparency and empowering users. Data tracking is more widespread than ever. Learn how Apple’s privacy features help users take control over their data"),

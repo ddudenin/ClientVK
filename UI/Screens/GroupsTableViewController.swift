@@ -6,69 +6,53 @@
 //
 
 import UIKit
-import RealmSwift
+import FirebaseDatabase
 
 final class GroupsTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
     
-    private var searchText = ""
-    
-    private var userGroups: Results<Group>? {
-        get {
-            let groups: Results<Group>? = realmManager?.getObjects()
-            
-            guard !self.searchText.isEmpty else { return groups }
-            
-            return groups?.filter("name CONTAINS %@", self.searchText)
-        }
-        
-        set { }
-    }
+    private var groupsRef = Database.database().reference(withPath: "Groups")
+    private var userGroups = [Group]()
+    private var filtered = [Group]()
     
     private let networkManager = NetworkManager.instance
-    private let realmManager = RealmManager.instance
-    private var notificationToken: NotificationToken?
     
     private func loadData() {
         self.networkManager.loadGroups() { [weak self] items in
+            let firebaseGroups = items.map { Group(from: $0) }
+            
+            for group in firebaseGroups {
+                self?.groupsRef.child("\(group.id)").setValue(group.toAnyObject())
+            }
+            
             DispatchQueue.main.async {
-                do {
-                    try self?.realmManager?.add(objects: items)
-                } catch {
-                    print(error.localizedDescription)
-                }
+                self?.tableView.reloadData()
             }
         }
     }
     
-    private func signToGroupsChanges() {
-        self.notificationToken = self.userGroups?.observe { [weak self] (change) in
-            switch change {
-            case .initial(let groups):
-                #if DEBUG
-                print("Initialized \(groups.count)")
-                #endif
-            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+    private func loadDataFromFirebase() {
+        self.groupsRef.observe(.value) { [weak self] (snapshot) in
+            self?.userGroups.removeAll()
+            
+            guard !snapshot.children.allObjects.isEmpty else {
+                self?.loadData()
+                return
+            }
+            
+            for child in snapshot.children {
+                guard let child = child as? DataSnapshot,
+                      let group = Group(snapshot: child) else {
+                    continue
+                }
                 
-                let deletionsIndexPaths = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexPaths = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexPaths = modifications.map { IndexPath(row: $0, section: 0) }
-                
-                #if DEBUG
-                print(deletions, insertions, modifications)
-                #endif
-                
-                self?.tableView.beginUpdates()
-                
-                self?.tableView.deleteRows(at: deletionsIndexPaths, with: .automatic)
-                self?.tableView.insertRows(at: insertionsIndexPaths, with: .automatic)
-                self?.tableView.reloadRows(at: modificationsIndexPaths, with: .automatic)
-                
-                self?.tableView.endUpdates()
-                
-            case .error(let error):
-                print(error.localizedDescription)
+                self?.userGroups.append(group)
+            }
+            
+            DispatchQueue.main.async {
+                self?.filtered = self?.userGroups ?? []
+                self?.tableView.reloadData()
             }
         }
     }
@@ -79,23 +63,7 @@ final class GroupsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "GroupsTableViewCell", bundle: .none), forCellReuseIdentifier: "GroupCell")
         
         self.searchBar.delegate = self
-        signToGroupsChanges()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let userGroups = self.userGroups, userGroups.isEmpty {
-            loadData()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        searchBar(self.searchBar, textDidChange: "")
-    }
-    
-    deinit {
-        self.notificationToken?.invalidate()
+        loadDataFromFirebase()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -103,18 +71,14 @@ final class GroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.userGroups?.count ?? 0
+        return self.filtered.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let group = self.userGroups?[indexPath.row] else {
-            return UITableViewCell()
-        }
-        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsTableViewCell
         
         // Configure the cell...
-        cell.configure(withGroup: group)
+        cell.configure(withGroup: self.filtered[indexPath.row])
         
         return cell
     }
@@ -125,12 +89,13 @@ final class GroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let userGroups = self.userGroups else { return }
-            
-            do {
-                try realmManager?.delete(object: userGroups[indexPath.row])
-            } catch {
-                print(error.localizedDescription)
+            self.filtered[indexPath.row].ref?.removeValue() { [weak self] (error, ref) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    self?.tableView.reloadData()
+                }
+                
             }
         }
     }
@@ -145,7 +110,12 @@ final class GroupsTableViewController: UITableViewController {
 extension GroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchText = searchText
+        if searchText.isEmpty {
+            self.filtered = self.userGroups
+        } else {
+            self.filtered = self.userGroups.filter { $0.name.lowercased().contains(searchText.lowercased())}
+        }
+        
         self.tableView.reloadData()
     }
 }
