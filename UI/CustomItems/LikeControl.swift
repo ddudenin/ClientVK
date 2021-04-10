@@ -7,15 +7,13 @@
 
 import UIKit
 
-class LikeControl: UIControl {
+final class LikeControl: UIControl {
     
-    var likeCount: UInt = 0
-    
+    private var likeCount: UInt = 0
     private let selectColor: UIColor = UIColor.black
     private let deselectedColor: UIColor = UIColor.darkGray
     
-    var likeButton : UIButton = UIButton(type: .custom)
-    
+    private var likeButton : UIButton = UIButton(type: .custom)
     private var likeCountLabel: UILabel = UILabel()
 
     override init(frame: CGRect) {
@@ -70,15 +68,15 @@ class LikeControl: UIControl {
     }
     
     func configure(withLikes like: Likes) {
-        configure(withLikesCount: UInt(like.count), withState: like.userLikes == 1)
+        configure(withLikesCount: UInt(like.count), state: like.userLikes == 1)
     }
     
-    func configure(withLikesCount count: UInt, withState state: Bool) {
+    func configure(withLikesCount count: UInt, state selected: Bool) {
         self.likeCount = count
         
-        self.likeButton.isSelected = state
+        self.likeButton.isSelected = selected
         
-        self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
+        self.likeCountLabel.textColor = selected ? self.selectColor : self.deselectedColor
         
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
     }

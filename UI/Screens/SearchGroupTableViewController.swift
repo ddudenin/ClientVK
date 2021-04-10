@@ -1,5 +1,5 @@
 //
-//  GlobalCommunitiesTableViewController.swift
+//  SearchGroupTableViewController.swift
 //  Swift_CustomApp
 //
 //  Created by Дмитрий on 30.01.2021.
@@ -8,11 +8,11 @@
 import UIKit
 import RealmSwift
 
-class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
+final class SearchGroupTableViewController: UITableViewController {
     
-    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet private var searchBar: UISearchBar!
     
-    var searchGroups = [Group]()
+    private var searchGroups = [Group]()
     
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance
@@ -20,7 +20,7 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
+        self.tableView.register(UINib(nibName: "GroupsTableViewCell", bundle: .none), forCellReuseIdentifier: "GroupCell")
         
         self.searchBar.delegate = self
     }
@@ -34,7 +34,7 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "CommunityCell", for: indexPath) as! CommunitiesTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsTableViewCell
         
         // Configure the cell...
         cell.configure(withGroup: self.searchGroups[indexPath.row])
@@ -51,17 +51,20 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
         }
         self.navigationController?.popViewController(animated: true)
     }
+}
+
+extension SearchGroupTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             return
-        } else {
-            networkManager.loadGroups(searchText: searchText) { [weak self] items in
-                self?.searchGroups = items
-                
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
+        }
+        
+        self.networkManager.loadGroups(searchText: searchText) { [weak self] items in
+            self?.searchGroups = items
+            
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
             }
         }
     }

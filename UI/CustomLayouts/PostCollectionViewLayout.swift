@@ -7,10 +7,11 @@
 
 import UIKit
 
-class PostCollectionViewLayout: UICollectionViewFlowLayout {
-    var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
+final class PostCollectionViewLayout: UICollectionViewFlowLayout {
     
-    var cellHeight: CGFloat = 128
+    private var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
+    
+    private var cellHeight: CGFloat = 128
     private var totalCellsHeight: CGFloat = 0
     
     override func prepare() {

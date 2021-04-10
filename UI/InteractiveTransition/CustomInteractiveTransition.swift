@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
+final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
     
     var interactionInProgress = false
     
@@ -18,12 +18,12 @@ class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
         }
     }
 
-    func prepareGestureRecognizer(in view: UIView?) {
+    private func prepareGestureRecognizer(in view: UIView?) {
         let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgeGesture(_:)))
         view?.addGestureRecognizer(gesture)
     }
     
-    @objc func handleScreenEdgeGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+    @objc private func handleScreenEdgeGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         let translation = recognizer.translation(in: recognizer.view?.superview)
         var progress = translation.x / (recognizer.view?.bounds.width ?? 1)
         progress = CGFloat(fminf(fmaxf(Float(progress), 0.0), 1.0))

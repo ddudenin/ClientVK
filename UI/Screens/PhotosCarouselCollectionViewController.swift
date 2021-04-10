@@ -1,5 +1,5 @@
 //
-//  FriendsPhotosCollectionViewController.swift
+//  PhotosCarouselCollectionViewController.swift
 //  Swift_CustomApp
 //
 //  Created by Дмитрий on 2/21/21.
@@ -8,17 +8,19 @@
 import UIKit
 import RealmSwift
 
-class FriendsPhotosCollectionViewController: UICollectionViewController {
+final class PhotosCarouselCollectionViewController: UICollectionViewController {
+    
     var photos: Results<Photo>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Register cell classes
-        self.collectionView!.register(UINib(nibName: "FriendPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "FriendPhotoCell")
+        self.collectionView!.register(UINib(nibName: "CarouselPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "CarouselPhotoCell")
     }
 }
 
-extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension PhotosCarouselCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -28,11 +30,11 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
-        
         guard let photo = self.photos?[indexPath.row] else {
             return UICollectionViewCell()
         }
+        
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselPhotoCell", for: indexPath) as! CarouselPhotoCollectionViewCell
         
         cell.configure(withPhoto: photo)
         
@@ -40,7 +42,7 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return view.bounds.size
+        return self.view.bounds.size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -56,8 +58,9 @@ extension FriendsPhotosCollectionViewController: UICollectionViewDelegateFlowLay
     }
 }
 
-class AnimatedCollectionViewLayout: UICollectionViewFlowLayout {
-    var animator = PageAttributesAnimator()
+final class AnimatedCollectionViewLayout: UICollectionViewFlowLayout {
+    
+    private var animator = PageAttributesAnimator()
     
     class override var layoutAttributesClass: AnyClass {
         return AnimatedCollectionViewLayoutAttributes.self
@@ -76,32 +79,33 @@ class AnimatedCollectionViewLayout: UICollectionViewFlowLayout {
         
         guard let collectionView = self.collectionView else { return attributes }
         
-        let a = attributes
+        let attr = attributes
         let distance: CGFloat
         let itemOffset: CGFloat
         
         self.scrollDirection = .horizontal
         
         distance = collectionView.frame.width
-        itemOffset = a.center.x - collectionView.contentOffset.x
-        a.startOffset = (a.frame.origin.x - collectionView.contentOffset.x) / a.frame.width
-        a.endOffset = (a.frame.origin.x - collectionView.contentOffset.x - collectionView.frame.width) / a.frame.width
+        itemOffset = attr.center.x - collectionView.contentOffset.x
+        attr.startOffset = (attr.frame.origin.x - collectionView.contentOffset.x) / attr.frame.width
+        attr.endOffset = (attr.frame.origin.x - collectionView.contentOffset.x - collectionView.frame.width) / attr.frame.width
         
-        a.scrollDirection = .horizontal
-        a.middleOffset = itemOffset / distance - 0.5
+        attr.scrollDirection = .horizontal
+        attr.middleOffset = itemOffset / distance - 0.5
         
-        if a.contentView == nil,
-           let c = collectionView.cellForItem(at: attributes.indexPath)?.contentView {
-            a.contentView = c
+        if attr.contentView == nil,
+           let content = collectionView.cellForItem(at: attributes.indexPath)?.contentView {
+            attr.contentView = content
         }
         
-        self.animator.animate(collectionView: collectionView, attributes: a)
+        self.animator.animate(collectionView: collectionView, attributes: attr)
         
-        return a
+        return attr
     }
 }
 
-class AnimatedCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+final class AnimatedCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+    
     var contentView: UIView?
     var scrollDirection: UICollectionView.ScrollDirection = .horizontal
     
@@ -131,8 +135,9 @@ class AnimatedCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
     }
 }
 
-struct PageAttributesAnimator {
-    var scaleRate: CGFloat
+fileprivate struct PageAttributesAnimator {
+    
+    private var scaleRate: CGFloat
     
     init(scaleRate: CGFloat = 0.3) {
         self.scaleRate = scaleRate

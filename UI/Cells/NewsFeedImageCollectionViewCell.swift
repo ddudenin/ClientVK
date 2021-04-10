@@ -1,15 +1,16 @@
 //
-//  PostImageCollectionViewCell.swift
+//  NewsFeedImageCollectionViewCell.swift
 //  Swift_CustomApp
 //
 //  Created by Дмитрий on 2/13/21.
 //
 
 import UIKit
+import SDWebImage
 
-class PostImageCollectionViewCell: UICollectionViewCell {
+final class NewsFeedImageCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet var imageView: UIImageView! {
+    @IBOutlet private var imageView: UIImageView! {
         didSet {
             self.imageView.contentMode = .scaleAspectFill
         }
@@ -19,5 +20,9 @@ class PostImageCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
+    }
+    
+    func configure(withStringURL url: String) {
+        self.imageView.sd_setImage(with: URL(string: url))
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 @IBDesignable
 public final class CloudLoaderIndicator : UIView {
     
-    let cloudPath: UIBezierPath = {
+    private let cloudPath: UIBezierPath = {
         var shape = UIBezierPath()
         shape.move(to: CGPoint(x: 99.8, y: 170.3))
         shape.addLine(to: CGPoint(x: 158.6, y: 170.3))
@@ -30,8 +30,8 @@ public final class CloudLoaderIndicator : UIView {
         return shape
     }()
     
-    var pathLayer = CAShapeLayer()
-    let shapeLayer = CAShapeLayer()
+    private var pathLayer = CAShapeLayer()
+    private let shapeLayer = CAShapeLayer()
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -110,5 +110,15 @@ public final class CloudLoaderIndicator : UIView {
         
         self.pathLayer.add(animationGroup, forKey: "myStroke")
         CATransaction.commit()
+    }
+    
+    func animate(completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: 1.5,
+                       animations: {
+                        self.shapeLayer.opacity = 1
+                       },
+                       completion: { _ in
+                        self.startAnimation(compltion: completion)
+                       })
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 final class FriendSectionHeader: UITableViewHeaderFooterView {
     
-    @IBOutlet var sectionNameLabel: UILabel!
+    @IBOutlet private var sectionNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

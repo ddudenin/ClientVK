@@ -1,17 +1,16 @@
 //
-//  FriendCollectionViewCell.swift
+//  CarouselPhotoCollectionViewCell.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 30.01.2021.
+//  Created by Дмитрий on 2/21/21.
 //
 
 import UIKit
 import SDWebImage
 
-class FriendCollectionViewCell: UICollectionViewCell {
+final class CarouselPhotoCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet var photoImageView: UIImageView!
-    @IBOutlet var likeControl: LikeControl!
+    @IBOutlet private var photoImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,6 +19,6 @@ class FriendCollectionViewCell: UICollectionViewCell {
     
     func configure(withPhoto photo: Photo) {
         self.photoImageView.sd_setImage(with: URL(string: photo.sizes.last!.url))
-        self.likeControl.configure(withLikes: photo.likes!)
+        self.clipsToBounds = false
     }
 }

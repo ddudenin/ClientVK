@@ -7,8 +7,9 @@
 
 import UIKit
 
-class CustomNavigationController: UINavigationController {
-    let interactiveTransition = CustomInteractiveTransition()
+final class CustomNavigationController: UINavigationController {
+    
+    private let interactiveTransition = CustomInteractiveTransition()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,7 @@ class CustomNavigationController: UINavigationController {
 }
 
 extension CustomNavigationController: UINavigationControllerDelegate {
+    
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .push:
@@ -35,6 +37,6 @@ extension CustomNavigationController: UINavigationControllerDelegate {
     }
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactiveTransition.interactionInProgress ? interactiveTransition : nil
+        return self.interactiveTransition.interactionInProgress ? self.interactiveTransition : nil
     }
 }

@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 @IBDesignable
-class AvatarView: UIView {
+final class AvatarView: UIView {
     
-    @IBOutlet var photoImageView: UIImageView! = UIImageView() {
+    @IBOutlet private var photoImageView: UIImageView! = UIImageView() {
         didSet {
             photoImageView.layer.masksToBounds = true
             photoImageView.layer.cornerRadius = self.cornerRadius
@@ -34,5 +35,9 @@ class AvatarView: UIView {
             self.layer.shadowOffset = shadowOffset
             self.layer.shadowOpacity = 0.8
         }
+    }
+    
+    func setImage(fromURL url: String) {
+        self.photoImageView.sd_setImage(with: URL(string: url))
     }
 }

@@ -43,7 +43,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
-                            <outlet property="photoImageView" destination="Gix-PB-fP1" id="Ash-3p-6CM"/>
+                            <outlet property="photoImageView" destination="Gix-PB-fP1" id="iyr-Bf-U7h"/>
                         </connections>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKZ-bf-U96">
@@ -64,8 +64,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="fullNameLabel" destination="zKZ-bf-U96" id="rcS-aR-inV"/>
-                <outlet property="photoView" destination="5t4-gC-YCV" id="9eG-8g-q5a"/>
+                <outlet property="avatarView" destination="5t4-gC-YCV" id="P2d-dg-Tsv"/>
+                <outlet property="fullNameLabel" destination="zKZ-bf-U96" id="kzd-RQ-BG9"/>
             </connections>
             <point key="canvasLocation" x="-4151" y="58"/>
         </tableViewCell>

@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIView {
+    
     func setAnchorPoint(_ point: CGPoint) {
         var newPoint = CGPoint(x: bounds.size.width * point.x, y: bounds.size.height * point.y)
         var oldPoint = CGPoint(x: bounds.size.width * layer.anchorPoint.x, y: bounds.size.height * layer.anchorPoint.y);
@@ -29,6 +30,7 @@ extension UIView {
 }
 
 final class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.75
     }

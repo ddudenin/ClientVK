@@ -1,5 +1,5 @@
 //
-//  PostTableViewCell.swift
+//  NewsFeedTableViewCell.swift
 //  Swift_CustomApp
 //
 //  Created by Дмитрий on 2/10/21.
@@ -8,23 +8,23 @@
 import UIKit
 import SDWebImage
 
-class PostTableViewCell: UITableViewCell {
+final class NewsFeedTableViewCell: UITableViewCell {
     
-    @IBOutlet var createdByLabel: UILabel!
-    @IBOutlet var timeAgoLabel: UILabel!
-    @IBOutlet var profileImageView: UIImageView! {
+    @IBOutlet private var createdByLabel: UILabel!
+    @IBOutlet private var timeAgoLabel: UILabel!
+    @IBOutlet private var profileImageView: UIImageView! {
         didSet {
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
         }
     }
-    @IBOutlet var captionLabel: UILabel!
-    @IBOutlet var commentsButton: UIButton!
-    @IBOutlet var sharesButton: UIButton!
-    @IBOutlet var viewsCountLabel: UILabel!
-    @IBOutlet var imagesCollectionsViews: UICollectionView!
-    @IBOutlet var likeControl: LikeControl!
+    @IBOutlet private var captionLabel: UILabel!
+    @IBOutlet private var commentsButton: UIButton!
+    @IBOutlet private var sharesButton: UIButton!
+    @IBOutlet private var viewsCountLabel: UILabel!
+    @IBOutlet private var imagesCollectionsViews: UICollectionView!
+    @IBOutlet private var likeControl: LikeControl!
     
-    var imagesNames = [String]()
+    private var imagesNames = [String]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,7 +33,7 @@ class PostTableViewCell: UITableViewCell {
         self.imagesCollectionsViews.dataSource = self
         self.imagesCollectionsViews.delegate = self
         
-        self.imagesCollectionsViews.register(UINib(nibName: "PostImageCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "PostImageCell")
+        self.imagesCollectionsViews.register(UINib(nibName: "NewsFeedImageCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "PostImageCell")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -48,14 +48,14 @@ class PostTableViewCell: UITableViewCell {
         self.profileImageView.sd_setImage(with: URL(string: post.createdBy.photo200_Orig))
         self.captionLabel.text = post.caption
         self.imagesNames = post.imagesNames
-        self.likeControl.configure(withLikesCount: post.likesCount, withState: Bool.random())
+        self.likeControl.configure(withLikesCount: post.likesCount, state: Bool.random())
         self.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
         self.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
         self.viewsCountLabel.text = convertCountToString(count: post.viewsCount)
     }
 }
 
-extension PostTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension NewsFeedTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -66,9 +66,9 @@ extension PostTableViewCell: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostImageCell", for: indexPath) as! PostImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostImageCell", for: indexPath) as! NewsFeedImageCollectionViewCell
         
-        cell.imageView.sd_setImage(with: URL(string: self.imagesNames[indexPath.row]))
+        cell.configure(withStringURL: self.imagesNames[indexPath.row])
 
         return cell
     }

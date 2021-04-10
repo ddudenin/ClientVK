@@ -8,9 +8,9 @@
 import UIKit
 import WebKit
 
-class VKLoginWebViewController: UIViewController {
+final class VKLoginWebViewController: UIViewController {
     
-    @IBOutlet var webView: WKWebView! {
+    @IBOutlet private var webView: WKWebView! {
         didSet {
             webView.navigationDelegate = self
         }

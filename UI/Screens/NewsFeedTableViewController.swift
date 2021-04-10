@@ -1,5 +1,5 @@
 //
-//  NewsTableViewController.swift
+//  NewsFeedTableViewController.swift
 //  Swift_CustomApp
 //
 //  Created by Дмитрий on 2/10/21.
@@ -7,15 +7,13 @@
 
 import UIKit
 
-class FeedTableViewController: UITableViewController {
+final class NewsFeedTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(UINib(nibName: "PostTableViewCell", bundle: .none), forCellReuseIdentifier: "PostCell")
+        self.tableView.register(UINib(nibName: "NewsFeedTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedCell")
     }
-    
-    // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -26,7 +24,7 @@ class FeedTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedTableViewCell
         
         // Configure the cell...
         cell.configure(withPost: postsData[indexPath.row])
