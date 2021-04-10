@@ -34,11 +34,11 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="X8U-dF-n3N" secondAttribute="trailing" constant="10" id="2zx-jR-FJ6"/>
-                <constraint firstAttribute="bottom" secondItem="CGD-sq-WAi" secondAttribute="bottom" constant="5" id="BFw-FY-aps"/>
+                <constraint firstAttribute="bottom" secondItem="CGD-sq-WAi" secondAttribute="bottom" priority="750" constant="5" id="BFw-FY-aps"/>
                 <constraint firstItem="X8U-dF-n3N" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Bvk-bE-cms"/>
-                <constraint firstItem="CGD-sq-WAi" firstAttribute="top" secondItem="X8U-dF-n3N" secondAttribute="bottom" constant="5" id="Dno-sx-4h5"/>
+                <constraint firstItem="CGD-sq-WAi" firstAttribute="top" secondItem="X8U-dF-n3N" secondAttribute="bottom" priority="750" constant="5" id="Dno-sx-4h5"/>
                 <constraint firstAttribute="trailing" secondItem="CGD-sq-WAi" secondAttribute="trailing" constant="10" id="UUC-ai-MLV"/>
-                <constraint firstItem="X8U-dF-n3N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="gLR-Tf-mm1"/>
+                <constraint firstItem="X8U-dF-n3N" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" priority="750" constant="10" id="gLR-Tf-mm1"/>
                 <constraint firstItem="CGD-sq-WAi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="uYY-Qd-trv"/>
             </constraints>
             <size key="customSize" width="249" height="269"/>

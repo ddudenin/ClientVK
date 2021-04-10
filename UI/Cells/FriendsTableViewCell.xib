@@ -56,9 +56,9 @@
                 <constraints>
                     <constraint firstItem="5t4-gC-YCV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="a14-mX-x1N"/>
                     <constraint firstAttribute="trailing" secondItem="zKZ-bf-U96" secondAttribute="trailing" constant="10" id="gDE-fS-auS"/>
-                    <constraint firstItem="5t4-gC-YCV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="gdZ-LP-6Mq"/>
+                    <constraint firstItem="5t4-gC-YCV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" priority="750" constant="10" id="gdZ-LP-6Mq"/>
                     <constraint firstItem="zKZ-bf-U96" firstAttribute="leading" secondItem="5t4-gC-YCV" secondAttribute="trailing" constant="20" id="iVD-Cj-9TU"/>
-                    <constraint firstAttribute="bottom" secondItem="5t4-gC-YCV" secondAttribute="bottom" constant="10" id="rBI-Yt-gZG"/>
+                    <constraint firstAttribute="bottom" secondItem="5t4-gC-YCV" secondAttribute="bottom" priority="750" constant="10" id="rBI-Yt-gZG"/>
                     <constraint firstItem="zKZ-bf-U96" firstAttribute="centerY" secondItem="5t4-gC-YCV" secondAttribute="centerY" id="vZz-uE-xKq"/>
                 </constraints>
             </tableViewCellContentView>
