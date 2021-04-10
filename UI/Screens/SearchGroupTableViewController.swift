@@ -43,7 +43,7 @@ final class SearchGroupTableViewController: UITableViewController {
     }
     
     private func saveGroupToDatabse(group: Group) {
-        groupsRef.child("\(group.id)").setValue(group.toAnyObject()) {
+        self.groupsRef.child("\(group.id)").setValue(group.toAnyObject()) {
             [weak self] (error, _) in
             if let error = error {
                 print(error.localizedDescription)

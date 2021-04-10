@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 struct Post {
     let createdBy: User

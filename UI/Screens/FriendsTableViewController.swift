@@ -6,14 +6,11 @@
 //
 
 import UIKit
-import RealmSwift
 import FirebaseDatabase
 
 class FriendsTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
-    
-    private var friendsRef = Database.database().reference(withPath: "Friends")
     
     private var friends = [User]()
     private var filtered = [User]()
@@ -26,11 +23,12 @@ class FriendsTableViewController: UITableViewController {
     private var sections = [Section]()
     
     private let networkManager = NetworkManager.instance
+    private var friendsRef = Database.database().reference(withPath: "Friends")
     
     private func CalculateSectionsAndHeaders() {
         let sectionsData = Dictionary(grouping: self.filtered, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
-        self.sections = keys.map{ Section(name: $0, items: sectionsData[$0]!) }
+        self.sections = keys.map { Section(name: $0, items: sectionsData[$0]!) }
     }
     
     private func loadData() {
@@ -41,8 +39,10 @@ class FriendsTableViewController: UITableViewController {
                 self?.friendsRef.child("\(user.id)").setValue(user.toAnyObject())
             }
             
-            self?.CalculateSectionsAndHeaders()
-            self?.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.CalculateSectionsAndHeaders()
+                self?.tableView.reloadData()
+            }
         }
     }
     
@@ -64,10 +64,12 @@ class FriendsTableViewController: UITableViewController {
                 self?.friends.append(user)
             }
             
-            self?.filtered = self?.friends ?? []
-            friendsArray = self?.friends ?? []
-            self?.CalculateSectionsAndHeaders()
-            self?.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.filtered = self?.friends ?? []
+                friendsArray = self?.friends ?? []
+                self?.CalculateSectionsAndHeaders()
+                self?.tableView.reloadData()
+            }
         }
     }
     

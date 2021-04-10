@@ -45,10 +45,15 @@ final class LoginFormController: UIViewController {
     }
 
     @IBAction private func loginButtonPressed(_ sender: Any) {
-        Auth.auth().signInAnonymously() { _,_ in
+        Auth.auth().signInAnonymously() { [weak self] (authResult, error) in
+            
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
             let storyboard = UIStoryboard(name: "Main", bundle: .none)
             let vc = storyboard.instantiateViewController(withIdentifier: "loginVKScreen")
-            self.present(vc, animated: true, completion: .none)
+            self?.present(vc, animated: true, completion: .none)
         }
     }
     

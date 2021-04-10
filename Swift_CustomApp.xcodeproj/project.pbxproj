@@ -34,7 +34,6 @@
 		39C00A7425E2B1CC008FFB25 /* PhotosCarouselCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7325E2B1CC008FFB25 /* PhotosCarouselCollectionViewController.swift */; };
 		39C00A7925E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7725E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift */; };
 		39C00A7A25E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C00A7825E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib */; };
-		39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E66E7926165CA70036C738 /* RealmManager.swift */; };
 		39FFA62C25DDB5CB003B7265 /* DotsLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */; };
 		8B193BC025C5AE200043AF16 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */; };
 		8B193BC125C5AE200043AF16 /* FriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */; };
@@ -83,7 +82,6 @@
 		39C00A7325E2B1CC008FFB25 /* PhotosCarouselCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCarouselCollectionViewController.swift; sourceTree = "<group>"; };
 		39C00A7725E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		39C00A7825E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
-		39E66E7926165CA70036C738 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsLoadingIndicator.swift; sourceTree = "<group>"; };
 		5AA4795B742FB570B9B06AFD /* Pods-Swift_CustomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift_CustomApp.release.xcconfig"; path = "Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp.release.xcconfig"; sourceTree = "<group>"; };
 		8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
@@ -199,14 +197,6 @@
 			path = CustomItems;
 			sourceTree = "<group>";
 		};
-		39E66E7826165C850036C738 /* Realm */ = {
-			isa = PBXGroup;
-			children = (
-				39E66E7926165CA70036C738 /* RealmManager.swift */,
-			);
-			path = Realm;
-			sourceTree = "<group>";
-		};
 		39EB3EE2261F838C00DA36DD /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				39CCFB612604C0A90031D326 /* UI */,
-				39E66E7826165C850036C738 /* Realm */,
 				39312D4C260146D9002997E0 /* Network */,
 				8B193BC325C5AF6A0043AF16 /* Model */,
 				8B4ED2BF25BC92AE00485879 /* Swift_CustomApp */,
@@ -421,7 +410,6 @@
 			files = (
 				39312D4E260146FB002997E0 /* Session.swift in Sources */,
 				3992149525E453570092E1E8 /* CloudLoaderIndicator.swift in Sources */,
-				39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */,
 				8B193BE225C5FFD50043AF16 /* GroupData.swift in Sources */,
 				39C00A7925E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift in Sources */,
 				397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */,

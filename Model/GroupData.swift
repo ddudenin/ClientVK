@@ -45,7 +45,16 @@ class Group: Codable {
         case photo200 = "photo_200"
     }
     
-    internal init(id: Int, name: String, screenName: String, isClosed: Int, type: String, isAdmin: Int, isMember: Int, isAdvertiser: Int, photo50: String, photo100: String, photo200: String) {
+    init(id: Int, name: String,
+         screenName: String,
+         isClosed: Int,
+         type: String,
+         isAdmin: Int,
+         isMember: Int,
+         isAdvertiser: Int,
+         photo50: String,
+         photo100: String,
+         photo200: String) {
         self.id = id
         self.name = name
         self.screenName = screenName

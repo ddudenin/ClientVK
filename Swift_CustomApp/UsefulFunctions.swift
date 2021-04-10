@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import RealmSwift
 
 //Instead of SDWebImage
 func GetImage(fromURL url: String) -> UIImage? {
@@ -31,12 +30,6 @@ func convertCountToString<T: BinaryInteger>(count number: T) -> String {
     guard index != -1 else { return "\(number)" }
     
     return  String(format: "%.1f", value) + unitAbbreviations[index]
-}
-
-extension Results {
-    func toArray() -> [Element] {
-        return compactMap { $0 }
-    }
 }
 
 func generateTimeAgoDisplay() -> String {
