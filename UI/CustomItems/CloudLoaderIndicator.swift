@@ -65,7 +65,7 @@ public final class CloudLoaderIndicator : UIView {
         self.layer.addSublayer(self.pathLayer)
     }
     
-    func startAnimation(compltion: ((Bool) -> Void)?) {
+    func startAnimation(completion: ((Bool) -> Void)?) {
         CATransaction.begin()
         
         let strokeEndAnimation: CAAnimation = {
@@ -102,8 +102,8 @@ public final class CloudLoaderIndicator : UIView {
         animationGroup.animations = [strokeStartAnimation, strokeEndAnimation]
         
         CATransaction.setCompletionBlock {
-            if compltion != nil {
-                compltion!(true)
+            if let completionBlock = completion {
+                completionBlock(true)
                 self.shapeLayer.opacity = 0
             }
         }
@@ -118,7 +118,7 @@ public final class CloudLoaderIndicator : UIView {
                         self.shapeLayer.opacity = 1
                        },
                        completion: { _ in
-                        self.startAnimation(compltion: completion)
+                        self.startAnimation(completion: completion)
                        })
     }
 }
