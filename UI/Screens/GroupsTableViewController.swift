@@ -13,7 +13,7 @@ final class GroupsTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
     
-    private var groupsRef = Database.database().reference(withPath: "Groups")
+    private var groupsRef = Database.database().reference(withPath: "\(Session.instance.userId)/Groups")
     
     private var groupsCollection = Firestore.firestore().collection("Groups")
     private var listener: ListenerRegistration?

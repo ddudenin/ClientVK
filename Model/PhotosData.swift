@@ -118,11 +118,11 @@ class Photo: Codable {
               let ownerID = dict["owner_id"] as? Int,
               let hasTags = dict["has_tags"] as? Bool,
               let postID = dict["post_id"] as? Int?,
-              let sizesDict = dict["sizes"] as? [Any],
+              let sizesDict = dict["sizes"] as? [String: Any],
               let text = dict["text"] as? String,
-              let dict = dict["likes"] as? [String: Any],
-              let userLikes = dict["user_likes"] as? Int,
-              let likesCount = dict["count"] as? Int,
+              let likeDict = dict["likes"] as? [String: Any],
+              let userLikes = likeDict["user_likes"] as? Int,
+              let likesCount = likeDict["count"] as? Int,
               let repostsDict = dict["reposts"] as? [String: Any],
               let repostsCount = repostsDict["count"] as? Int
         else { return nil }
@@ -139,7 +139,7 @@ class Photo: Codable {
         
         self.sizes = []
         for item in sizesDict {
-            guard let curDict = item as? [String: Any],
+            guard let curDict = item.value as? [String: Any],
                   let height = curDict["height"] as? Int,
                   let url = curDict["url"] as? String,
                   let type = curDict["type"] as? String,

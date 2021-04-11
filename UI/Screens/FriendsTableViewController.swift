@@ -24,7 +24,8 @@ class FriendsTableViewController: UITableViewController {
     private var sections = [Section]()
     
     private let networkManager = NetworkManager.instance
-    private var friendsRef = Database.database().reference(withPath: "Friends")
+    
+    private var friendsRef = Database.database().reference(withPath: "\(Session.instance.userId)/Friends")
     
     private var friendsCollection = Firestore.firestore().collection("Friends")
     private var listener: ListenerRegistration?

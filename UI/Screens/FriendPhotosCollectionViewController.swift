@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseFirestore
 
 final class FriendPhotosCollectionViewController: UICollectionViewController {
     
@@ -15,45 +16,82 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     private var photos = [Photo]()
     
     private let networkManager = NetworkManager.instance
-    private var photosRef = Database.database().reference(withPath: "Photos")
+    private var photosRef = Database.database().reference(withPath: "\(Session.instance.userId)/Photos")
+    
+    private var photosCollection = Firestore.firestore().collection("Photos")
+    private var listener: ListenerRegistration?
     
     private func loadData() {
         guard let friend = self.friend else { return }
         
         self.networkManager.loadPhotos(userId: friend.id) { [weak self] items in
-            let firebasePhoto = items.map { Photo(from: $0) }
             
-            for photo in firebasePhoto {
-                self?.photosRef.child("\(photo.id)").setValue(photo.toAnyObject())
-            }
-
             DispatchQueue.main.async {
+                let firebasePhoto = items.map { Photo(from: $0) }
+                
+                switch Config.databaseType {
+                case .database:
+                    for photo in firebasePhoto {
+                        self?.photosRef.child("\(photo.id)").setValue(photo.toAnyObject())
+                    }
+                case .firestore:
+                    for photo in firebasePhoto {
+                        self?.photosCollection.document("\(photo.id)").setData(photo.toAnyObject())
+                    }
+                }
+                
                 self?.collectionView.reloadData()
             }
         }
     }
     
-    private func loadDataFromFirebase() {
+    private func loadDataFromDatabase() {
         self.photosRef.observe(.value) { [weak self] (snapshot) in
-            self?.photos.removeAll()
-            
-            guard !snapshot.children.allObjects.isEmpty else {
-                self?.loadData()
-                return
-            }
-            
-            for child in snapshot.children {
-                guard let child = child as? DataSnapshot,
-                      let photo = Photo(snapshot: child) else {
-                    continue
+            DispatchQueue.main.async {
+                
+                guard !snapshot.children.allObjects.isEmpty else {
+                    self?.loadData()
+                    return
                 }
                 
-                if photo.ownerID == self?.friend?.id {
-                    self?.photos.append(photo)
+                self?.photos.removeAll()
+                
+                for child in snapshot.children {
+                    guard let child = child as? DataSnapshot,
+                          let photo = Photo(snapshot: child) else {
+                        continue
+                    }
+                    
+                    if photo.ownerID == self?.friend?.id {
+                        self?.photos.append(photo)
+                    }
                 }
+                
+                self?.collectionView.reloadData()
             }
-            
+        }
+    }
+    
+    private func loadDataFromFirestore() {
+        self.listener = self.photosCollection.addSnapshotListener { [weak self] (snapshot, error) in
             DispatchQueue.main.async {
+                
+                guard let snapshot = snapshot,
+                      !snapshot.documents.isEmpty
+                else {
+                    self?.loadData()
+                    return
+                }
+
+                self?.photos.removeAll()
+
+                for doc in snapshot.documents {
+                    guard let photo = Photo(dict: doc.data()) else { continue }
+                    if photo.ownerID == self?.friend?.id {
+                        self?.photos.append(photo)
+                    }
+                }
+                
                 self?.collectionView.reloadData()
             }
         }
@@ -69,16 +107,32 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         guard let friend = self.friend else { return }
         self.title = friend.getFullName()
         
-        loadDataFromFirebase()
+        switch Config.databaseType {
+        case .database:
+            loadDataFromDatabase()
+        case .firestore:
+            loadDataFromFirestore()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadData()
+        
+        switch Config.databaseType {
+        case .database:
+            loadData()
+        case .firestore:
+            loadDataFromFirestore()
+        }
     }
     
     deinit {
-        self.photosRef.removeAllObservers()
+        switch Config.databaseType {
+        case .database:
+            self.photosRef.removeAllObservers()
+        case .firestore:
+            self.listener?.remove()
+        }
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -93,13 +147,28 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
         let photo = self.photos[indexPath.row]
-
-        let handle: (Bool, Int) -> Void = { [weak self] state, count in
-            photo.likes.userLikes = state ? 1 : 0
-            photo.likes.count = count
-            self?.photosRef.child("\(photo.id)").setValue(photo.toAnyObject()) { (error, _) in
-                if let error = error {
-                    print(error.localizedDescription)
+        
+        let handle: (Bool, Int) -> Void
+        
+        switch Config.databaseType {
+        case .database:
+            handle = { [weak self] state, count in
+                photo.likes.userLikes = state ? 1 : 0
+                photo.likes.count = count
+                self?.photosRef.child("\(photo.id)").setValue(photo.toAnyObject()) { (error, _) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        case .firestore:
+            handle = { [weak self] state, count in
+                photo.likes.userLikes = state ? 1 : 0
+                photo.likes.count = count
+                self?.photosCollection.document("\(photo.id)").setData(photo.toAnyObject()) { (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }
