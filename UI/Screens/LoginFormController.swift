@@ -29,6 +29,21 @@ final class LoginFormController: UIViewController {
         self.scrollView?.contentInset = UIEdgeInsets.zero
     }
     
+    private func setGradientBackground() {
+        let gradient: CAGradientLayer = CAGradientLayer()
+
+        let startColor = UIColor(red: 0.02, green: 0.36, blue: 0.91, alpha: 1.00).cgColor
+        let endColor = UIColor(red: 0.04, green: 0.78, blue: 0.98, alpha: 1.00).cgColor
+        
+        gradient.colors = [startColor, endColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+
+        self.view.layer.insertSublayer(gradient, at: 0)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -36,6 +51,12 @@ final class LoginFormController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         //self.loaderIndicator.startAnimating()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setGradientBackground()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

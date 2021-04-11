@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3917BA3325C861B900C48FA6 /* FriendData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BCA25C5B3110043AF16 /* FriendData.swift */; };
 		391CB80225D598A800085064 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391CB80125D598A800085064 /* PostData.swift */; };
+		39255715262379F600ED0D59 /* SignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39255714262379F600ED0D59 /* SignInButton.swift */; };
 		392A7D6F25E58D8B007A6290 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A7D6E25E58D8B007A6290 /* CustomPushAnimator.swift */; };
 		392A7D7325E58E59007A6290 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A7D7225E58E59007A6290 /* CustomPopAnimator.swift */; };
 		392A7D7625E58F00007A6290 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A7D7525E58F00007A6290 /* CustomNavigationController.swift */; };
@@ -34,6 +35,7 @@
 		39C00A7925E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7725E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift */; };
 		39C00A7A25E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C00A7825E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib */; };
 		39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E66E7926165CA70036C738 /* RealmManager.swift */; };
+		39FE810C262366000058AD9D /* TextFieldWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FE810B262366000058AD9D /* TextFieldWithImage.swift */; };
 		39FFA62C25DDB5CB003B7265 /* DotsLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */; };
 		8B193BC025C5AE200043AF16 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */; };
 		8B193BC125C5AE200043AF16 /* FriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */; };
@@ -57,6 +59,7 @@
 /* Begin PBXFileReference section */
 		2C34517722B321A4400109A4 /* Pods-Swift_CustomApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift_CustomApp.debug.xcconfig"; path = "Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp.debug.xcconfig"; sourceTree = "<group>"; };
 		391CB80125D598A800085064 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
+		39255714262379F600ED0D59 /* SignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInButton.swift; sourceTree = "<group>"; };
 		392A7D6E25E58D8B007A6290 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
 		392A7D7225E58E59007A6290 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		392A7D7525E58F00007A6290 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		39C00A7725E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		39C00A7825E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		39E66E7926165CA70036C738 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		39FE810B262366000058AD9D /* TextFieldWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithImage.swift; sourceTree = "<group>"; };
 		39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsLoadingIndicator.swift; sourceTree = "<group>"; };
 		5AA4795B742FB570B9B06AFD /* Pods-Swift_CustomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift_CustomApp.release.xcconfig"; path = "Target Support Files/Pods-Swift_CustomApp/Pods-Swift_CustomApp.release.xcconfig"; sourceTree = "<group>"; };
 		8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 				3971559725CC8AA400470CED /* LikeControl.swift */,
 				39FFA62B25DDB5CB003B7265 /* DotsLoadingIndicator.swift */,
 				3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */,
+				39FE810B262366000058AD9D /* TextFieldWithImage.swift */,
+				39255714262379F600ED0D59 /* SignInButton.swift */,
 			);
 			path = CustomItems;
 			sourceTree = "<group>";
@@ -415,9 +421,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39255715262379F600ED0D59 /* SignInButton.swift in Sources */,
 				39312D4E260146FB002997E0 /* Session.swift in Sources */,
 				3992149525E453570092E1E8 /* CloudLoaderIndicator.swift in Sources */,
 				39E66E7A26165CA70036C738 /* RealmManager.swift in Sources */,
+				39FE810C262366000058AD9D /* TextFieldWithImage.swift in Sources */,
 				8B193BE225C5FFD50043AF16 /* GroupData.swift in Sources */,
 				39C00A7925E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift in Sources */,
 				397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */,
