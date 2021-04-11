@@ -82,7 +82,8 @@ class User: Codable {
               let lastName = dict["last_name"] as? String,
               let canAccessClosed = dict["can_access_closed"] as? Bool,
               let photo200_Orig = dict["photo_200_orig"] as? String,
-              let trackCode = dict["track_code"] as? String else { return nil }
+              let trackCode = dict["track_code"] as? String
+        else { return nil }
         
         self.firstName = firstName
         self.id = id

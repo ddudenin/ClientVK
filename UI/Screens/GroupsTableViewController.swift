@@ -7,12 +7,17 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseFirestore
 
 final class GroupsTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
     
     private var groupsRef = Database.database().reference(withPath: "Groups")
+    
+    private var groupsCollection = Firestore.firestore().collection("Groups")
+    private var listener: ListenerRegistration?
+    
     private var userGroups = [Group]()
     private var filtered = [Group]()
     
@@ -20,37 +25,67 @@ final class GroupsTableViewController: UITableViewController {
     
     private func loadData() {
         self.networkManager.loadGroups() { [weak self] items in
-            let firebaseGroups = items.map { Group(from: $0) }
-            
-            for group in firebaseGroups {
-                self?.groupsRef.child("\(group.id)").setValue(group.toAnyObject())
-            }
-            
             DispatchQueue.main.async {
+                let firebaseGroups = items.map { Group(from: $0) }
+                
+                switch Config.databaseType {
+                case .database:
+                    for group in firebaseGroups {
+                        self?.groupsRef.child("\(group.id)").setValue(group.toAnyObject())
+                    }
+                case .firestore:
+                    for group in firebaseGroups {
+                        self?.groupsCollection.document("\(group.id)").setData(group.toAnyObject())
+                    }
+                }
+                
                 self?.tableView.reloadData()
             }
         }
     }
     
-    private func loadDataFromFirebase() {
+    private func loadDataFromDatabase() {
         self.groupsRef.observe(.value) { [weak self] (snapshot) in
-            self?.userGroups.removeAll()
-            
-            guard !snapshot.children.allObjects.isEmpty else {
-                self?.loadData()
-                return
-            }
-            
-            for child in snapshot.children {
-                guard let child = child as? DataSnapshot,
-                      let group = Group(snapshot: child) else {
-                    continue
+            DispatchQueue.main.async {
+                self?.userGroups.removeAll()
+                
+                guard !snapshot.children.allObjects.isEmpty else {
+                    self?.loadData()
+                    return
                 }
                 
-                self?.userGroups.append(group)
+                for child in snapshot.children {
+                    guard let child = child as? DataSnapshot,
+                          let group = Group(snapshot: child) else {
+                        continue
+                    }
+                    
+                    self?.userGroups.append(group)
+                }
+                
+                self?.filtered = self?.userGroups ?? []
+                self?.tableView.reloadData()
             }
-            
+        }
+    }
+    
+    private func loadDataFromFirestore() {
+        self.listener = self.groupsCollection.addSnapshotListener { [weak self] (snapshot, error) in
             DispatchQueue.main.async {
+                self?.userGroups.removeAll()
+                
+                guard let snapshot = snapshot,
+                      !snapshot.documents.isEmpty
+                else {
+                    self?.loadData()
+                    return
+                }
+                
+                for doc in snapshot.documents {
+                    guard let group = Group(dict: doc.data()) else { continue }
+                    self?.userGroups.append(group)
+                }
+                
                 self?.filtered = self?.userGroups ?? []
                 self?.tableView.reloadData()
             }
@@ -63,7 +98,22 @@ final class GroupsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "GroupsTableViewCell", bundle: .none), forCellReuseIdentifier: "GroupCell")
         
         self.searchBar.delegate = self
-        loadDataFromFirebase()
+        
+        switch Config.databaseType {
+        case .database:
+            loadDataFromDatabase()
+        case .firestore:
+            loadDataFromFirestore()
+        }
+    }
+    
+    deinit {
+        switch Config.databaseType {
+        case .database:
+            self.groupsRef.removeAllObservers()
+        case .firestore:
+            self.listener?.remove()
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -89,13 +139,25 @@ final class GroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.filtered[indexPath.row].ref?.removeValue() { [weak self] (error, ref) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    self?.tableView.reloadData()
+            let group = self.filtered[indexPath.row]
+            
+            switch Config.databaseType {
+            case .database:
+                group.ref?.removeValue() { [weak self] (error, ref) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        self?.tableView.reloadData()
+                    }
                 }
-                
+            case .firestore:
+                self.groupsCollection.document("\(group.id)").delete() { [weak self] (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        self?.tableView.reloadData()
+                    }
+                }
             }
         }
     }

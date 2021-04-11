@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseFirestore
 
 final class SearchGroupTableViewController: UITableViewController {
     
@@ -16,6 +17,7 @@ final class SearchGroupTableViewController: UITableViewController {
     
     private let networkManager = NetworkManager.instance
     private var groupsRef = Database.database().reference(withPath: "Groups")
+    private var groupsCollection = Firestore.firestore().collection("Groups")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,11 @@ final class SearchGroupTableViewController: UITableViewController {
         self.searchBar.delegate = self
     }
     
+    deinit {
+        if Config.databaseType == .database {
+            self.groupsRef.removeAllObservers()
+        }
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -53,9 +60,26 @@ final class SearchGroupTableViewController: UITableViewController {
         }
     }
     
+    private func saveGroupToFirestorm(group: Group) {
+        self.groupsCollection.document("\(group.id)").setData(group.toAnyObject()) {
+            [weak self] error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        saveGroupToDatabse(group: self.searchGroups[indexPath.row])
+
+        switch Config.databaseType {
+        case .database:
+            saveGroupToDatabse(group: self.searchGroups[indexPath.row])
+        case .firestore:
+            saveGroupToFirestorm(group: self.searchGroups[indexPath.row])
+        }
     }
 }
 

@@ -77,6 +77,10 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         loadData()
     }
     
+    deinit {
+        self.photosRef.removeAllObservers()
+    }
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

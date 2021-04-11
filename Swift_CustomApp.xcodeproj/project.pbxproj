@@ -31,6 +31,7 @@
 		39AEA5ED25D83E8200384E1C /* NewsFeedImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AEA5EB25D83E8200384E1C /* NewsFeedImageCollectionViewCell.swift */; };
 		39AEA5EE25D83E8200384E1C /* NewsFeedImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39AEA5EC25D83E8200384E1C /* NewsFeedImageCollectionViewCell.xib */; };
 		39B042E82609EC1A0006802A /* PhotosData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B042E72609EC1A0006802A /* PhotosData.swift */; };
+		39BE3C2626230F310039FF98 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BE3C2526230F310039FF98 /* Config.swift */; };
 		39C00A7425E2B1CC008FFB25 /* PhotosCarouselCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7325E2B1CC008FFB25 /* PhotosCarouselCollectionViewController.swift */; };
 		39C00A7925E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C00A7725E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift */; };
 		39C00A7A25E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C00A7825E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib */; };
@@ -79,6 +80,7 @@
 		39AEA5EB25D83E8200384E1C /* NewsFeedImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		39AEA5EC25D83E8200384E1C /* NewsFeedImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFeedImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		39B042E72609EC1A0006802A /* PhotosData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosData.swift; sourceTree = "<group>"; };
+		39BE3C2526230F310039FF98 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		39C00A7325E2B1CC008FFB25 /* PhotosCarouselCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCarouselCollectionViewController.swift; sourceTree = "<group>"; };
 		39C00A7725E2D035008FFB25 /* CarouselPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		39C00A7825E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				39312D4D260146FB002997E0 /* Session.swift */,
 				394E9F6E2603F29E00895183 /* NetworkManager.swift */,
+				39BE3C2526230F310039FF98 /* Config.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				393766F025D4267B00FFB8D5 /* FriendSectionHeader.swift in Sources */,
 				8B193BD325C5CDE10043AF16 /* FriendPhotosCollectionViewController.swift in Sources */,
 				3971559825CC8AA400470CED /* LikeControl.swift in Sources */,
+				39BE3C2626230F310039FF98 /* Config.swift in Sources */,
 				8B765CA925C1C2E40079984A /* FriendsTableViewController.swift in Sources */,
 				39B042E82609EC1A0006802A /* PhotosData.swift in Sources */,
 				8B4ED2C125BC92AE00485879 /* AppDelegate.swift in Sources */,

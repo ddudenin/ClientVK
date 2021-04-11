@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseFirestore
 
 class FriendsTableViewController: UITableViewController {
     
@@ -25,6 +26,9 @@ class FriendsTableViewController: UITableViewController {
     private let networkManager = NetworkManager.instance
     private var friendsRef = Database.database().reference(withPath: "Friends")
     
+    private var friendsCollection = Firestore.firestore().collection("Friends")
+    private var listener: ListenerRegistration?
+    
     private func CalculateSectionsAndHeaders() {
         let sectionsData = Dictionary(grouping: self.filtered, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
@@ -33,38 +37,70 @@ class FriendsTableViewController: UITableViewController {
     
     private func loadData() {
         self.networkManager.loadFriends() { [weak self] items in
-            let firebaseUsers = items.map { User(from: $0) }
-            
-            for user in firebaseUsers {
-                self?.friendsRef.child("\(user.id)").setValue(user.toAnyObject())
-            }
-            
             DispatchQueue.main.async {
+                let firebaseUsers = items.map { User(from: $0) }
+                
+                switch Config.databaseType {
+                case .database:
+                    for user in firebaseUsers {
+                        self?.friendsRef.child("\(user.id)").setValue(user.toAnyObject())
+                    }
+                case .firestore:
+                    for user in firebaseUsers {
+                        self?.friendsCollection.document("\(user.id)").setData(user.toAnyObject())
+                    }
+                }
+                
                 self?.CalculateSectionsAndHeaders()
                 self?.tableView.reloadData()
             }
         }
     }
     
-    private func loadDataFromFirebase() {
+    private func loadDataFromDatabase() {
         self.friendsRef.observe(.value) { [weak self] (snapshot) in
-            self?.friends.removeAll()
-            
-            guard !snapshot.children.allObjects.isEmpty else {
-                self?.loadData()
-                return
-            }
-            
-            for child in snapshot.children {
-                guard let child = child as? DataSnapshot,
-                      let user = User(snapshot: child) else {
-                    continue
+            DispatchQueue.main.async {
+                self?.friends.removeAll()
+                
+                guard !snapshot.children.allObjects.isEmpty else {
+                    self?.loadData()
+                    return
                 }
                 
-                self?.friends.append(user)
+                for child in snapshot.children {
+                    guard let child = child as? DataSnapshot,
+                          let user = User(snapshot: child) else {
+                        continue
+                    }
+                    
+                    self?.friends.append(user)
+                }
+                
+                self?.filtered = self?.friends ?? []
+                friendsArray = self?.friends ?? []
+                self?.CalculateSectionsAndHeaders()
+                self?.tableView.reloadData()
             }
-            
+        }
+    }
+    
+    private func loadDataFromFirestore() {
+        self.listener = self.friendsCollection.addSnapshotListener { [weak self] (snapshot, error) in
             DispatchQueue.main.async {
+                self?.friends.removeAll()
+                
+                guard let snapshot = snapshot,
+                      !snapshot.documents.isEmpty
+                else {
+                    self?.loadData()
+                    return
+                }
+                
+                for doc in snapshot.documents {
+                    guard let user = User(dict: doc.data()) else { continue }
+                    self?.friends.append(user)
+                }
+                
                 self?.filtered = self?.friends ?? []
                 friendsArray = self?.friends ?? []
                 self?.CalculateSectionsAndHeaders()
@@ -80,7 +116,22 @@ class FriendsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "FriendSectionHeader", bundle: .none), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
         self.searchBar.delegate = self
-        loadDataFromFirebase()
+        
+        switch Config.databaseType {
+        case .database:
+            loadDataFromDatabase()
+        case .firestore:
+            loadDataFromFirestore()
+        }
+    }
+    
+    deinit {
+        switch Config.databaseType {
+        case .database:
+            self.friendsRef.removeAllObservers()
+        case .firestore:
+            self.listener?.remove()
+        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
