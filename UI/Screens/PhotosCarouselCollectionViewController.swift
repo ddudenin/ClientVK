@@ -15,7 +15,7 @@ final class PhotosCarouselCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Register cell classes
-        self.collectionView!.register(UINib(nibName: "CarouselPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "CarouselPhotoCell")
+        self.collectionView.register(UINib(nibName: "CarouselPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "CarouselPhotoCell")
     }
 }
 

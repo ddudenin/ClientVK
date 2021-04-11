@@ -40,7 +40,7 @@ class FriendsTableViewController: UITableViewController {
         guard let friends = self.friends else { return }
         let sectionsData = Dictionary(grouping: friends, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
-        self.sections = keys.map{ Section(name: $0, items: sectionsData[$0]!) }
+        self.sections = keys.map{ Section(name: $0, items: sectionsData[$0] ?? []) }
     }
     
     private func loadData() {
