@@ -48,7 +48,9 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
                     continue
                 }
                 
-                self?.photos.append(photo)
+                if photo.ownerID == self?.friend?.id {
+                    self?.photos.append(photo)
+                }
             }
             
             DispatchQueue.main.async {
@@ -61,13 +63,18 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         // Register cell classes
-        self.collectionView!.register(UINib(nibName: "FriendPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "FriendPhotoCell")
+        self.collectionView.register(UINib(nibName: "FriendPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "FriendPhotoCell")
         
         // Do any additional setup after loading the view.
         guard let friend = self.friend else { return }
         self.title = friend.getFullName()
         
         loadDataFromFirebase()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

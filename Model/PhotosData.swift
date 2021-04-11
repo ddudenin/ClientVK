@@ -77,10 +77,13 @@ class Photo: Codable {
               let ownerID = value["owner_id"] as? Int,
               let hasTags = value["has_tags"] as? Bool,
               let postID = value["post_id"] as? Int?,
-              let sizes = value["sizes"] as? [Size],
+              let sizesDict = value["sizes"] as? [Any],
               let text = value["text"] as? String,
-              let likes = value["likes"] as? Likes,
-              let reposts = value["reposts"] as? Reposts
+              let likesDict = value["likes"] as? [String: Any],
+              let userLikes = likesDict["user_likes"] as? Int,
+              let likesCount = likesDict["count"] as? Int,
+              let repostsDict = value["reposts"] as? [String: Any],
+              let repostsCount = repostsDict["count"] as? Int
         else { return nil }
         
         self.albumID = albumID
@@ -89,10 +92,21 @@ class Photo: Codable {
         self.ownerID = ownerID
         self.hasTags = hasTags
         self.postID = postID
-        self.sizes = sizes
         self.text = text
-        self.likes = likes
-        self.reposts = reposts
+        self.likes = Likes(userLikes: userLikes, count: likesCount)
+        self.reposts = Reposts(count: repostsCount)
+        
+        self.sizes = []
+        for item in sizesDict {
+            guard let curDict = item as? [String: Any],
+                  let height = curDict["height"] as? Int,
+                  let url = curDict["url"] as? String,
+                  let type = curDict["type"] as? String,
+                  let width = curDict["width"] as? Int
+            else { return nil }
+            
+            self.sizes.append(Size(height: height, url: url, type: type, width: width))
+        }
         
         self.ref = snapshot.ref
     }
@@ -104,10 +118,13 @@ class Photo: Codable {
               let ownerID = dict["owner_id"] as? Int,
               let hasTags = dict["has_tags"] as? Bool,
               let postID = dict["post_id"] as? Int?,
-              let sizes = dict["sizes"] as? [Size],
+              let sizesDict = dict["sizes"] as? [Any],
               let text = dict["text"] as? String,
-              let likes = dict["likes"] as? Likes,
-              let reposts = dict["reposts"] as? Reposts
+              let dict = dict["likes"] as? [String: Any],
+              let userLikes = dict["user_likes"] as? Int,
+              let likesCount = dict["count"] as? Int,
+              let repostsDict = dict["reposts"] as? [String: Any],
+              let repostsCount = repostsDict["count"] as? Int
         else { return nil }
         
         self.albumID = albumID
@@ -116,26 +133,48 @@ class Photo: Codable {
         self.ownerID = ownerID
         self.hasTags = hasTags
         self.postID = postID
-        self.sizes = sizes
         self.text = text
-        self.likes = likes
-        self.reposts = reposts
-    }
+        self.likes = Likes(userLikes: userLikes, count: likesCount)
+        self.reposts = Reposts(count: repostsCount)
         
-        func toAnyObject() -> [String: Any] {
-            [
-                "album_id": albumID,
-                "date": date,
-                "id": id,
-                "owner_id": ownerID,
-                "has_tags": hasTags,
-                "post_id": postID ?? -1,
-                "sizes": sizes,
-                "text": text,
-                "likes": likes,
-                "reposts": reposts
-            ]
+        self.sizes = []
+        for item in sizesDict {
+            guard let curDict = item as? [String: Any],
+                  let height = curDict["height"] as? Int,
+                  let url = curDict["url"] as? String,
+                  let type = curDict["type"] as? String,
+                  let width = curDict["width"] as? Int
+            else { return nil }
+            
+            self.sizes.append(Size(height: height, url: url, type: type, width: width))
         }
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        [
+            "album_id": albumID,
+            "date": date,
+            "id": id,
+            "owner_id": ownerID,
+            "has_tags": hasTags,
+            "post_id": postID ?? -1,
+            "sizes": getSizesDict(),
+            "text": text,
+            "likes": likes.toAnyObject(),
+            "reposts": reposts.toAnyObject()
+        ]
+    }
+    
+    func getSizesDict() -> [String: [String: Any]] {
+        var dict = [String: [String: Any]]()
+        
+        for (index, elem) in self.sizes.enumerated() {
+            dict[String(index)] = elem.toAnyObject()
+        }
+        
+        return dict
+    }
+    
 }
 
 class Likes: Codable {
@@ -146,10 +185,32 @@ class Likes: Codable {
         case userLikes = "user_likes"
         case count
     }
+    
+    init(userLikes: Int, count: Int) {
+        self.userLikes = userLikes
+        self.count = count
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        [
+            "user_likes": userLikes,
+            "count": count
+        ]
+    }
 }
 
 class Reposts: Codable {
     var count: Int
+    
+    init(count: Int) {
+        self.count = count
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        [
+            "count": count
+        ]
+    }
 }
 
 class Size: Codable {
@@ -157,6 +218,22 @@ class Size: Codable {
     var url: String
     var type: String
     var width: Int
+    
+    init(height: Int, url: String, type: String, width: Int) {
+        self.height = height
+        self.url = url
+        self.type = type
+        self.width = width
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        [
+            "height": height,
+            "url": url,
+            "type": type,
+            "width": width
+        ]
+    }
 }
 
 enum TypeEnum: String, Codable {

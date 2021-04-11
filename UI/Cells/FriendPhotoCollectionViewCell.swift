@@ -19,8 +19,10 @@ final class FriendPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(withPhoto photo: Photo, handler handle: ((Bool, Int) -> Void)? = nil) {
-        self.photoImageView.sd_setImage(with: URL(string: photo.sizes.last!.url))
-        
         self.likeControl.configure(withLikes: photo.likes, handler: handle)
+
+        guard let urlString = photo.sizes.last?.url else { return }
+        
+        self.photoImageView.sd_setImage(with: URL(string: urlString))
     }
 }

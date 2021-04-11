@@ -28,7 +28,7 @@ class FriendsTableViewController: UITableViewController {
     private func CalculateSectionsAndHeaders() {
         let sectionsData = Dictionary(grouping: self.filtered, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
-        self.sections = keys.map { Section(name: $0, items: sectionsData[$0]!) }
+        self.sections = keys.map { Section(name: $0, items: sectionsData[$0] ?? []) }
     }
     
     private func loadData() {

@@ -18,7 +18,8 @@ final class CarouselPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(withPhoto photo: Photo) {
-        self.photoImageView.sd_setImage(with: URL(string: photo.sizes.last!.url))
+        guard let urlString = photo.sizes.last?.url else { return }
+        self.photoImageView.sd_setImage(with: URL(string: urlString))
         self.clipsToBounds = false
     }
 }
