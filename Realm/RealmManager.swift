@@ -52,11 +52,9 @@ final class RealmManager {
         }
     }
     
-    func beginWrite() {
-        realm.beginWrite()
-    }
-    
-    func endWrite() throws {
-        try realm.commitWrite()
+    func update(block: () -> Void) throws {
+        try realm.write {
+            block()
+        }
     }
 }

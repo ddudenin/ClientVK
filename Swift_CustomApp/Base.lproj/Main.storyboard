@@ -58,7 +58,7 @@
                                                 <rect key="frame" x="10" y="186" width="394" height="78"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your login" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="dNx-qh-UFD" customClass="TextFieldWithImage" customModule="Swift_CustomApp" customModuleProvider="target">
-                                                        <rect key="frame" x="117" y="0.0" width="160.5" height="34"/>
+                                                        <rect key="frame" x="106" y="0.0" width="182.5" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                         <userDefinedRuntimeAttributes>
@@ -72,7 +72,7 @@
                                                         </connections>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your password" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="W7g-hs-KsT" customClass="TextFieldWithImage" customModule="Swift_CustomApp" customModuleProvider="target">
-                                                        <rect key="frame" x="117" y="44" width="160.5" height="34"/>
+                                                        <rect key="frame" x="106" y="44" width="182.5" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                         <userDefinedRuntimeAttributes>
@@ -150,6 +150,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PD6-Mq-DHR"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="hbt-4h-YIA" secondAttribute="trailing" id="04z-2t-DXr"/>
                             <constraint firstItem="hbt-4h-YIA" firstAttribute="top" secondItem="jrx-WG-dsp" secondAttribute="top" id="K1X-SJ-ZiX"/>
@@ -525,13 +526,13 @@
     </scenes>
     <designables>
         <designable name="Uw8-hK-TKe">
-            <size key="intrinsicContentSize" width="60" height="36"/>
+            <size key="intrinsicContentSize" width="59" height="36"/>
         </designable>
         <designable name="W7g-hs-KsT">
-            <size key="intrinsicContentSize" width="160.5" height="34"/>
+            <size key="intrinsicContentSize" width="182.5" height="34"/>
         </designable>
         <designable name="dNx-qh-UFD">
-            <size key="intrinsicContentSize" width="129.5" height="34"/>
+            <size key="intrinsicContentSize" width="156.5" height="34"/>
         </designable>
     </designables>
     <resources>

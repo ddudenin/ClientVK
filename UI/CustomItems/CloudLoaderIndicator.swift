@@ -7,7 +7,6 @@
 
 import UIKit
 
-@IBDesignable
 public final class CloudLoaderIndicator : UIView {
     
     private let cloudPath: UIBezierPath = {

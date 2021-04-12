@@ -113,10 +113,10 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         
         let handle: (Bool, Int) -> Void = { [weak self] state, count in
             do {
-                self?.realmManager?.beginWrite()
-                photo.likes?.userLikes = state ? 1 : 0
-                photo.likes?.count = count
-                try self?.realmManager?.endWrite()
+                try self?.realmManager?.update {
+                    photo.likes?.userLikes = state ? 1 : 0
+                    photo.likes?.count = count
+                }
             } catch {
                 print(error.localizedDescription)
             }
