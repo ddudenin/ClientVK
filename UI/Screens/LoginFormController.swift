@@ -44,11 +44,16 @@ final class LoginFormController: UIViewController {
         self.view.layer.insertSublayer(gradient, at: 0)
     }
     
+    @objc private func UpdateBackgroundLayerFrame() {
+        self.view.layer.sublayers?[0].frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeShown), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UpdateBackgroundLayerFrame), name: UIDevice.orientationDidChangeNotification, object: nil)
         
         //self.loaderIndicator.startAnimating()
     }
@@ -64,6 +69,7 @@ final class LoginFormController: UIViewController {
         
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     @IBAction private func loginButtonPressed(_ sender: Any) {
