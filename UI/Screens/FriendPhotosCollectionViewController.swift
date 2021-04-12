@@ -16,7 +16,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         get {
             guard let friend = self.friend else { return nil }
             
-            let photos: Results<Photo>? = realmManager?.getObjects()
+            let photos: Results<Photo>? = self.realmManager?.getObjects()
             return photos?.filter("ownerID = %@", friend.id)
         }
         
@@ -111,7 +111,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
-        let handle: (Bool, Int) -> Void = { [weak self] state, count in
+        let handle: (Bool, Int) -> Void = { [weak self] (state, count) in
             do {
                 try self?.realmManager?.update {
                     photo.likes?.userLikes = state ? 1 : 0

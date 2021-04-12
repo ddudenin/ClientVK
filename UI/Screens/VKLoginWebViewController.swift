@@ -12,7 +12,7 @@ final class VKLoginWebViewController: UIViewController {
     
     @IBOutlet private var webView: WKWebView! {
         didSet {
-            webView.navigationDelegate = self
+            self.webView.navigationDelegate = self
         }
     }
     
@@ -36,7 +36,7 @@ final class VKLoginWebViewController: UIViewController {
         guard let url = urlComponents.url else { return }
         
         let request = URLRequest(url: url)
-        webView.load(request)
+        self.webView.load(request)
     }
 }
 
@@ -46,7 +46,8 @@ extension VKLoginWebViewController: WKNavigationDelegate {
         if Session.instance.token.isEmpty {
             guard let url = navigationResponse.response.url,
                   url.path == "/blank.html",
-                  let fragment = url.fragment else {
+                  let fragment = url.fragment
+            else {
                 decisionHandler(.allow)
                 return
             }
@@ -64,7 +65,8 @@ extension VKLoginWebViewController: WKNavigationDelegate {
             
             guard let token = params["access_token"],
                   let userIdString = params["user_id"],
-                  let userId = Int(userIdString) else {
+                  let userId = Int(userIdString)
+            else {
                 decisionHandler(.allow)
                 return
             }

@@ -31,7 +31,7 @@ final class LoginFormController: UIViewController {
     
     private func setGradientBackground() {
         let gradient: CAGradientLayer = CAGradientLayer()
-
+        
         let startColor = UIColor(red: 0.02, green: 0.36, blue: 0.91, alpha: 1.00).cgColor
         let endColor = UIColor(red: 0.04, green: 0.78, blue: 0.98, alpha: 1.00).cgColor
         
@@ -40,7 +40,7 @@ final class LoginFormController: UIViewController {
         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-
+        
         self.view.layer.insertSublayer(gradient, at: 0)
     }
     
@@ -60,7 +60,6 @@ final class LoginFormController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setGradientBackground()
     }
     
