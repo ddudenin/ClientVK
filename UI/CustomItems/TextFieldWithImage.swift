@@ -32,17 +32,17 @@ class TextFieldWithImage: UITextField {
     
     func updateView() {
         if let image = leftImage {
-            leftViewMode = UITextField.ViewMode.always
+            self.leftViewMode = UITextField.ViewMode.always
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
             imageView.contentMode = .scaleAspectFit
             imageView.image = image
             imageView.tintColor = color
-            leftView = imageView
+            self.leftView = imageView
         } else {
-            leftViewMode = UITextField.ViewMode.never
-            leftView = nil
+            self.leftViewMode = UITextField.ViewMode.never
+            self.leftView = nil
         }
         
-        attributedPlaceholder = NSAttributedString(string: placeholder != nil ?  placeholder! : "", attributes:[NSAttributedString.Key.foregroundColor: color])
+        self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes:[NSAttributedString.Key.foregroundColor: color])
     }
 }
