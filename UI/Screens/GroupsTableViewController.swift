@@ -15,7 +15,7 @@ final class GroupsTableViewController: UITableViewController {
     
     private var groupsRef = Database.database().reference(withPath: "\(Session.instance.userId)/Groups")
     
-    private var groupsCollection = Firestore.firestore().collection("Groups")
+    private var groupsCollection = Firestore.firestore().collection("Users/\(Session.instance.userId)/Groups")
     private var listener: ListenerRegistration?
     
     private var userGroups = [Group]()

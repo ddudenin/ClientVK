@@ -27,7 +27,7 @@ class FriendsTableViewController: UITableViewController {
     
     private var friendsRef = Database.database().reference(withPath: "\(Session.instance.userId)/Friends")
     
-    private var friendsCollection = Firestore.firestore().collection("Friends")
+    private var friendsCollection = Firestore.firestore().collection("Users/\(Session.instance.userId)/Friends")
     private var listener: ListenerRegistration?
     
     private func CalculateSectionsAndHeaders() {

@@ -18,14 +18,13 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     private let networkManager = NetworkManager.instance
     private var photosRef = Database.database().reference(withPath: "\(Session.instance.userId)/Photos")
     
-    private var photosCollection = Firestore.firestore().collection("Photos")
+    private var photosCollection = Firestore.firestore().collection("Users/\(Session.instance.userId)/Photos")
     private var listener: ListenerRegistration?
     
     private func loadData() {
         guard let friend = self.friend else { return }
         
         self.networkManager.loadPhotos(userId: friend.id) { [weak self] items in
-            
             DispatchQueue.main.async {
                 let firebasePhoto = items.map { Photo(from: $0) }
                 
@@ -48,13 +47,13 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     private func loadDataFromDatabase() {
         self.photosRef.observe(.value) { [weak self] (snapshot) in
             DispatchQueue.main.async {
-                
+            
+                self?.photos.removeAll()
+
                 guard !snapshot.children.allObjects.isEmpty else {
                     self?.loadData()
                     return
                 }
-                
-                self?.photos.removeAll()
                 
                 for child in snapshot.children {
                     guard let child = child as? DataSnapshot,
@@ -110,17 +109,6 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         switch Config.databaseType {
         case .database:
             loadDataFromDatabase()
-        case .firestore:
-            loadDataFromFirestore()
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        switch Config.databaseType {
-        case .database:
-            loadData()
         case .firestore:
             loadDataFromFirestore()
         }

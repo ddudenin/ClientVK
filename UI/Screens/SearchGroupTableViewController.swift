@@ -17,7 +17,7 @@ final class SearchGroupTableViewController: UITableViewController {
     
     private let networkManager = NetworkManager.instance
     private var groupsRef = Database.database().reference(withPath: "\(Session.instance.userId)/Groups")
-    private var groupsCollection = Firestore.firestore().collection("Groups")
+    private var groupsCollection = Firestore.firestore().collection("Users/\(Session.instance.userId)/Groups")
     
     override func viewDidLoad() {
         super.viewDidLoad()
