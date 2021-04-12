@@ -47,9 +47,9 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     private func loadDataFromDatabase() {
         self.photosRef.observe(.value) { [weak self] (snapshot) in
             DispatchQueue.main.async {
-            
+                
                 self?.photos.removeAll()
-
+                
                 guard !snapshot.children.allObjects.isEmpty else {
                     self?.loadData()
                     return
@@ -81,9 +81,9 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
                     self?.loadData()
                     return
                 }
-
+                
                 self?.photos.removeAll()
-
+                
                 for doc in snapshot.documents {
                     guard let photo = Photo(dict: doc.data()) else { continue }
                     if photo.ownerID == self?.friend?.id {
@@ -120,6 +120,38 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
             self.photosRef.removeAllObservers()
         case .firestore:
             self.listener?.remove()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        switch Config.databaseType {
+        case .database:
+            self.photosRef.queryOrdered(byChild: "owner_id").queryEqual(toValue: self.friend?.id)
+                .observeSingleEvent(of: .value) { [weak self] (snapshot, _) in
+                    DispatchQueue.main.async {
+                        if snapshot.children.allObjects.isEmpty {
+                            self?.loadData()
+                        }
+                    }
+                }
+        case .firestore:
+            self.photosCollection.whereField("owner_id", isEqualTo: self.friend?.id ?? -1)
+                .addSnapshotListener { [weak self] snapshot, error in
+                    DispatchQueue.main.async {
+                        
+                        guard let snapshot = snapshot else {
+                            return
+                        }
+                        
+                        let mapData = snapshot.documents.map { $0.data() }
+                        
+                        if mapData.isEmpty {
+                            self?.loadData()
+                        }
+                    }
+                }
         }
     }
     
