@@ -30,11 +30,10 @@ final class LoginFormController: UIViewController {
     }
     
     private func setGradientBackground() {
-        let gradient: CAGradientLayer = CAGradientLayer()
-        
         let startColor = UIColor(red: 0.02, green: 0.36, blue: 0.91, alpha: 1.00).cgColor
         let endColor = UIColor(red: 0.04, green: 0.78, blue: 0.98, alpha: 1.00).cgColor
         
+        let gradient: CAGradientLayer = CAGradientLayer()
         gradient.colors = [startColor, endColor]
         gradient.locations = [0.0 , 1.0]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
@@ -53,7 +52,7 @@ final class LoginFormController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeShown), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillBeHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(UpdateBackgroundLayerFrame), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateBackgroundLayerFrame), name: UIDevice.orientationDidChangeNotification, object: nil)
         
         //self.loaderIndicator.startAnimating()
     }

@@ -60,7 +60,7 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
             return
         }
         
-        self.networkManager.loadGroups(searchText: searchText) { [weak self] items in
+        self.networkManager.loadGroups(searchText: searchText) { [weak self] (items) in
             self?.searchGroups = items
             
             DispatchQueue.main.async {

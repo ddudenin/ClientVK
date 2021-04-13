@@ -36,7 +36,7 @@ class FriendsTableViewController: UITableViewController {
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance
     
-    private func CalculateSectionsAndHeaders() {
+    private func calculateSectionsData() {
         guard let friends = self.friends else { return }
         let sectionsData = Dictionary(grouping: friends, by: { String($0.lastName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
@@ -44,7 +44,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     private func loadData() {
-        self.networkManager.loadFriends() { [weak self] items in
+        self.networkManager.loadFriends() { [weak self] (items) in
             DispatchQueue.main.async {
                 do {
                     try self?.realmManager?.add(objects: items)
@@ -73,7 +73,7 @@ class FriendsTableViewController: UITableViewController {
             loadData()
         }
         
-        CalculateSectionsAndHeaders()
+        calculateSectionsData()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -126,7 +126,7 @@ extension FriendsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText
-        CalculateSectionsAndHeaders()
+        calculateSectionsData()
         self.tableView.reloadData()
     }
 }

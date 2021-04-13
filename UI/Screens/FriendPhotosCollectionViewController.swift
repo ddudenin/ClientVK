@@ -30,7 +30,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     private func loadData() {
         guard let friend = self.friend else { return }
         
-        self.networkManager.loadPhotos(userId: friend.id) { [weak self] items in
+        self.networkManager.loadPhotos(userId: friend.id) { [weak self] (items) in
             DispatchQueue.main.async {
                 do {
                     try self?.realmManager?.add(objects: items)
@@ -51,19 +51,10 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
                 print("Initialized \(photos.count)")
                 #endif
             case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                
-                let deletionsIndexPaths = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexPaths = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexPaths = modifications.map { IndexPath(row: $0, section: 0) }
-                
-                #if DEBUG
-                print(deletions, insertions, modifications)
-                #endif
-                
                 self?.collectionView.performBatchUpdates {
-                    self?.collectionView.deleteItems(at: deletionsIndexPaths)
-                    self?.collectionView.insertItems(at: insertionsIndexPaths)
-                    self?.collectionView.reloadItems(at: modificationsIndexPaths)
+                    self?.collectionView.deleteItems(at: deletions.map { IndexPath(row: $0, section: 0) })
+                    self?.collectionView.insertItems(at: insertions.map { IndexPath(row: $0, section: 0) })
+                    self?.collectionView.reloadItems(at: modifications.map { IndexPath(row: $0, section: 0) })
                 }
             case .error(let error):
                 print(error.localizedDescription)

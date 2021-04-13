@@ -31,7 +31,7 @@ final class GroupsTableViewController: UITableViewController {
     private var notificationToken: NotificationToken?
     
     private func loadData() {
-        self.networkManager.loadGroups() { [weak self] items in
+        self.networkManager.loadGroups() { [weak self] (items) in
             DispatchQueue.main.async {
                 do {
                     try self?.realmManager?.add(objects: items)
@@ -50,23 +50,13 @@ final class GroupsTableViewController: UITableViewController {
                 print("Initialized \(groups.count)")
                 #endif
             case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                
-                let deletionsIndexPaths = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexPaths = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexPaths = modifications.map { IndexPath(row: $0, section: 0) }
-                
-                #if DEBUG
-                print(deletions, insertions, modifications)
-                #endif
-                
                 self?.tableView.beginUpdates()
                 
-                self?.tableView.deleteRows(at: deletionsIndexPaths, with: .automatic)
-                self?.tableView.insertRows(at: insertionsIndexPaths, with: .automatic)
-                self?.tableView.reloadRows(at: modificationsIndexPaths, with: .automatic)
+                self?.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                self?.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                self?.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .automatic)
                 
                 self?.tableView.endUpdates()
-                
             case .error(let error):
                 print(error.localizedDescription)
             }
