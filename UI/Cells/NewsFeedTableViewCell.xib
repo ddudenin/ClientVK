@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="628"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ceo_image" translatesAutoresizingMaskIntoConstraints="NO" id="fiX-qo-RPf">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VK_Compact_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="fiX-qo-RPf">
                         <rect key="frame" x="12" y="12" width="36" height="36"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="88E-RC-C7S"/>
@@ -138,8 +138,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="VK_Compact_Logo" width="960" height="960"/>
         <image name="arrowshape.turn.up.right" catalog="system" width="128" height="106"/>
-        <image name="ceo_image" width="230" height="178"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="eye" catalog="system" width="128" height="81"/>
         <image name="message" catalog="system" width="128" height="113"/>
