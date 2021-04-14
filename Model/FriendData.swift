@@ -34,7 +34,7 @@ class User: Object, Codable {
         case trackCode = "track_code"
     }
     
-    func getFullName() -> String {
+    var fullName: String  {
         return firstName + " " + lastName
     }
     

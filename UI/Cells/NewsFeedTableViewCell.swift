@@ -43,7 +43,7 @@ final class NewsFeedTableViewCell: UITableViewCell {
     }
     
     func configure(withPost post: Post) {
-        self.createdByLabel.text = post.createdBy.getFullName()
+        self.createdByLabel.text = post.createdBy.fullName
         self.timeAgoLabel.text = generateTimeAgoDisplay()
         self.profileImageView.sd_setImage(with: URL(string: post.createdBy.photo200_Orig))
         self.captionLabel.text = post.caption

@@ -24,7 +24,7 @@ final class FriendsTableViewCell: UITableViewCell {
     }
     
     func configure(withUser user: User) {
-        self.fullNameLabel.text = user.getFullName()
+        self.fullNameLabel.text = user.fullName
         self.avatarView.setImage(fromURL: user.photo200_Orig)
     }
 }

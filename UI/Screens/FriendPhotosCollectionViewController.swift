@@ -70,7 +70,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         
         // Do any additional setup after loading the view.
         guard let friend = self.friend else { return }
-        self.title = friend.getFullName()
+        self.title = friend.fullName
         
         signToPhotosChanges()
     }
