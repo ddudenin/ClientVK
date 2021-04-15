@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet var searchBar: UISearchBar!
     
     var searchGroups = [GroupItem]()
+    
+    private let networkManager = NetworkManager.instance
+    private let realmManager = RealmManager.instance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,13 +38,17 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
         
         // Configure the cell...
         cell.configure(withGroup: self.searchGroups[indexPath.row])
- 
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        groups.append(self.searchGroups[indexPath.row])
+        do {
+            try realmManager?.add(object: self.searchGroups[indexPath.row])
+        } catch {
+            print(error.localizedDescription)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -48,7 +56,7 @@ class GlobalCommunitiesTableViewController: UITableViewController, UISearchBarDe
         if searchText.isEmpty {
             return
         } else {
-            NetworkManager.instance.loadGroups(searchText: searchText) { [weak self] items in
+            networkManager.loadGroups(searchText: searchText) { [weak self] items in
                 self?.searchGroups = items
                 
                 DispatchQueue.main.async {

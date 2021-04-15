@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 func GetImage(fromURL url: String) -> UIImage? {
     guard let imgURL = URL(string: url) else { return .none }
@@ -30,3 +31,9 @@ func convertCountToString<T: BinaryInteger>(count number: T) -> String {
     
     return  String(format: "%.1f", value) + unitAbbreviations[index]
 }
+
+extension Results {
+    func toArray() -> [Element] {
+      return compactMap { $0 }
+    }
+ }

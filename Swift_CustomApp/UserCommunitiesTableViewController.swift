@@ -6,12 +6,37 @@
 //
 
 import UIKit
+import RealmSwift
 
 class UserCommunitiesTableViewController: UITableViewController, UISearchBarDelegate {
     
-    var filteredGroups = [GroupItem]()
+    private var searchText: String = ""
+    
+    private var filteredGroups: [GroupItem] {
+        get {
+            let groups: Results<GroupItem>? = realmManager?.getObjects()
+            
+            guard !searchText.isEmpty else { return groups?.toArray() ?? [] }
+            
+            return groups?.filter("name CONTAINS %@", searchText).toArray() ?? []
+        }
+        
+        set { }
+    }
     
     @IBOutlet var searchBar: UISearchBar!
+    
+    private let networkManager = NetworkManager.instance
+    private let realmManager = RealmManager.instance
+    
+    private func loadData() {
+        networkManager.loadGroups() { [weak self] items in
+            DispatchQueue.main.async {
+                try? self?.realmManager?.add(objects: items)
+                self?.tableView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,23 +44,18 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
         self.tableView.register(UINib(nibName: "CommunitiesTableViewCell", bundle: .none), forCellReuseIdentifier: "CommunityCell")
         
         self.searchBar.delegate = self
-        
-        if groups.isEmpty {
-            NetworkManager.instance.loadGroups() { [weak self] items in
-                groups = items
-                self?.filteredGroups = groups
-                
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.searchBar(self.searchBar, textDidChange: self.searchBar.text ?? "")
+        
+        if self.filteredGroups.isEmpty {
+            loadData()
+        }
+        
+        groups = self.filteredGroups
         
         self.tableView.reloadData()
     }
@@ -63,9 +83,13 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            groups.removeAll(where: {$0.name == self.filteredGroups[indexPath.row].name})
-            self.filteredGroups.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            do {
+                try realmManager?.delete(object: self.filteredGroups[indexPath.row])
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -87,16 +111,7 @@ class UserCommunitiesTableViewController: UITableViewController, UISearchBarDele
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredGroups = []
-        
-        if searchText.isEmpty {
-            self.filteredGroups = groups
-        } else {
-            for group in groups where group.name.lowercased().contains(searchText.lowercased()) {
-                self.filteredGroups.append(group)
-            }
-        }
-        
+        self.searchText = searchText
         self.tableView.reloadData()
     }
 }
