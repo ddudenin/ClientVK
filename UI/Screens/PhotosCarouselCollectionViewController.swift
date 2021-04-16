@@ -11,6 +11,7 @@ import RealmSwift
 final class PhotosCarouselCollectionViewController: UICollectionViewController {
     
     var photos: Results<Photo>?
+    var index = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()

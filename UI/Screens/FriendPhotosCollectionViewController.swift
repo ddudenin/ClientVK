@@ -124,7 +124,14 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: .none)
         let vc = storyboard.instantiateViewController(withIdentifier: "FriendPhotosCollectionView")
-        (vc as? PhotosCarouselCollectionViewController)?.photos = self.photos
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        guard let carouselVC = vc as? PhotosCarouselCollectionViewController else {
+            return
+        }
+        
+        carouselVC.photos = self.photos
+        carouselVC.index = indexPath.row
+        
+        self.navigationController?.pushViewController(carouselVC, animated: true)
     }
 }
