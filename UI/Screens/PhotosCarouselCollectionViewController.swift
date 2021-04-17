@@ -17,6 +17,12 @@ final class PhotosCarouselCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         // Register cell classes
         self.collectionView.register(UINib(nibName: "CarouselPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "CarouselPhotoCell")
+        
+        if let layout = self.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+            let indexPath = IndexPath(item: self.index, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
+        }
     }
 }
 
@@ -83,8 +89,6 @@ final class AnimatedCollectionViewLayout: UICollectionViewFlowLayout {
         let attr = attributes
         let distance: CGFloat
         let itemOffset: CGFloat
-        
-        self.scrollDirection = .horizontal
         
         distance = collectionView.frame.width
         itemOffset = attr.center.x - collectionView.contentOffset.x
