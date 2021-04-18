@@ -32,13 +32,13 @@ final class NewsFeedCollectionViewLayout: UICollectionViewFlowLayout {
             attributes.frame = CGRect(x: 0, y: 0,
                                       width: self.contentSize.width, height: self.contentSize.height)
             
-            cacheAttributes[indexPath] = attributes
+            self.cacheAttributes[indexPath] = attributes
             
             return
         }
         
-        let halfCellWidth = collectionView.frame.width / 2
-        let smallCellWidth = collectionView.frame.width / 3
+        let halfCellWidth = ceil(collectionView.frame.width / 2)
+        let smallCellWidth = ceil(collectionView.frame.width / 3)
         
         var lastY: CGFloat = 0
         var lastX: CGFloat = 0
@@ -50,7 +50,7 @@ final class NewsFeedCollectionViewLayout: UICollectionViewFlowLayout {
         var addedCount = 0
         
         let rowCount = halfCount / 2 + (itemsCount - halfCount) / 3
-        let cellHeight = contentSize.height / CGFloat(rowCount)
+        let cellHeight = ceil(self.contentSize.height / CGFloat(rowCount))
         
         for index in 0..<itemsCount {
             let indexPath = IndexPath(item: index, section: 0)
@@ -79,7 +79,7 @@ final class NewsFeedCollectionViewLayout: UICollectionViewFlowLayout {
                 }
             }
             
-            cacheAttributes[indexPath] = attributes
+            self.cacheAttributes[indexPath] = attributes
         }
     }
     
@@ -96,7 +96,7 @@ final class NewsFeedCollectionViewLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return cacheAttributes[indexPath]
+        return self.cacheAttributes[indexPath]
     }
     
     override var collectionViewContentSize: CGSize {
