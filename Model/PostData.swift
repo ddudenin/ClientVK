@@ -11,7 +11,7 @@ import RealmSwift
 struct Post {
     let createdBy: User
     let caption: String
-    let imagesNames: [String]
+    var imagesNames: [String]
     var likesCount: UInt
     var commentsCount: UInt
     var sharesCount: UInt
@@ -20,7 +20,11 @@ struct Post {
     init(user: User, caption: String) {
         self.createdBy = user
         self.caption = caption
-        self.imagesNames = Array(repeating: user.photo200_Orig, count: Int.random(in: 0...10))
+        
+        self.imagesNames = []
+        for _ in 0...Int.random(in: 0...10)  {
+            self.imagesNames.append("https://picsum.photos/id/\(Int.random(in: 0...1050))/200/200")
+        }
         
         self.likesCount = UInt.random(in: 0...1000000)
         self.commentsCount = UInt.random(in: 0...1000000)
