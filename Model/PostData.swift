@@ -1,5 +1,5 @@
 //
-//  NewsData.swift
+//  PostData.swift
 //  Swift_CustomApp
 //
 //  Created by Дмитрий on 2/11/21.
@@ -20,7 +20,7 @@ struct Post {
     init(user: User, caption: String) {
         self.createdBy = user
         self.caption = caption
-        self.imagesNames = Array(repeating: user.photo200_Orig, count: Int.random(in: 1...10))
+        self.imagesNames = Array(repeating: user.photo200_Orig, count: Int.random(in: 0...10))
         
         self.likesCount = UInt.random(in: 0...1000000)
         self.commentsCount = UInt.random(in: 0...1000000)

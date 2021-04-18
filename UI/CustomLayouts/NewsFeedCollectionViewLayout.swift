@@ -1,5 +1,5 @@
 //
-//  PostCollectionViewLayout.swift
+//  NewsFeedCollectionViewLayout.swift
 //  Swift_CustomApp
 //
 //  Created by Дмитрий on 2/13/21.
@@ -7,12 +7,10 @@
 
 import UIKit
 
-final class PostCollectionViewLayout: UICollectionViewFlowLayout {
+final class NewsFeedCollectionViewLayout: UICollectionViewFlowLayout {
     
     private var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
-    
-    private var cellHeight: CGFloat = 128
-    private var totalCellsHeight: CGFloat = 0
+    private var contentSize = CGSize(width: 0, height: 0)
     
     override func prepare() {
         super.prepare()
@@ -25,25 +23,25 @@ final class PostCollectionViewLayout: UICollectionViewFlowLayout {
         
         guard itemsCount > 0 else { return }
         
-        let halfCellWidth = collectionView.frame.width / 2
-        let smallCellWidth = collectionView.frame.width / 3
-        
-        var lastY: CGFloat = 0
-        var lastX: CGFloat = 0
+        self.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
         
         if itemsCount == 1 {
             let indexPath = IndexPath(item: 0, section: 0)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             
-            attributes.frame = CGRect(x: lastX, y: lastY,
-                                      width: collectionView.frame.width, height: self.cellHeight)
-            lastY += self.cellHeight
+            attributes.frame = CGRect(x: 0, y: 0,
+                                      width: self.contentSize.width, height: self.contentSize.height)
             
             cacheAttributes[indexPath] = attributes
-            self.totalCellsHeight = lastY
             
             return
         }
+        
+        let halfCellWidth = collectionView.frame.width / 2
+        let smallCellWidth = collectionView.frame.width / 3
+        
+        var lastY: CGFloat = 0
+        var lastX: CGFloat = 0
         
         var halfCount = itemsCount % 3
         if halfCount == 1 {
@@ -51,26 +49,29 @@ final class PostCollectionViewLayout: UICollectionViewFlowLayout {
         }
         var addedCount = 0
         
+        let rowCount = halfCount / 2 + (itemsCount - halfCount) / 3
+        let cellHeight = contentSize.height / CGFloat(rowCount)
+        
         for index in 0..<itemsCount {
             let indexPath = IndexPath(item: index, section: 0)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             
             if index < halfCount {
                 attributes.frame = CGRect(x: lastX, y: lastY,
-                                          width: halfCellWidth, height: self.cellHeight)
+                                          width: halfCellWidth, height: cellHeight)
                 
                 if (index + 1) % 2 == 0 {
                     lastX = 0
-                    lastY += self.cellHeight
+                    lastY += cellHeight
                 } else {
                     lastX += halfCellWidth
                 }
             } else {
                 attributes.frame = CGRect(x: lastX, y: lastY,
-                                          width: smallCellWidth, height: self.cellHeight)
+                                          width: smallCellWidth, height: cellHeight)
                 if addedCount == 2 {
                     lastX = 0
-                    lastY += self.cellHeight
+                    lastY += cellHeight
                     addedCount = 0
                 } else {
                     lastX += smallCellWidth
@@ -79,7 +80,6 @@ final class PostCollectionViewLayout: UICollectionViewFlowLayout {
             }
             
             cacheAttributes[indexPath] = attributes
-            self.totalCellsHeight = lastY
         }
     }
     
@@ -100,7 +100,6 @@ final class PostCollectionViewLayout: UICollectionViewFlowLayout {
     }
     
     override var collectionViewContentSize: CGSize {
-        return CGSize(width: UIScreen.main.bounds.width,
-                      height: self.totalCellsHeight)
+        return self.contentSize
     }
 }

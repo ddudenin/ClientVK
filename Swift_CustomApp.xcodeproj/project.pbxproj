@@ -24,7 +24,7 @@
 		394E9F692603DA7400895183 /* VKLoginWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394E9F682603DA7400895183 /* VKLoginWebViewController.swift */; };
 		394E9F6F2603F29E00895183 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394E9F6E2603F29E00895183 /* NetworkManager.swift */; };
 		3971559825CC8AA400470CED /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3971559725CC8AA400470CED /* LikeControl.swift */; };
-		39723BD225D7E07900866D33 /* PostCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */; };
+		39723BD225D7E07900866D33 /* NewsFeedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39723BD125D7E07900866D33 /* NewsFeedCollectionViewLayout.swift */; };
 		397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397CD8C425CB3DB900432501 /* AvatarView.swift */; };
 		398AA3BB260A8459008B0F14 /* UsefulFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */; };
 		3992149525E453570092E1E8 /* CloudLoaderIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */; };
@@ -74,7 +74,7 @@
 		394E9F682603DA7400895183 /* VKLoginWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKLoginWebViewController.swift; sourceTree = "<group>"; };
 		394E9F6E2603F29E00895183 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3971559725CC8AA400470CED /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
-		39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewLayout.swift; sourceTree = "<group>"; };
+		39723BD125D7E07900866D33 /* NewsFeedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedCollectionViewLayout.swift; sourceTree = "<group>"; };
 		397CD8C425CB3DB900432501 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulFunctions.swift; sourceTree = "<group>"; };
 		3992149425E453570092E1E8 /* CloudLoaderIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudLoaderIndicator.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		398F8B532621C503000107E8 /* CustomLayouts */ = {
 			isa = PBXGroup;
 			children = (
-				39723BD125D7E07900866D33 /* PostCollectionViewLayout.swift */,
+				39723BD125D7E07900866D33 /* NewsFeedCollectionViewLayout.swift */,
 			);
 			path = CustomLayouts;
 			sourceTree = "<group>";
@@ -444,7 +444,7 @@
 				8B193BD825C5E8290043AF16 /* GroupsTableViewCell.swift in Sources */,
 				8B4ED2D825BC93A800485879 /* LoginFormController.swift in Sources */,
 				8B193BDF25C5E8C90043AF16 /* SearchGroupTableViewController.swift in Sources */,
-				39723BD225D7E07900866D33 /* PostCollectionViewLayout.swift in Sources */,
+				39723BD225D7E07900866D33 /* NewsFeedCollectionViewLayout.swift in Sources */,
 				394E9F692603DA7400895183 /* VKLoginWebViewController.swift in Sources */,
 				393766F725D471D500FFB8D5 /* NewsFeedTableViewController.swift in Sources */,
 				393766F025D4267B00FFB8D5 /* FriendSectionHeader.swift in Sources */,

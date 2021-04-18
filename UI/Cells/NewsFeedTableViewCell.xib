@@ -46,7 +46,7 @@
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-Tf-m6Z" customClass="NewsFeedPhotosCollectionView" customModule="Swift_CustomApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="181" width="375" height="375"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewLayout key="collectionViewLayout" id="Ytw-fK-dUE" customClass="PostCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>
+                        <collectionViewLayout key="collectionViewLayout" id="Ytw-fK-dUE" customClass="NewsFeedCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>
                     </collectionView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="DWS-Gl-FnZ">
                         <rect key="frame" x="12" y="566" width="271" height="50"/>

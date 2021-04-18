@@ -88,6 +88,6 @@ final class NewsFeedPhotosCollectionView: UICollectionView {
     }
     
     override var intrinsicContentSize: CGSize {
-        return self.contentSize
+        return self.collectionViewLayout.collectionViewContentSize
     }
 }
