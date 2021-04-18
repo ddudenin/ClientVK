@@ -21,7 +21,7 @@ final class NewsFeedTableViewCell: UITableViewCell {
     @IBOutlet private var commentsButton: UIButton!
     @IBOutlet private var sharesButton: UIButton!
     @IBOutlet private var viewsCountLabel: UILabel!
-    @IBOutlet private var imagesCollectionsViews: UICollectionView!
+    @IBOutlet private var imagesCollectionView: UICollectionView!
     @IBOutlet private var likeControl: LikeControl!
     
     private var imagesNames = [String]()
@@ -30,10 +30,10 @@ final class NewsFeedTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.imagesCollectionsViews.dataSource = self
-        self.imagesCollectionsViews.delegate = self
+        self.imagesCollectionView.dataSource = self
+        self.imagesCollectionView.delegate = self
         
-        self.imagesCollectionsViews.register(UINib(nibName: "NewsFeedImageCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "PostImageCell")
+        self.imagesCollectionView.register(UINib(nibName: "NewsFeedImageCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "NewsFeedImageCell")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -52,6 +52,9 @@ final class NewsFeedTableViewCell: UITableViewCell {
         self.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
         self.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
         self.viewsCountLabel.text = convertCountToString(count: post.viewsCount)
+        
+        self.imagesCollectionView.reloadData()
+        self.imagesCollectionView.layoutIfNeeded()
     }
 }
 
@@ -66,10 +69,25 @@ extension NewsFeedTableViewCell: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostImageCell", for: indexPath) as! NewsFeedImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFeedImageCell", for: indexPath) as! NewsFeedImageCollectionViewCell
         
         cell.configure(withStringURL: self.imagesNames[indexPath.row])
-
+        
         return cell
+    }
+}
+
+final class NewsFeedPhotosCollectionView: UICollectionView {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if !__CGSizeEqualToSize(bounds.size, self.intrinsicContentSize) {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return self.contentSize
     }
 }

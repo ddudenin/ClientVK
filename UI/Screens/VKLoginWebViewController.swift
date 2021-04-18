@@ -16,10 +16,7 @@ final class VKLoginWebViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+    private func loginRequest() {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "oauth.vk.com"
@@ -37,6 +34,13 @@ final class VKLoginWebViewController: UIViewController {
         
         let request = URLRequest(url: url)
         self.webView.load(request)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        loginRequest()
     }
 }
 

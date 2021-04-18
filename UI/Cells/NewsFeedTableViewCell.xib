@@ -43,7 +43,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-Tf-m6Z">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-Tf-m6Z" customClass="NewsFeedPhotosCollectionView" customModule="Swift_CustomApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="181" width="375" height="375"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewLayout key="collectionViewLayout" id="Ytw-fK-dUE" customClass="PostCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>
@@ -127,7 +127,7 @@
                 <outlet property="captionLabel" destination="YX1-Dq-vLX" id="hAS-Jx-GhQ"/>
                 <outlet property="commentsButton" destination="ra1-aj-vA6" id="nYy-SF-HxF"/>
                 <outlet property="createdByLabel" destination="RN4-tE-DQi" id="3Vv-g3-xRl"/>
-                <outlet property="imagesCollectionsViews" destination="kPq-Tf-m6Z" id="9Ax-eG-IXx"/>
+                <outlet property="imagesCollectionView" destination="kPq-Tf-m6Z" id="74d-xL-C89"/>
                 <outlet property="likeControl" destination="1Iz-eQ-KbN" id="RC2-jr-7EF"/>
                 <outlet property="profileImageView" destination="fiX-qo-RPf" id="7GN-qJ-MSn"/>
                 <outlet property="sharesButton" destination="hUz-Ql-p8e" id="rHC-dV-8Fa"/>
