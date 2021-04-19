@@ -45,8 +45,14 @@ final class NewsFeedTableViewCell: UITableViewCell {
     func configure(withPost post: Article) {
         self.createdByLabel.text = post.source.name
         self.timeAgoLabel.text = utcToTimeAgoDisplay(dateString: post.publishedAt)
-        self.profileImageView.sd_setImage(with: URL(string: post.urlToImage ?? "https://picsum.photos/seed/picsum/200/300"))
-        self.captionLabel.text = post.articleDescription ?? post.title
+        self.profileImageView.sd_setImage(with: URL(string: "https://picsum.photos/id/\(Int.random(in: 0...1050))/200"))
+        
+        if let caption = post.articleDescription,
+           !caption.isEmpty {
+            self.captionLabel.text = caption
+        } else {
+            self.captionLabel.text = post.title
+        }
         
         self.imagesNames = []
         
