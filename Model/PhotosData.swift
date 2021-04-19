@@ -14,10 +14,10 @@ class PhotosJSONData: Codable {
 
 class PhotosResponse: Codable {
     let count: Int
-    let items: [PhotoItem]
+    let items: [Photo]
 }
 
-class PhotoItem: Object, Codable {
+class Photo: Object, Codable {
     @objc dynamic var albumID: Int = -1
     @objc dynamic var date: Int = 0
     @objc dynamic var id: Int = -1

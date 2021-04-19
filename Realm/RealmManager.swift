@@ -51,4 +51,10 @@ final class RealmManager {
             realm.deleteAll()
         }
     }
+    
+    func update(block: () -> Void) throws {
+        try realm.write {
+            block()
+        }
+    }
 }

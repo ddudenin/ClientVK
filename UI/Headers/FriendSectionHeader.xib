@@ -11,14 +11,14 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendsHeader" id="CDa-n8-FfC" customClass="FriendSectionHeader" customModule="Swift_CustomApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CDa-n8-FfC" id="jTM-g9-e5F" customClass="FriendSectionHeader" customModule="Swift_CustomApp" customModuleProvider="target">
+            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CDa-n8-FfC" id="jTM-g9-e5F" customClass="FriendSectionHeader" customModule="Swift_CustomApp" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVS-n1-TjJ">
                         <rect key="frame" x="20" y="5" width="374" height="90"/>
                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -30,7 +30,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="nameLabel" destination="GVS-n1-TjJ" id="rJi-vr-WmD"/>
+                <outlet property="sectionNameLabel" destination="GVS-n1-TjJ" id="SsZ-j3-xgW"/>
             </connections>
             <point key="canvasLocation" x="-277" y="-93"/>
         </tableViewCell>

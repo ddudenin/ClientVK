@@ -8,6 +8,7 @@
 import UIKit
 
 final class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.75
     }
@@ -40,11 +41,13 @@ final class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                                        animations: {
                                                         destination.view.transform = CGAffineTransform(rotationAngle: 0)
                                                        })
-                                }) { finished in
+                                })
+        { finished in
             if finished && !transitionContext.transitionWasCancelled {
                 source.view.transform = .identity
             }
             transitionContext.completeTransition(finished && !transitionContext.transitionWasCancelled)
-        }    }
+        }
+    }
     
 }

@@ -69,3 +69,6 @@ iOSInjectionProject/
 !*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
+
+# ignore file for Firebase configuration
+GoogleService-Info.plist

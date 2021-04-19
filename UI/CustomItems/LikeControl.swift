@@ -7,17 +7,16 @@
 
 import UIKit
 
-class LikeControl: UIControl {
+final class LikeControl: UIControl {
     
-    var likeCount: UInt = 0
-    
+    private var likeCount: Int = 0
     private let selectColor: UIColor = UIColor.black
     private let deselectedColor: UIColor = UIColor.darkGray
     
-    var likeButton : UIButton = UIButton(type: .custom)
-    
+    private var likeButton : UIButton = UIButton(type: .custom)
     private var likeCountLabel: UILabel = UILabel()
-
+    private var likeHandler: ((Bool, Int) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
@@ -57,37 +56,29 @@ class LikeControl: UIControl {
         let newState = !self.likeButton.isSelected
         self.likeButton.isSelected = newState
         
-        if newState {
-            self.likeCount += 1
-        } else {
-            self.likeCount -= 1
-        }
+        self.likeCount += newState ? 1 : -1
         
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
         self.likeCountLabel.textColor = newState && self.likeCount > 0 ? self.selectColor : self.deselectedColor
         
         self.animate()
+        
+        self.likeHandler?(newState, self.likeCount)
     }
     
-    func configure(withLikes like: Likes) {
-        self.likeCount = UInt(like.count)
-        
-        let state = like.userLikes == 1
-        self.likeButton.isSelected = state
-        
-        self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
-        
-        self.likeCountLabel.text = convertCountToString(count: self.likeCount)
+    func configure(withLikes like: Likes, handler handle: ((Bool, Int) -> Void)? = nil) {
+        configure(withLikesCount: like.count, state: like.userLikes == 1, handler: handle)
     }
     
-    func configure(withLikesCount count: UInt, withState state: Bool) {
+    func configure(withLikesCount count: Int, state selected: Bool, handler handle: ((Bool, Int) -> Void)? = nil) {
         self.likeCount = count
         
-        self.likeButton.isSelected = state
+        self.likeButton.isSelected = selected
         
-        self.likeCountLabel.textColor = state ? self.selectColor : self.deselectedColor
-        
+        self.likeCountLabel.textColor = selected ? self.selectColor : self.deselectedColor
         self.likeCountLabel.text = convertCountToString(count: self.likeCount)
+        
+        self.likeHandler = handle
     }
     
     private func animate() {

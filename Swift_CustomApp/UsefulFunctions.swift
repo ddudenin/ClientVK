@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import RealmSwift
 
+//Instead of SDWebImage
 func GetImage(fromURL url: String) -> UIImage? {
     guard let imgURL = URL(string: url) else { return .none }
     guard let imgData = try? Data(contentsOf: imgURL) else { return .none }
@@ -34,6 +35,23 @@ func convertCountToString<T: BinaryInteger>(count number: T) -> String {
 
 extension Results {
     func toArray() -> [Element] {
-      return compactMap { $0 }
+        return compactMap { $0 }
     }
- }
+}
+
+func generateTimeAgoDisplay() -> String {
+    let hour = arc4random_uniform(23)
+    let minute = arc4random_uniform(59)
+    
+    let today = Date(timeIntervalSinceNow: 0)
+    let gregorian  = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+    var offsetComponents = DateComponents()
+    offsetComponents.hour = -Int(hour)
+    offsetComponents.minute = -Int(minute)
+    
+    let randomDate = gregorian?.date(byAdding: offsetComponents, to: today, options: .init(rawValue: 0) )
+    
+    let formatter = RelativeDateTimeFormatter()
+    formatter.unitsStyle = .full
+    return formatter.localizedString(for: randomDate ?? today, relativeTo: Date())
+}

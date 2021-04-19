@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 class NetworkManager {
     static let instance = NetworkManager()
@@ -15,7 +14,7 @@ class NetworkManager {
         
     }
     
-    func loadFriends(complition: @escaping ([FriendItem]) -> ()) {
+    func loadFriends(complition: @escaping ([User]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -47,7 +46,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadPhotos(userId: Int, complition: @escaping ([PhotoItem]) -> ()) {
+    func loadPhotos(userId: Int, complition: @escaping ([Photo]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -79,7 +78,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadGroups(complition: @escaping ([GroupItem]) -> ()) {
+    func loadGroups(complition: @escaping ([Group]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -110,7 +109,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadGroups(searchText: String, complition: @escaping ([GroupItem]) -> ()) {
+    func loadGroups(searchText: String, complition: @escaping ([Group]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"

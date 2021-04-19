@@ -7,10 +7,10 @@
 
 import UIKit
 
-class FriendsTableViewCell: UITableViewCell {
+final class FriendsTableViewCell: UITableViewCell {
     
-    @IBOutlet var fullNameLabel: UILabel!
-    @IBOutlet var photoView: AvatarView!
+    @IBOutlet private var fullNameLabel: UILabel!
+    @IBOutlet private var avatarView: AvatarView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +23,8 @@ class FriendsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withFriend friend: FriendItem) {
-        self.fullNameLabel.text = friend.getFullName()
-        self.photoView.photoImageView.image = GetImage(fromURL: friend.photo200_Orig)
+    func configure(withUser user: User) {
+        self.fullNameLabel.text = user.fullName
+        self.avatarView.setImage(fromURL: user.photo200_Orig)
     }
 }
