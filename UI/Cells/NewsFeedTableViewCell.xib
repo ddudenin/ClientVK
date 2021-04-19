@@ -37,56 +37,50 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YX1-Dq-vLX">
-                        <rect key="frame" x="12" y="58.5" width="351" height="107.5"/>
+                        <rect key="frame" x="12" y="58" width="351" height="107.5"/>
                         <string key="text">Apple launches major new Racial Equity and Justice Initiative projects to challenge systemic racism, advance racial equity nationwide. Commitments build on Apple’s $100 million pledge and include a first-of-its-kind education hub for HBCUs and an Apple Developer Academy in Detroit</string>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kPq-Tf-m6Z" customClass="NewsFeedPhotosCollectionView" customModule="Swift_CustomApp" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="181" width="375" height="375"/>
+                        <rect key="frame" x="0.0" y="180.5" width="375" height="375.5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewLayout key="collectionViewLayout" id="Ytw-fK-dUE" customClass="NewsFeedCollectionViewLayout" customModule="Swift_CustomApp" customModuleProvider="target"/>
                     </collectionView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="DWS-Gl-FnZ">
-                        <rect key="frame" x="12" y="566" width="271" height="50"/>
+                        <rect key="frame" x="12" y="566" width="297" height="50"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Iz-eQ-KbN" customClass="LikeControl" customModule="Swift_CustomApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="88.5" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="97" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra1-aj-vA6">
-                                <rect key="frame" x="91.5" y="15.5" width="88" height="19.5"/>
+                                <rect key="frame" x="100" y="15.5" width="97" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" image="message" catalog="system">
+                                <state key="normal" title="0" image="message" catalog="system">
                                     <color key="titleColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUz-Ql-p8e">
-                                <rect key="frame" x="182.5" y="16" width="88.5" height="18.5"/>
+                                <rect key="frame" x="200" y="16" width="97" height="18.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" image="arrowshape.turn.up.right" catalog="system">
-                                    <color key="titleColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="0" image="arrowshape.turn.up.right" catalog="system">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="52d-Yz-CwU">
-                        <rect key="frame" x="303" y="581" width="60" height="20"/>
+                        <rect key="frame" x="329" y="582" width="34" height="18"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="erU-Uw-RY6">
-                                <rect key="frame" x="0.0" y="1.5" width="26" height="16.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="26" id="Cqc-xP-wTh"/>
-                                    <constraint firstAttribute="height" constant="20" id="QQE-Xv-NTn"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3Q-3J-D8h">
-                                <rect key="frame" x="29" y="0.0" width="31" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYi-hD-EXA">
+                                <rect key="frame" x="0.0" y="0.0" width="34" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" title="0" image="eye" catalog="system">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                     </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ro9-LH-IA9">
@@ -104,7 +98,7 @@
                     <constraint firstItem="DWS-Gl-FnZ" firstAttribute="top" secondItem="kPq-Tf-m6Z" secondAttribute="bottom" constant="10" id="8Kh-Fe-C1M"/>
                     <constraint firstItem="kPq-Tf-m6Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9Ot-eq-5ek"/>
                     <constraint firstItem="Rcz-Pi-iJS" firstAttribute="leading" secondItem="fiX-qo-RPf" secondAttribute="trailing" constant="10" id="Caj-gW-VYM"/>
-                    <constraint firstItem="YX1-Dq-vLX" firstAttribute="top" secondItem="Rcz-Pi-iJS" secondAttribute="bottom" constant="10" id="En9-Dz-TTr"/>
+                    <constraint firstItem="YX1-Dq-vLX" firstAttribute="top" secondItem="fiX-qo-RPf" secondAttribute="bottom" constant="10" id="DoM-aq-bgW"/>
                     <constraint firstItem="52d-Yz-CwU" firstAttribute="leading" secondItem="DWS-Gl-FnZ" secondAttribute="trailing" constant="20" id="Eu3-PI-cHw"/>
                     <constraint firstItem="52d-Yz-CwU" firstAttribute="centerY" secondItem="DWS-Gl-FnZ" secondAttribute="centerY" id="GL0-C4-bkM"/>
                     <constraint firstItem="YX1-Dq-vLX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Odd-oy-xbl"/>
@@ -132,7 +126,7 @@
                 <outlet property="profileImageView" destination="fiX-qo-RPf" id="7GN-qJ-MSn"/>
                 <outlet property="sharesButton" destination="hUz-Ql-p8e" id="rHC-dV-8Fa"/>
                 <outlet property="timeAgoLabel" destination="Rcz-Pi-iJS" id="WsU-rY-KTj"/>
-                <outlet property="viewsCountLabel" destination="v3Q-3J-D8h" id="ub0-d8-a4V"/>
+                <outlet property="viewsButton" destination="WYi-hD-EXA" id="Toj-sW-IiQ"/>
             </connections>
             <point key="canvasLocation" x="74.637681159420296" y="104.46428571428571"/>
         </tableViewCell>

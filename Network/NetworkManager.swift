@@ -140,4 +140,45 @@ class NetworkManager {
         
         dataTask.resume()
     }
+    
+    func loadNews(complition: @escaping ([Article]) -> ()){
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "newsapi.org"
+        urlComponents.path = "/v2/top-headlines"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "apiKey", value: "ec8c5767456c45f3af8ba865c95b4723"),
+            URLQueryItem(name: "country", value: "gb")
+        ]
+        
+        guard let url = urlComponents.url else { return }
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                do {
+                    let news = try JSONDecoder().decode(NewsJSONData.self, from: data).articles
+                    complition(news)
+                }  catch let DecodingError.dataCorrupted(context) {
+                    print(context)
+                } catch let DecodingError.keyNotFound(key, context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.valueNotFound(value, context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch let DecodingError.typeMismatch(type, context)  {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        dataTask.resume()
+    }
 }
