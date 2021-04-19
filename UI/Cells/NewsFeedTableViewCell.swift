@@ -20,7 +20,7 @@ final class NewsFeedTableViewCell: UITableViewCell {
     @IBOutlet private var captionLabel: UILabel!
     @IBOutlet private var commentsButton: UIButton!
     @IBOutlet private var sharesButton: UIButton!
-    @IBOutlet private var viewsCountLabel: UILabel!
+    @IBOutlet var viewsButton: UIButton!
     @IBOutlet private var imagesCollectionView: UICollectionView!
     @IBOutlet private var likeControl: LikeControl!
     
@@ -42,16 +42,26 @@ final class NewsFeedTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withPost post: Post) {
-        self.createdByLabel.text = post.createdBy.fullName
-        self.timeAgoLabel.text = generateTimeAgoDisplay()
-        self.profileImageView.sd_setImage(with: URL(string: post.createdBy.photo200_Orig))
-        self.captionLabel.text = post.caption
-        self.imagesNames = post.imagesNames
-        self.likeControl.configure(withLikesCount: Int(post.likesCount), state: Bool.random())
-        self.commentsButton.setTitle(convertCountToString(count: post.commentsCount), for: .normal)
-        self.sharesButton.setTitle(convertCountToString(count: post.sharesCount), for: .normal)
-        self.viewsCountLabel.text = convertCountToString(count: post.viewsCount)
+    func configure(withPost post: Article) {
+        self.createdByLabel.text = post.source.name
+        self.timeAgoLabel.text = utcToTimeAgoDisplay(dateString: post.publishedAt)
+        self.profileImageView.sd_setImage(with: URL(string: post.urlToImage ?? "https://picsum.photos/seed/picsum/200/300"))
+        self.captionLabel.text = post.articleDescription ?? post.title
+        
+        self.imagesNames = []
+        
+        if let postImage = post.urlToImage {
+            self.imagesNames.append(postImage)
+        } else {
+            for _ in 0...Int.random(in: 0...10)  {
+                self.imagesNames.append("https://picsum.photos/id/\(Int.random(in: 0...1050))/200/200")
+            }
+        }
+        
+        self.likeControl.configure(withLikesCount: Int.random(in: 0...1000000), state: Bool.random())
+        self.commentsButton.setTitle(convertCountToString(count: Int.random(in: 0...1000000)), for: .normal)
+        self.sharesButton.setTitle(convertCountToString(count: Int.random(in: 0...10000000)), for: .normal)
+        self.viewsButton.setTitle(convertCountToString(count: Int.random(in: 0...10000000)), for: .normal)
         
         self.imagesCollectionView.reloadData()
         self.imagesCollectionView.layoutIfNeeded()

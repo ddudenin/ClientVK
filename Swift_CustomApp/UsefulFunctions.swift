@@ -33,12 +33,6 @@ func convertCountToString<T: BinaryInteger>(count number: T) -> String {
     return  String(format: "%.1f", value) + unitAbbreviations[index]
 }
 
-extension Results {
-    func toArray() -> [Element] {
-        return compactMap { $0 }
-    }
-}
-
 func generateTimeAgoDisplay() -> String {
     let hour = arc4random_uniform(23)
     let minute = arc4random_uniform(59)
@@ -54,4 +48,15 @@ func generateTimeAgoDisplay() -> String {
     let formatter = RelativeDateTimeFormatter()
     formatter.unitsStyle = .full
     return formatter.localizedString(for: randomDate ?? today, relativeTo: Date())
+}
+
+func utcToTimeAgoDisplay(dateString: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    let relativeFormatter = RelativeDateTimeFormatter()
+    relativeFormatter.unitsStyle = .full
+    
+    return relativeFormatter.localizedString(for: dateFormatter.date(from: dateString) ?? Date(timeIntervalSinceNow: 0), relativeTo: Date())
 }

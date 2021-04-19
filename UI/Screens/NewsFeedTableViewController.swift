@@ -9,10 +9,24 @@ import UIKit
 
 final class NewsFeedTableViewController: UITableViewController {
     
+    private var postsData = [Article]()
+    private let networkManager = NetworkManager.instance
+    
+    private func loadData() {
+        self.networkManager.loadNews() { [weak self] (items) in
+            DispatchQueue.main.async {
+                self?.postsData = items
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UINib(nibName: "NewsFeedTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedCell")
+        
+        loadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
