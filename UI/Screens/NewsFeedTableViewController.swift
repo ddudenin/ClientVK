@@ -20,6 +20,10 @@ final class NewsFeedTableViewController: UITableViewController {
         return refreshControl
     }()
     
+    var toTopButton = UIButton()
+    private var isScrollOnTop = true
+    private var startYPos: CGFloat = 0
+    
     private func loadData(completion: (() -> Void)? = nil) {
         self.networkManager.loadNews() { [weak self] (items) in
             DispatchQueue.main.async {
@@ -30,6 +34,23 @@ final class NewsFeedTableViewController: UITableViewController {
         }
     }
     
+    private func setupFloatingButton() {
+        let tabBarHeight = self.tabBarController?.tabBar.frame.size.height ?? 0
+        let buttonSize = CGSize(width: 30, height: 30)
+        self.startYPos = self.tableView.frame.height - buttonSize.height - tabBarHeight - 10
+        
+        self.toTopButton.frame = CGRect(x: self.tableView.frame.width - buttonSize.width - 10, y: startYPos, width: buttonSize.width, height: buttonSize.height)
+        self.toTopButton.setImage(UIImage(systemName: "arrow.up.circle"), for: .normal)
+        self.toTopButton.backgroundColor = #colorLiteral(red: 0.1529411765, green: 0.5294117647, blue: 0.9607843137, alpha: 1)
+        self.toTopButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.toTopButton.clipsToBounds = true
+        self.toTopButton.layer.cornerRadius = buttonSize.width / 2
+        self.toTopButton.addTarget(self, action: #selector(toTopButtonHandle(_:)), for: .touchUpInside)
+        self.toTopButton.alpha = 0
+        
+        self.view.addSubview(self.toTopButton)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +59,8 @@ final class NewsFeedTableViewController: UITableViewController {
         self.tableView.refreshControl = self.refresherController
         
         loadData()
+        
+        setupFloatingButton()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,9 +84,32 @@ final class NewsFeedTableViewController: UITableViewController {
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.toTopButton.frame.origin.y = self.startYPos + scrollView.contentOffset.y
+        
+        let offsetY = scrollView.contentOffset.y
+        if offsetY > 200 {
+            if self.isScrollOnTop {
+                UIView.animate(withDuration: 0.3) {
+                    self.toTopButton.alpha = 1
+                }
+                self.isScrollOnTop = false
+            }
+        } else if !self.isScrollOnTop {
+            UIView.animate(withDuration: 0.3) {
+                self.toTopButton.alpha = 0
+            }
+            self.isScrollOnTop = true
+        }
+    }
+    
     @objc func refresh(_ sender: UIRefreshControl) {
         loadData() { [weak self] in
             self?.refresherController.endRefreshing()
         }
+    }
+    
+    @objc func toTopButtonHandle(_ sender: UIButton) {
+        self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
 }

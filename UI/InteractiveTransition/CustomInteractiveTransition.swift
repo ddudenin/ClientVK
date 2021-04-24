@@ -10,8 +10,8 @@ import UIKit
 final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
     
     var interactionInProgress = false
-    
     var shouldCompleteTransition = false
+    
     var viewController: UIViewController? {
         didSet {
             prepareGestureRecognizer(in: viewController?.view)
@@ -20,6 +20,7 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
 
     private func prepareGestureRecognizer(in view: UIView?) {
         let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgeGesture(_:)))
+        gesture.edges = [.left]
         view?.addGestureRecognizer(gesture)
     }
     
