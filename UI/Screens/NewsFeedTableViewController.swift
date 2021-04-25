@@ -45,7 +45,7 @@ final class NewsFeedTableViewController: UITableViewController {
         self.toTopButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.toTopButton.clipsToBounds = true
         self.toTopButton.layer.cornerRadius = buttonSize.width / 2
-        self.toTopButton.addTarget(self, action: #selector(toTopButtonHandle(_:)), for: .touchUpInside)
+        self.toTopButton.addTarget(self, action: #selector(scrollToTopHandle(_:)), for: .touchUpInside)
         self.toTopButton.alpha = 0
         
         self.view.addSubview(self.toTopButton)
@@ -109,7 +109,7 @@ final class NewsFeedTableViewController: UITableViewController {
         }
     }
     
-    @objc func toTopButtonHandle(_ sender: UIButton) {
+    @objc func scrollToTopHandle(_ sender: UIButton) {
         self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
 }
