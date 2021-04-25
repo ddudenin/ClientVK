@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UK6-dt-C2z">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -315,13 +315,7 @@
                             <outlet property="delegate" destination="IHd-nJ-65H" id="g73-WN-9C4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="7L2-3t-piP">
-                        <barButtonItem key="leftBarButtonItem" image="doc.text" catalog="system" id="Hec-6F-DmA">
-                            <connections>
-                                <action selector="revealSideMenu" destination="IHd-nJ-65H" id="y3p-kZ-s5h"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="7L2-3t-piP"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R2b-AS-Z3b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -543,7 +537,6 @@
     </designables>
     <resources>
         <image name="VK_Compact_Logo" width="960" height="960"/>
-        <image name="doc.text" catalog="system" width="115" height="128"/>
         <image name="key" catalog="system" width="86" height="128"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>

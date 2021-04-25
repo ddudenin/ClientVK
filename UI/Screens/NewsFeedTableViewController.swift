@@ -35,11 +35,11 @@ final class NewsFeedTableViewController: UITableViewController {
     }
     
     private func setupFloatingButton() {
-        let tabBarHeight = self.tabBarController?.tabBar.frame.size.height ?? 0
+        let navigationBarHeight = self.navigationController?.navigationBar.frame.size.height ?? 0
         let buttonSize = CGSize(width: 30, height: 30)
-        self.startYPos = self.tableView.frame.height - buttonSize.height - tabBarHeight - 10
+        self.startYPos = navigationBarHeight + buttonSize.height
         
-        self.toTopButton.frame = CGRect(x: self.tableView.frame.width - buttonSize.width - 10, y: startYPos, width: buttonSize.width, height: buttonSize.height)
+        self.toTopButton.frame = CGRect(x: self.tableView.frame.width / 2 - buttonSize.width / 2, y: startYPos, width: buttonSize.width, height: buttonSize.height)
         self.toTopButton.setImage(UIImage(systemName: "arrow.up.circle"), for: .normal)
         self.toTopButton.backgroundColor = #colorLiteral(red: 0.1529411765, green: 0.5294117647, blue: 0.9607843137, alpha: 1)
         self.toTopButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

@@ -147,7 +147,7 @@ class NetworkManager {
         urlComponents.host = "newsapi.org"
         urlComponents.path = "/v2/top-headlines"
         urlComponents.queryItems = [
-            URLQueryItem(name: "apiKey", value: "ec8c5767456c45f3af8ba865c95b4723"),
+            URLQueryItem(name: "apiKey", value: "8e58842e74f2453bb5e6e3845b386a81"),
             URLQueryItem(name: "country", value: "gb")
         ]
         
@@ -160,17 +160,6 @@ class NetworkManager {
                 do {
                     let news = try JSONDecoder().decode(NewsJSONData.self, from: data).articles
                     complition(news)
-                }  catch let DecodingError.dataCorrupted(context) {
-                    print(context)
-                } catch let DecodingError.keyNotFound(key, context) {
-                    print("Key '\(key)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.valueNotFound(value, context) {
-                    print("Value '\(value)' not found:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
-                } catch let DecodingError.typeMismatch(type, context)  {
-                    print("Type '\(type)' mismatch:", context.debugDescription)
-                    print("codingPath:", context.codingPath)
                 } catch {
                     print(error.localizedDescription)
                 }
