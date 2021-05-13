@@ -123,6 +123,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A4B705E264DB82B00C03B74 /* NewsFeed */ = {
+			isa = PBXGroup;
+			children = (
+				393766F925D4727700FFB8D5 /* NewsFeedTableViewCell.swift */,
+				393766FA25D4727700FFB8D5 /* NewsFeedTableViewCell.xib */,
+			);
+			path = NewsFeed;
+			sourceTree = "<group>";
+		};
 		392A7D6D25E58D38007A6290 /* NavigationTransitions */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +238,7 @@
 		8B193BB525C5AC850043AF16 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0A4B705E264DB82B00C03B74 /* NewsFeed */,
 				8B193BBE25C5AE200043AF16 /* FriendsTableViewCell.swift */,
 				8B193BBF25C5AE200043AF16 /* FriendsTableViewCell.xib */,
 				8B193BCD25C5CBED0043AF16 /* FriendPhotoCollectionViewCell.swift */,
@@ -237,8 +247,6 @@
 				39C00A7825E2D035008FFB25 /* CarouselPhotoCollectionViewCell.xib */,
 				8B193BD625C5E8290043AF16 /* GroupsTableViewCell.swift */,
 				8B193BD725C5E8290043AF16 /* GroupsTableViewCell.xib */,
-				393766F925D4727700FFB8D5 /* NewsFeedTableViewCell.swift */,
-				393766FA25D4727700FFB8D5 /* NewsFeedTableViewCell.xib */,
 				39AEA5EB25D83E8200384E1C /* NewsFeedImageCollectionViewCell.swift */,
 				39AEA5EC25D83E8200384E1C /* NewsFeedImageCollectionViewCell.xib */,
 			);
