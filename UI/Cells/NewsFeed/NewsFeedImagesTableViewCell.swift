@@ -36,10 +36,6 @@ final class NewsFeedImagesTableViewCell: UITableViewCell {
         
         if let postImage = post.urlToImage {
             self.imagesNames.append(postImage)
-        } else {
-            for _ in 0...Int.random(in: 0...10)  {
-                self.imagesNames.append("https://picsum.photos/id/\(Int.random(in: 0...1050))/200/200")
-            }
         }
         
         self.imagesCollectionView.reloadData()

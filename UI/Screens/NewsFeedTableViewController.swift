@@ -9,8 +9,17 @@ import UIKit
 
 final class NewsFeedTableViewController: UITableViewController {
     
+    enum PostBlock {
+        case author
+        case text
+        case photos
+        case footer
+    }
+    
     private var postsData = [Article]()
     private let networkManager = NetworkManager.instance
+    
+    private var sectionBlocks = [[PostBlock]]()
     
     private lazy var refresherController: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -28,6 +37,7 @@ final class NewsFeedTableViewController: UITableViewController {
         self.networkManager.loadNews() { [weak self] (items) in
             DispatchQueue.main.async {
                 self?.postsData = items
+                self?.calculateSectionsBlocks()
                 self?.tableView.reloadData()
                 completion?()
             }
@@ -51,6 +61,26 @@ final class NewsFeedTableViewController: UITableViewController {
         self.view.addSubview(self.toTopButton)
     }
     
+    private func calculateSectionsBlocks() {
+        var blocks: [PostBlock]
+        
+        for post in postsData {
+            blocks = [.author]
+            
+            //if let text = post.articleDescription, !text.isEmpty {
+                blocks.append(.text)
+            //}
+            
+            if let _ = post.urlToImage {
+                blocks.append(.photos)
+            }
+            
+            blocks.append(.footer)
+            
+            self.sectionBlocks.append(blocks)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,45 +97,44 @@ final class NewsFeedTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return postsData.count
+        return self.postsData.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return self.sectionBlocks[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
+        switch self.sectionBlocks[indexPath.section][indexPath.row] {
+        case .author:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedAuthorCell", for: indexPath) as! NewsFeedAuthorTableViewCell
             
             // Configure the cell...
             cell.configure(withPost: postsData[indexPath.section])
             
             return cell
-        } else if indexPath.row == 1 {
+        case .text:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedTextCell", for: indexPath) as! NewsFeedTextTableViewCell
             
             // Configure the cell...
             cell.configure(withPost: postsData[indexPath.section])
             
             return cell
-        } else if indexPath.row == 2 {
+        case .photos:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedImagesCell", for: indexPath) as! NewsFeedImagesTableViewCell
             
             // Configure the cell...
             cell.configure(withPost: postsData[indexPath.section])
             
             return cell
-        } else if indexPath.row == 3 {
+        case .footer:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedFooterCell", for: indexPath) as! NewsFeedFooterTableViewCell
             
             // Configure the cell...
             cell.configure(withPost: postsData[indexPath.section])
             
             return cell
-        } else {
-            return UITableViewCell()
         }
     }
     
