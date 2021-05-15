@@ -141,14 +141,15 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadNews(complition: @escaping ([Article]) -> ()){
+    func loadPosts(complition: @escaping (PostResponse) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = "newsapi.org"
-        urlComponents.path = "/v2/top-headlines"
+        urlComponents.host = "api.vk.com"
+        urlComponents.path = "/method/newsfeed.get"
         urlComponents.queryItems = [
-            URLQueryItem(name: "apiKey", value: "8e58842e74f2453bb5e6e3845b386a81"),
-            URLQueryItem(name: "country", value: "gb")
+            URLQueryItem(name: "access_token", value: Session.instance.token),
+            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "v", value: "5.130")
         ]
         
         guard let url = urlComponents.url else { return }
@@ -158,8 +159,8 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let news = try JSONDecoder().decode(NewsJSONData.self, from: data).articles
-                    complition(news)
+                    let friends = try JSONDecoder().decode(PostJSONData.self, from: data).response
+                    complition(friends)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -170,4 +171,7 @@ class NetworkManager {
         
         dataTask.resume()
     }
+    
+    
+    
 }

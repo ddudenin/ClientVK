@@ -16,7 +16,7 @@ final class NewsFeedTableViewController: UITableViewController {
         case footer
     }
     
-    private var postsData = [Article]()
+    private var postsData = [PostData]()
     private let networkManager = NetworkManager.instance
     
     private var sectionBlocks = [[PostBlock]]()
@@ -33,11 +33,61 @@ final class NewsFeedTableViewController: UITableViewController {
     private var isScrollOnTop = true
     private var startYPos: CGFloat = 0
     
+    private func preparePostData(response: PostResponse) {
+        var blocks = [PostBlock]()
+        
+        for post in response.items {
+            var name = ""
+            var url = ""
+            
+            let index = post.sourceID
+
+            if index > 0 {
+                if let profile = response.profiles.first(where: {$0.id == index}) {
+                    name = profile.fullName
+                    url = profile.photo100
+                }
+            } else {
+                if let group = response.groups.first(where: {$0.id == -index}) {
+                    name = group.name
+                    url = group.photo200
+                }
+            }
+            
+            var photosURL = [String]()
+            
+            if let attachments = post.attachments, !attachments.isEmpty {
+                for item in attachments {
+                    if let url = item.photo?.sizes.last?.url {
+                        photosURL.append(url)
+                    }
+                }
+            }
+            
+            postsData.append(PostData(item: post, author: Author(name: name, avatarURL: url), photos: photosURL))
+            
+            blocks = [.author]
+            
+            if(!post.text.isEmpty) {
+                blocks.append(.text)
+            }
+            
+            if !photosURL.isEmpty {
+                blocks.append(.photos)
+            }
+            
+
+            
+            blocks.append(.footer)
+            
+            self.sectionBlocks.append(blocks)
+        }
+    }
+    
     private func loadData(completion: (() -> Void)? = nil) {
-        self.networkManager.loadNews() { [weak self] (items) in
+        self.networkManager.loadPosts() { [weak self] (response) in
             DispatchQueue.main.async {
-                self?.postsData = items
-                self?.calculateSectionsBlocks()
+                self?.preparePostData(response: response)
                 self?.tableView.reloadData()
                 completion?()
             }
@@ -59,26 +109,6 @@ final class NewsFeedTableViewController: UITableViewController {
         self.toTopButton.alpha = 0
         
         self.view.addSubview(self.toTopButton)
-    }
-    
-    private func calculateSectionsBlocks() {
-        var blocks: [PostBlock]
-        
-        for post in postsData {
-            blocks = [.author]
-            
-            //if let text = post.articleDescription, !text.isEmpty {
-                blocks.append(.text)
-            //}
-            
-            if let _ = post.urlToImage {
-                blocks.append(.photos)
-            }
-            
-            blocks.append(.footer)
-            
-            self.sectionBlocks.append(blocks)
-        }
     }
     
     override func viewDidLoad() {
@@ -105,20 +135,21 @@ final class NewsFeedTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let post = postsData[indexPath.section]
         
         switch self.sectionBlocks[indexPath.section][indexPath.row] {
         case .author:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedAuthorCell", for: indexPath) as! NewsFeedAuthorTableViewCell
             
             // Configure the cell...
-            cell.configure(withPost: postsData[indexPath.section])
+            cell.configure(withPost: post)
             
             return cell
         case .text:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedTextCell", for: indexPath) as! NewsFeedTextTableViewCell
             
             // Configure the cell...
-            cell.configure(withPost: postsData[indexPath.section])
+            cell.configure(withPost: post)
             
             return cell
         case .photos:
@@ -132,7 +163,7 @@ final class NewsFeedTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedFooterCell", for: indexPath) as! NewsFeedFooterTableViewCell
             
             // Configure the cell...
-            cell.configure(withPost: postsData[indexPath.section])
+            cell.configure(withPost: post)
             
             return cell
         }

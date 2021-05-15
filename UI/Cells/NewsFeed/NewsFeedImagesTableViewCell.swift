@@ -12,7 +12,7 @@ final class NewsFeedImagesTableViewCell: UITableViewCell {
     
     @IBOutlet private var imagesCollectionView: UICollectionView!
 
-    private var imagesNames = [String]()
+    private var imagesURL = [String]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,14 +30,8 @@ final class NewsFeedImagesTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withPost post: Article) {
-
-        self.imagesNames = []
-        
-        if let postImage = post.urlToImage {
-            self.imagesNames.append(postImage)
-        }
-        
+    func configure(withPost post: PostData) {
+        self.imagesURL = post.photos
         self.imagesCollectionView.reloadData()
         self.imagesCollectionView.layoutIfNeeded()
     }
@@ -50,13 +44,13 @@ extension NewsFeedImagesTableViewCell: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imagesNames.count
+        return self.imagesURL.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFeedImageCell", for: indexPath) as! NewsFeedImageCollectionViewCell
         
-        cell.configure(withStringURL: self.imagesNames[indexPath.row])
+        cell.configure(withStringURL: self.imagesURL[indexPath.row])
         
         return cell
     }
