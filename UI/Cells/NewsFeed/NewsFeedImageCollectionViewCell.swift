@@ -12,7 +12,7 @@ final class NewsFeedImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private var imageView: UIImageView! {
         didSet {
-            self.imageView.contentMode = .scaleAspectFill
+            self.imageView.contentMode = .scaleAspectFit
         }
     }
     

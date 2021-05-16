@@ -159,8 +159,8 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let friends = try JSONDecoder().decode(PostJSONData.self, from: data).response
-                    complition(friends)
+                    let response = try JSONDecoder().decode(PostJSONData.self, from: data).response
+                    complition(response)
                 } catch {
                     print(error.localizedDescription)
                 }

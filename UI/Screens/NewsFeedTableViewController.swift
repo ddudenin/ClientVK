@@ -34,53 +34,62 @@ final class NewsFeedTableViewController: UITableViewController {
     private var startYPos: CGFloat = 0
     
     private func preparePostData(response: PostResponse) {
-        var blocks = [PostBlock]()
+        self.sectionBlocks = []
+        self.postsData = []
+        
+        let dispatchGroup = DispatchGroup()
+        let syncQueue = DispatchQueue(label: "DocumentStoreSyncQueue", attributes: .concurrent)
         
         for post in response.items {
-            var name = ""
-            var url = ""
-            
-            let index = post.sourceID
-
-            if index > 0 {
-                if let profile = response.profiles.first(where: {$0.id == index}) {
-                    name = profile.fullName
-                    url = profile.photo100
-                }
-            } else {
-                if let group = response.groups.first(where: {$0.id == -index}) {
-                    name = group.name
-                    url = group.photo200
-                }
-            }
-            
-            var photosURL = [String]()
-            
-            if let attachments = post.attachments, !attachments.isEmpty {
-                for item in attachments {
-                    if let url = item.photo?.sizes.last?.url {
-                        photosURL.append(url)
+            DispatchQueue.global().async(group: dispatchGroup) {
+                syncQueue.async(flags: .barrier) {
+                    var blocks = [PostBlock]()
+                    
+                    var author = Author()
+                    
+                    let index = post.sourceID
+                    
+                    if index > 0 {
+                        if let profile = response.profiles.first(where: {$0.id == index}) {
+                            author = Author(name: profile.fullName, avatarURL: profile.photo100)
+                        }
+                    } else {
+                        if let group = response.groups.first(where: {$0.id == -index}) {
+                            author = Author(name: group.name, avatarURL: group.photo200)
+                        }
                     }
+                    
+                    var photosURL = [String]()
+                    
+                    if let attachments = post.attachments, !attachments.isEmpty {
+                        for item in attachments {
+                            if let url = item.photo?.sizes.last?.url {
+                                photosURL.append(url)
+                            }
+                        }
+                    }
+                    
+                    self.postsData.append(PostData(item: post, author: author, photos: photosURL))
+                    
+                    blocks = [.author]
+                    
+                    if(!post.text.isEmpty) {
+                        blocks.append(.text)
+                    }
+                    
+                    if !photosURL.isEmpty {
+                        blocks.append(.photos)
+                    }
+                    
+                    blocks.append(.footer)
+                    
+                    self.sectionBlocks.append(blocks)
                 }
             }
-            
-            postsData.append(PostData(item: post, author: Author(name: name, avatarURL: url), photos: photosURL))
-            
-            blocks = [.author]
-            
-            if(!post.text.isEmpty) {
-                blocks.append(.text)
-            }
-            
-            if !photosURL.isEmpty {
-                blocks.append(.photos)
-            }
-            
-
-            
-            blocks.append(.footer)
-            
-            self.sectionBlocks.append(blocks)
+        }
+        
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            self.tableView.reloadData()
         }
     }
     
@@ -156,7 +165,7 @@ final class NewsFeedTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedImagesCell", for: indexPath) as! NewsFeedImagesTableViewCell
             
             // Configure the cell...
-            cell.configure(withPost: postsData[indexPath.section])
+            cell.configure(withPost: post)
             
             return cell
         case .footer:
@@ -171,6 +180,10 @@ final class NewsFeedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5.0
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
