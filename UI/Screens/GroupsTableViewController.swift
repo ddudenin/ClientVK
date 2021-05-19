@@ -31,15 +31,22 @@ final class GroupsTableViewController: UITableViewController {
     private var notificationToken: NotificationToken?
     
     private func loadData() {
-        self.networkManager.loadGroups() { [weak self] (items) in
-            DispatchQueue.main.async {
-                do {
-                    try self?.realmManager?.add(objects: items)
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
+        let queue = OperationQueue()
+        
+        let fetchOP = FetchDataOperation()
+        queue.addOperation(fetchOP)
+        
+        let parseOP = ParseDataOperation()
+        parseOP.addDependency(fetchOP)
+        queue.addOperation(parseOP)
+        
+        let saveOP = SaveToRealmOperation()
+        saveOP.addDependency(parseOP)
+        OperationQueue.main.addOperation(saveOP)
+        
+        let reloadOP = DisplayDataOpeartion(tableView: self.tableView)
+        reloadOP.addDependency(saveOP)
+        OperationQueue.main.addOperation(reloadOP)
     }
     
     private func signToGroupsChanges() {
@@ -69,11 +76,13 @@ final class GroupsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "GroupsTableViewCell", bundle: .none), forCellReuseIdentifier: "GroupCell")
         
         self.searchBar.delegate = self
+        
         signToGroupsChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         if let userGroups = self.userGroups, userGroups.isEmpty {
             loadData()
         }

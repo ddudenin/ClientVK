@@ -78,7 +78,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadGroups(complition: @escaping ([Group]) -> ()) {
+    func loadGroups(complition: @escaping (Data?) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -94,16 +94,11 @@ class NetworkManager {
         let session = URLSession.shared
         
         let dataTask = session.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                do {
-                    let groups = try JSONDecoder().decode(GroupsJSONData.self, from: data).response.items
-                    complition(groups)
-                } catch {
-                    print(error.localizedDescription)
-                }
-            } else if let error = error {
+            if let error = error {
                 print(error.localizedDescription)
             }
+            
+            complition(data)
         }
         
         dataTask.resume()

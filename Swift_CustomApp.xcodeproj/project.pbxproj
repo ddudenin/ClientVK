@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A84E68F265583A300573796 /* NSOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84E68E265583A300573796 /* NSOperation.swift */; };
 		0AD39A80264DCA720052721D /* NewsFeedAuthorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD39A7E264DCA720052721D /* NewsFeedAuthorTableViewCell.xib */; };
 		0AD39A81264DCA720052721D /* NewsFeedAuthorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD39A7F264DCA720052721D /* NewsFeedAuthorTableViewCell.swift */; };
 		0AD39A84264DCC850052721D /* NewsFeedTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD39A82264DCC850052721D /* NewsFeedTextTableViewCell.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A84E68E265583A300573796 /* NSOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOperation.swift; sourceTree = "<group>"; };
 		0AD39A7E264DCA720052721D /* NewsFeedAuthorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsFeedAuthorTableViewCell.xib; sourceTree = "<group>"; };
 		0AD39A7F264DCA720052721D /* NewsFeedAuthorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedAuthorTableViewCell.swift; sourceTree = "<group>"; };
 		0AD39A82264DCC850052721D /* NewsFeedTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -150,6 +152,14 @@
 				0AD39A8B264DD29E0052721D /* NewsFeedFooterTableViewCell.xib */,
 			);
 			path = NewsFeed;
+			sourceTree = "<group>";
+		};
+		0A84E68D2655834F00573796 /* Parallel */ = {
+			isa = PBXGroup;
+			children = (
+				0A84E68E265583A300573796 /* NSOperation.swift */,
+			);
+			path = Parallel;
 			sourceTree = "<group>";
 		};
 		392A7D6D25E58D38007A6290 /* NavigationTransitions */ = {
@@ -286,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				39CCFB612604C0A90031D326 /* UI */,
+				0A84E68D2655834F00573796 /* Parallel */,
 				39E66E7826165C850036C738 /* Realm */,
 				39312D4C260146D9002997E0 /* Network */,
 				8B193BC325C5AF6A0043AF16 /* Model */,
@@ -469,6 +480,7 @@
 				0AD39A84264DCC850052721D /* NewsFeedTextTableViewCell.swift in Sources */,
 				392A7D7625E58F00007A6290 /* CustomNavigationController.swift in Sources */,
 				39AEA5ED25D83E8200384E1C /* NewsFeedImageCollectionViewCell.swift in Sources */,
+				0A84E68F265583A300573796 /* NSOperation.swift in Sources */,
 				392A7D7B25E5AC27007A6290 /* CustomInteractiveTransition.swift in Sources */,
 				8B193BD825C5E8290043AF16 /* GroupsTableViewCell.swift in Sources */,
 				0AD39A81264DCA720052721D /* NewsFeedAuthorTableViewCell.swift in Sources */,
