@@ -12,11 +12,7 @@ final class NewsFeedAuthorTableViewCell: UITableViewCell {
     
     @IBOutlet private var createdByLabel: UILabel!
     @IBOutlet private var timeAgoLabel: UILabel!
-    @IBOutlet private var profileImageView: UIImageView! {
-        didSet {
-            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
-        }
-    }
+    @IBOutlet private var profileImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,5 +29,11 @@ final class NewsFeedAuthorTableViewCell: UITableViewCell {
         self.createdByLabel.text = post.author.name
         self.timeAgoLabel.text = utcToTimeAgoDisplay(date: Date(timeIntervalSince1970: TimeInterval(post.item.date)))
         self.profileImageView.sd_setImage(with: URL(string: post.author.avatarURL))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
     }
 }
