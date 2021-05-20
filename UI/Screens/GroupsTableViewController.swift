@@ -44,9 +44,7 @@ final class GroupsTableViewController: UITableViewController {
         saveOP.addDependency(parseOP)
         OperationQueue.main.addOperation(saveOP)
         
-        let reloadOP = DisplayDataOpeartion(tableView: self.tableView)
-        reloadOP.addDependency(saveOP)
-        OperationQueue.main.addOperation(reloadOP)
+        // reload will be done automatically by NotificationToken
     }
     
     private func signToGroupsChanges() {

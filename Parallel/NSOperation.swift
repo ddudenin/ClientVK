@@ -100,16 +100,3 @@ class SaveToRealmOperation: Operation {
         }
     }
 }
-
-class DisplayDataOpeartion: Operation {
-    unowned let tableView: UITableView
-    
-    init(tableView: UITableView) {
-        self.tableView = tableView
-    }
-    
-    override func main() {
-        guard let _ = self.dependencies.first as? SaveToRealmOperation else { return }
-        self.tableView.reloadData()
-    }
-}
