@@ -44,17 +44,20 @@ class FriendsTableViewController: UITableViewController {
     }
     
     private func loadData() {
-        self.networkManager.loadFriends() { [weak self] (items) in
-            DispatchQueue.main.async {
+        self.networkManager.friendsForecast()
+            .map { friends in
                 do {
-                    try self?.realmManager?.add(objects: items)
+                    try self.realmManager?.add(objects: friends)
                 } catch {
                     print(error.localizedDescription)
                 }
-                
-                self?.tableView.reloadData()
             }
-        }
+            .catch { error in
+                print(error.localizedDescription)
+            }
+            .finally {
+                self.tableView.reloadData()
+            }
     }
     
     override func viewDidLoad() {

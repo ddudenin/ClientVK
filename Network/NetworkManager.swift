@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 class NetworkManager {
     static let instance = NetworkManager()
@@ -46,6 +47,32 @@ class NetworkManager {
         dataTask.resume()
     }
     
+    func friendsForecast() -> Promise<[User]> {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.vk.com"
+        urlComponents.path = "/method/friends.get"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "access_token", value: Session.instance.token),
+            URLQueryItem(name: "order", value: "hints"),
+            URLQueryItem(name: "fields", value: "name, photo_200_orig"),
+            URLQueryItem(name: "v", value: "5.130")
+        ]
+        
+        guard let url = urlComponents.url else { return .value([User]())}
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: url)
+        dataTask.resume()
+        
+        return firstly {
+            session.dataTask(.promise, with: url)
+        }.compactMap {
+            return try JSONDecoder().decode(FriendsJSONData.self, from: $0.data).response.items
+        }
+    }
+    
     func loadPhotos(userId: Int, complition: @escaping ([Photo]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -76,6 +103,7 @@ class NetworkManager {
         }
         
         dataTask.resume()
+        
     }
     
     func loadGroups(complition: @escaping (Data?) -> ()) {
