@@ -36,7 +36,7 @@ final class PhotoCacheService {
     private var images: [String: UIImage] = [:]
     
     func photo(by url: String, completion: @escaping (UIImage?) -> Void) {
-        var image: UIImage?
+        var image: UIImage? = nil
         
         if let photo = self.images[url] {
             image =  photo
@@ -81,7 +81,7 @@ final class PhotoCacheService {
         
         let lifeTime = Date().timeIntervalSince(modificationDate)
         
-        if lifeTime <= self.cacheLifeTime, let image = UIImage(contentsOfFile: filePath) {
+        if lifeTime <= Self.shared.cacheLifeTime, let image = UIImage(contentsOfFile: filePath) {
             
             DispatchQueue.main.async {
                 self.images[filePath] = image

@@ -38,7 +38,12 @@ final class AvatarView: UIView {
     }
     
     func setImage(fromURL url: String) {
-        self.photoImageView.sd_setImage(with: URL(string: url))
-        //self.photoImageView.setImage(at: url, placeholderImage: UIImage(systemName: "person.fill"))
+        //self.photoImageView.sd_setImage(with: URL(string: url))
+        
+        DispatchQueue.main.async {
+            self.photoImageView.setImage(at: url, placeholderImage: UIImage(systemName: "person.fill"))
+        }
+        
+        print(Thread.isMainThread)
     }
 }
