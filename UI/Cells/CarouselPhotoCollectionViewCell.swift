@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 final class CarouselPhotoCollectionViewCell: UICollectionViewCell {
     
@@ -19,7 +18,7 @@ final class CarouselPhotoCollectionViewCell: UICollectionViewCell {
     
     func configure(withPhoto photo: Photo) {
         guard let urlString = photo.sizes.last?.url else { return }
-        self.photoImageView.sd_setImage(with: URL(string: urlString))
+        self.photoImageView.setImage(at: urlString, placeholderImage: UIImage(systemName: "photo.fill"))
         self.clipsToBounds = false
     }
 }

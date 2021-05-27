@@ -9,14 +9,6 @@ import Foundation
 import UIKit
 import RealmSwift
 
-//Instead of SDWebImage
-func GetImage(fromURL url: String) -> UIImage? {
-    guard let imgURL = URL(string: url) else { return .none }
-    guard let imgData = try? Data(contentsOf: imgURL) else { return .none }
-    
-    return UIImage(data: imgData)
-}
-
 func convertCountToString<T: BinaryInteger>(count number: T) -> String {
     let unitAbbreviations = ["K", "M", "B"]
     

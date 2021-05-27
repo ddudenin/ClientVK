@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 final class GroupsTableViewCell: UITableViewCell {
     
@@ -26,7 +25,7 @@ final class GroupsTableViewCell: UITableViewCell {
     
     func configure(withGroup group: Group) {
         self.nameLabel.text = group.name
-        self.photoImageView.sd_setImage(with: URL(string: group.photo50))
+        self.photoImageView.setImage(at: group.photo50, placeholderImage: UIImage(systemName: "person.2.fill"))
     }
     
     func animate() {

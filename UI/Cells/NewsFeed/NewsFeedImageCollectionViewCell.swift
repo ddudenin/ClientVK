@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 final class NewsFeedImageCollectionViewCell: UICollectionViewCell {
     
@@ -23,6 +22,6 @@ final class NewsFeedImageCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(withStringURL url: String) {
-        self.imageView.sd_setImage(with: URL(string: url))
+        self.imageView.setImage(at: url, placeholderImage: UIImage(systemName: "newspaper.fill"))
     }
 }

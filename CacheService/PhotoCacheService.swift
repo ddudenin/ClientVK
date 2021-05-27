@@ -122,7 +122,10 @@ extension UIImageView {
         
         PhotoCacheService.shared.photo(by: url) { [weak self] image in
             guard let image = image else { return }
-            self?.image = image
+            
+            DispatchQueue.main.async {
+                self?.image = image
+            }
         }
     }
 }
