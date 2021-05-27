@@ -2,7 +2,7 @@
 //  NetworkManager.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 3/18/21.
+//  Created by Дмитрий Дуденин on 18.03.2021.
 //
 
 import Foundation

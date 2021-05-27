@@ -2,7 +2,7 @@
 //  Dot.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/17/21.
+//  Created by Дмитрий Дуденин on 17.02.2021.
 //
 
 import UIKit

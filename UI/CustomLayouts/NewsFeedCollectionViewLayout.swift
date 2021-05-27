@@ -2,7 +2,7 @@
 //  NewsFeedCollectionViewLayout.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/13/21.
+//  Created by Дмитрий Дуденин on 13.02.2021.
 //
 
 import UIKit

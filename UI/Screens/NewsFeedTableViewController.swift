@@ -2,7 +2,7 @@
 //  NewsFeedTableViewController.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/10/21.
+//  Created by Дмитрий Дуденин on 10.02.2021.
 //
 
 import UIKit

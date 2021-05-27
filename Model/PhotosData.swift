@@ -2,7 +2,7 @@
 //  PhotosData.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 3/23/21.
+//  Created by Дмитрий Дуденин on 23.03.2021.
 //
 
 import Foundation

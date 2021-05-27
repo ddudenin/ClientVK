@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 23.01.2021.
+//  Created by Дмитрий Дуденин on 23.01.2021.
 //
 
 import UIKit

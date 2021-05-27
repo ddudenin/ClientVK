@@ -2,7 +2,7 @@
 //  RealmManager.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 4/1/21.
+//  Created by Дмитрий Дуденин on 01.04.2021.
 //
 
 import RealmSwift

@@ -2,7 +2,7 @@
 //  FriendPhotoCollectionViewCell.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 30.01.2021.
+//  Created by Дмитрий Дуденин on 30.01.2021.
 //
 
 import UIKit

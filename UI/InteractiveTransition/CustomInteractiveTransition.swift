@@ -2,7 +2,7 @@
 //  CustomInteractiveTransition.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/23/21.
+//  Created by Дмитрий Дуденин on 23.02.2021.
 //
 
 import UIKit

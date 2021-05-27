@@ -2,7 +2,7 @@
 //  CloudLoaderIndicator.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/22/21.
+//  Created by Дмитрий Дуденин on 22.02.2021.
 //
 
 import UIKit
