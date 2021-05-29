@@ -296,8 +296,8 @@
 			children = (
 				8B193BCA25C5B3110043AF16 /* FriendData.swift */,
 				8B193BE125C5FFD50043AF16 /* GroupData.swift */,
-				391CB80125D598A800085064 /* PostData.swift */,
 				39B042E72609EC1A0006802A /* PhotosData.swift */,
+				391CB80125D598A800085064 /* PostData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

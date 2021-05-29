@@ -34,7 +34,9 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let friends = try JSONDecoder().decode(FriendsJSONData.self, from: data).response.items
+                    let friends = try JSONDecoder()
+                        .decode(FriendsJSONData.self, from: data)
+                        .response.items
                     complition(friends)
                 } catch {
                     print(error.localizedDescription)
@@ -69,7 +71,9 @@ class NetworkManager {
         return firstly {
             session.dataTask(.promise, with: url)
         }.compactMap {
-            return try JSONDecoder().decode(FriendsJSONData.self, from: $0.data).response.items
+            return try JSONDecoder()
+                .decode(FriendsJSONData.self, from: $0.data)
+                .response.items
         }
     }
     
@@ -92,8 +96,10 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let photos = try JSONDecoder().decode(PhotosJSONData.self, from: data)
-                    complition(photos.response.items)
+                    let photos = try JSONDecoder()
+                        .decode(PhotosJSONData.self, from: data)
+                        .response.items
+                    complition(photos)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -151,8 +157,10 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let groups = try JSONDecoder().decode(GroupsJSONData.self, from: data)
-                    complition(groups.response.items)
+                    let groups = try JSONDecoder()
+                        .decode(GroupsJSONData.self, from: data)
+                        .response.items
+                    complition(groups)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -182,7 +190,9 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let response = try JSONDecoder().decode(PostJSONData.self, from: data).response
+                    let response = try JSONDecoder()
+                        .decode(PostJSONData.self, from: data)
+                        .response
                     complition(response)
                 } catch {
                     print(error.localizedDescription)
@@ -194,7 +204,4 @@ class NetworkManager {
         
         dataTask.resume()
     }
-    
-    
-    
 }

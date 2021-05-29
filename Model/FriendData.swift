@@ -8,11 +8,11 @@
 import Foundation
 import RealmSwift
 
-class FriendsJSONData: Codable {
+struct FriendsJSONData: Codable {
     let response: FriendsResponse
 }
 
-class FriendsResponse: Codable {
+struct FriendsResponse: Codable {
     let count: Int
     let items: [User]
 }

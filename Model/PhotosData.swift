@@ -8,11 +8,11 @@
 import Foundation
 import RealmSwift
 
-class PhotosJSONData: Codable {
+struct PhotosJSONData: Codable {
     let response: PhotosResponse
 }
 
-class PhotosResponse: Codable {
+struct PhotosResponse: Codable {
     let count: Int
     let items: [Photo]
 }

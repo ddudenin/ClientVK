@@ -117,7 +117,9 @@ final class NewsFeedTableViewController: UITableViewController {
         self.toTopButton.addTarget(self, action: #selector(scrollToTopHandle(_:)), for: .touchUpInside)
         self.toTopButton.alpha = 0
         
-        self.view.addSubview(self.toTopButton)
+        DispatchQueue.main.async {
+            self.view.addSubview(self.toTopButton)
+        }
     }
     
     override func viewDidLoad() {
@@ -132,7 +134,7 @@ final class NewsFeedTableViewController: UITableViewController {
         
         loadData()
         
-        setupFloatingButton()
+        self.setupFloatingButton()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

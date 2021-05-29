@@ -7,11 +7,11 @@
 
 import Foundation
 
-class PostJSONData: Codable {
+struct PostJSONData: Codable {
     let response: PostResponse
 }
 
-class PostResponse: Codable {
+struct PostResponse: Codable {
     let items: [Post]
     let profiles: [Profile]
     let groups: [Group]
@@ -23,7 +23,7 @@ class PostResponse: Codable {
     }
 }
 
-class Post: Codable {
+struct Post: Codable {
     let sourceID: Int
     let date: Int
     let text: String
@@ -39,20 +39,20 @@ class Post: Codable {
     }
 }
 
-class Comments: Codable {
+struct Comments: Codable {
     let count: Int
 }
 
-class Views: Codable {
+struct Views: Codable {
     let count: Int
 }
 
-class Attachment: Codable {
+struct Attachment: Codable {
     let type: String
     let photo: Photo?
 }
 
-class Profile: Codable {
+struct Profile: Codable {
     let firstName: String
     let id: Int
     let lastName: String
@@ -84,7 +84,6 @@ class Profile: Codable {
         return firstName + " " + lastName
     }
 }
-
 
 struct Author {
     var name: String = ""
