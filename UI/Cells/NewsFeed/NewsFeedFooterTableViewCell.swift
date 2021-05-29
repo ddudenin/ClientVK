@@ -25,10 +25,11 @@ final class NewsFeedFooterTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withPost post: Article) {
-        self.likeControl.configure(withLikesCount: Int.random(in: 0...1000000), state: Bool.random())
-        self.commentsButton.setTitle(convertCountToString(count: Int.random(in: 0...1000000)), for: .normal)
-        self.sharesButton.setTitle(convertCountToString(count: Int.random(in: 0...10000000)), for: .normal)
-        self.viewsButton.setTitle(convertCountToString(count: Int.random(in: 0...10000000)), for: .normal)
+    func configure(withPost post: PostData) {
+        let like = post.item.likes
+        self.likeControl.configure(withLikesCount: like.count, state: like.userLikes == 1)
+        self.commentsButton.setTitle(convertCountToString(count: post.item.comments.count), for: .normal)
+        self.sharesButton.setTitle(convertCountToString(count: post.item.reposts.count), for: .normal)
+        self.viewsButton.setTitle(convertCountToString(count: post.item.views.count), for: .normal)
     }
 }

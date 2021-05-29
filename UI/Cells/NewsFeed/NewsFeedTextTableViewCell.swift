@@ -22,12 +22,7 @@ final class NewsFeedTextTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withPost post: Article) {
-        if let caption = post.articleDescription,
-           !caption.isEmpty {
-            self.captionLabel.text = caption
-        } else {
-            self.captionLabel.text = post.title
-        }
+    func configure(withPost post: PostData) {
+        self.captionLabel.text = post.item.text
     }
 }

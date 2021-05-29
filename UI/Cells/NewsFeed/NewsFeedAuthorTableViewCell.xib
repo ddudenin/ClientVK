@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tim Cook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RN4-tE-DQi">
-                        <rect key="frame" x="58" y="12" width="305" height="18"/>
+                        <rect key="frame" x="58" y="12" width="274" height="18"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -45,7 +45,6 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="RN4-tE-DQi" secondAttribute="trailing" constant="12" id="6RD-ec-SEW"/>
                     <constraint firstItem="Rcz-Pi-iJS" firstAttribute="leading" secondItem="fiX-qo-RPf" secondAttribute="trailing" constant="10" id="Caj-gW-VYM"/>
                     <constraint firstAttribute="bottom" secondItem="fiX-qo-RPf" secondAttribute="bottom" constant="12" id="JLj-b6-Kbf"/>
                     <constraint firstAttribute="trailing" secondItem="Ro9-LH-IA9" secondAttribute="trailing" constant="12" id="a1r-qg-D4D"/>
@@ -53,6 +52,7 @@
                     <constraint firstItem="fiX-qo-RPf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" priority="750" constant="12" id="icb-iH-cQN"/>
                     <constraint firstItem="Ro9-LH-IA9" firstAttribute="centerY" secondItem="fiX-qo-RPf" secondAttribute="centerY" id="mNs-oi-bfY"/>
                     <constraint firstItem="Rcz-Pi-iJS" firstAttribute="top" secondItem="RN4-tE-DQi" secondAttribute="bottom" constant="4" id="rFM-9A-6uW"/>
+                    <constraint firstItem="Ro9-LH-IA9" firstAttribute="leading" secondItem="RN4-tE-DQi" secondAttribute="trailing" constant="12" id="swo-tP-SSl"/>
                     <constraint firstItem="fiX-qo-RPf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="uTT-qn-gwz"/>
                     <constraint firstItem="RN4-tE-DQi" firstAttribute="leading" secondItem="fiX-qo-RPf" secondAttribute="trailing" constant="10" id="vDk-LI-zAe"/>
                 </constraints>
