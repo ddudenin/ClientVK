@@ -25,15 +25,6 @@ class User: Object, Codable {
     @objc dynamic var photo200_Orig: String = ""
     @objc dynamic var trackCode: String = ""
     
-    enum CodingKeys: String, CodingKey {
-        case firstName = "first_name"
-        case id
-        case lastName = "last_name"
-        case canAccessClosed = "can_access_closed"
-        case photo200_Orig = "photo_200_orig"
-        case trackCode = "track_code"
-    }
-    
     var fullName: String  {
         return firstName + " " + lastName
     }

@@ -11,6 +11,12 @@ import PromiseKit
 class NetworkManager {
     static let instance = NetworkManager()
     
+    lazy var decoder: JSONDecoder = {
+        var decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+    
     private init() {
         
     }
@@ -34,7 +40,7 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let friends = try JSONDecoder()
+                    let friends = try self.decoder
                         .decode(FriendsJSONData.self, from: data)
                         .response.items
                     complition(friends)
@@ -71,7 +77,7 @@ class NetworkManager {
         return firstly {
             session.dataTask(.promise, with: url)
         }.compactMap {
-            return try JSONDecoder()
+            return try self.decoder
                 .decode(FriendsJSONData.self, from: $0.data)
                 .response.items
         }
@@ -96,7 +102,7 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let photos = try JSONDecoder()
+                    let photos = try self.decoder
                         .decode(PhotosJSONData.self, from: data)
                         .response.items
                     complition(photos)
@@ -157,7 +163,7 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let groups = try JSONDecoder()
+                    let groups = try self.decoder
                         .decode(GroupsJSONData.self, from: data)
                         .response.items
                     complition(groups)
@@ -190,7 +196,7 @@ class NetworkManager {
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 do {
-                    let response = try JSONDecoder()
+                    let response = try self.decoder
                         .decode(PostJSONData.self, from: data)
                         .response
                     complition(response)

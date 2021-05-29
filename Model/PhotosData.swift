@@ -18,25 +18,16 @@ struct PhotosResponse: Codable {
 }
 
 class Photo: Object, Codable {
-    @objc dynamic var albumID: Int = -1
+    @objc dynamic var albumId: Int = -1
     @objc dynamic var date: Int = 0
     @objc dynamic var id: Int = -1
-    @objc dynamic var ownerID: Int = -1
+    @objc dynamic var ownerId: Int = -1
     @objc dynamic var hasTags: Bool = false
-    var postID: Int?
+    var postId: Int?
     var sizes = List<Size>()
     @objc dynamic var text: String = ""
     @objc dynamic var likes: Likes?
     @objc dynamic var reposts: Reposts?
-    
-    enum CodingKeys: String, CodingKey {
-        case albumID = "album_id"
-        case date, id
-        case ownerID = "owner_id"
-        case hasTags = "has_tags"
-        case postID = "post_id"
-        case sizes, text, likes, reposts
-    }
     
     override static func primaryKey() -> String? {
         return "id"
@@ -46,11 +37,6 @@ class Photo: Object, Codable {
 class Likes: Object, Codable {
     @objc dynamic var userLikes: Int = 0
     @objc dynamic var count: Int = 0
-    
-    enum CodingKeys: String, CodingKey {
-        case userLikes = "user_likes"
-        case count
-    }
 }
 
 class Reposts: Object, Codable {

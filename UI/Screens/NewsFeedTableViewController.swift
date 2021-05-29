@@ -47,7 +47,7 @@ final class NewsFeedTableViewController: UITableViewController {
                     
                     var author = Author()
                     
-                    let index = post.sourceID
+                    let index = post.sourceId
                     
                     if index > 0 {
                         if let profile = response.profiles.first(where: {$0.id == index}) {
