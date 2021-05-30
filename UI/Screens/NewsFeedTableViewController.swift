@@ -16,10 +16,24 @@ final class NewsFeedTableViewController: UITableViewController {
         case footer
     }
     
-    private var postsData = [PostData]()
+    private var postsData = [PostData]() {
+        didSet {
+            return timeAgoTextCache = [:]
+        }
+    }
+    
     private let networkManager = NetworkManager.instance
     
     private var sectionBlocks = [[PostBlock]]()
+    
+    lazy var relativeDateTimeFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        
+        return formatter
+    }()
+    
+    private var timeAgoTextCache: [Int : String] = [:]
     
     private lazy var refresherController: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -152,8 +166,17 @@ final class NewsFeedTableViewController: UITableViewController {
         case .author:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedAuthorCell", for: indexPath) as! NewsFeedAuthorTableViewCell
             
+            var timeAgoText: String
+            
+            if let formattedDate = self.timeAgoTextCache[post.item.date] {
+                timeAgoText = formattedDate
+            } else {
+                timeAgoText = self.relativeDateTimeFormatter.localizedString(for: Date(timeIntervalSince1970: TimeInterval(post.item.date)), relativeTo: Date())
+                self.timeAgoTextCache[post.item.date] = timeAgoText
+            }
+            
             // Configure the cell...
-            cell.configure(withPost: post)
+            cell.configure(withPost: post, timeAgo: timeAgoText)
             
             return cell
         case .text:

@@ -35,10 +35,3 @@ func utcToTimeAgoDisplay(dateString: String) -> String {
     
     return relativeFormatter.localizedString(for: dateFormatter.date(from: dateString) ?? Date(timeIntervalSinceNow: 0), relativeTo: Date())
 }
-
-func utcToTimeAgoDisplay(date: Date) -> String {
-    let relativeFormatter = RelativeDateTimeFormatter()
-    relativeFormatter.unitsStyle = .full
-    
-    return relativeFormatter.localizedString(for: date, relativeTo: Date())
-}

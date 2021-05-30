@@ -39,4 +39,8 @@ final class AvatarView: UIView {
     func setImage(fromURL url: String) {
         self.photoImageView.setImage(at: url, placeholderImage: UIImage(systemName: "person.fill"))
     }
+    
+    func prepareForReuse() {
+        self.photoImageView.image = nil
+    }
 }

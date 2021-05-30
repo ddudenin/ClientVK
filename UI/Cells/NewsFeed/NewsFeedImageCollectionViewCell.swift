@@ -21,6 +21,12 @@ final class NewsFeedImageCollectionViewCell: UICollectionViewCell {
         
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.imageView.image = nil
+    }
+    
     func configure(withStringURL url: String) {
         self.imageView.setImage(at: url, placeholderImage: UIImage(systemName: "newspaper.fill"))
     }

@@ -17,6 +17,13 @@ final class FriendPhotoCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.photoImageView.image = nil
+        self.likeControl.prepareForReuse()
+    }
+    
     func configure(withPhoto photo: Photo, handler handle: ((Bool, Int) -> Void)? = nil) {
         if let likeInfo = photo.likes {
             self.likeControl.configure(withLikes: likeInfo, handler: handle)

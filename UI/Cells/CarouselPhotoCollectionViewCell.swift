@@ -16,6 +16,12 @@ final class CarouselPhotoCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.photoImageView.image = nil
+    }
+    
     func configure(withPhoto photo: Photo) {
         guard let urlString = photo.sizes.last?.url else { return }
         self.photoImageView.setImage(at: urlString, placeholderImage: UIImage(systemName: "photo.fill"))

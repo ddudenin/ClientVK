@@ -19,6 +19,15 @@ final class NewsFeedFooterTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.commentsButton.setTitle(nil, for: .normal)
+        self.sharesButton.setTitle(nil, for: .normal)
+        self.viewsButton.setTitle(nil, for: .normal)
+        self.likeControl.prepareForReuse()
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
