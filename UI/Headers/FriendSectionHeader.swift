@@ -15,6 +15,12 @@ final class FriendSectionHeader: UITableViewHeaderFooterView {
         super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.sectionNameLabel.text = nil
+    }
+    
     func configure(withName name: String) {
         self.sectionNameLabel.text = name
     }

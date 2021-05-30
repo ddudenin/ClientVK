@@ -175,7 +175,7 @@
             <objects>
                 <tableViewController id="YKD-MT-2Vs" customClass="FriendsTableViewController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tfO-Un-WKa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Wiw-ee-84g">
@@ -482,7 +482,7 @@
             <objects>
                 <navigationController id="Zcx-K5-FO3" customClass="CustomNavigationController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person.2.fill" catalog="system" id="gey-ER-uSx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NpK-E3-Ng3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="NpK-E3-Ng3">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
