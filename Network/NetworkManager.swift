@@ -67,7 +67,7 @@ class NetworkManager {
             URLQueryItem(name: "v", value: "5.130")
         ]
         
-        guard let url = urlComponents.url else { return .value([User]())}
+        guard let url = urlComponents.url else { return .value([])}
         
         let session = URLSession.shared
         
