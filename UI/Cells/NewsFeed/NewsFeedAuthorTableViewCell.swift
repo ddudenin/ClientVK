@@ -18,15 +18,23 @@ final class NewsFeedAuthorTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.createdByLabel.text = nil
+        self.timeAgoLabel.text = nil
+        self.profileImageView.image = nil
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
     
-    func configure(withPost post: PostData) {
+    func configure(withPost post: PostData, timeAgo date: String) {
         self.createdByLabel.text = post.author.name
-        self.timeAgoLabel.text = utcToTimeAgoDisplay(date: Date(timeIntervalSince1970: TimeInterval(post.item.date)))
+        self.timeAgoLabel.text = date
         self.profileImageView.setImage(at: post.author.avatarURL, placeholderImage: UIImage(systemName: "person.fill"))
     }
     

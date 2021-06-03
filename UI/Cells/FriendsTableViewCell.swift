@@ -17,6 +17,13 @@ final class FriendsTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.fullNameLabel.text = nil
+        self.avatarView.prepareForReuse()
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

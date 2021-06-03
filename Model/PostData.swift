@@ -53,7 +53,7 @@ struct Profile: Codable {
     let online: Int
     let onlineMobile, onlineApp: Int?
     let deactivated: String?
-
+    
     var fullName: String  {
         return firstName + " " + lastName
     }

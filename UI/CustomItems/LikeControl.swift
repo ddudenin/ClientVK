@@ -81,6 +81,12 @@ final class LikeControl: UIControl {
         self.likeHandler = handle
     }
     
+    func prepareForReuse() {
+        self.likeCount = 0
+        self.likeCountLabel.text = nil
+        self.likeButton.isSelected = false
+    }
+    
     private func animate() {
         let posY = (self.likeButton.isSelected ? -1 : 1) * self.frame.height / 2
         self.likeCountLabel.transform = CGAffineTransform(translationX: 0, y: posY)
