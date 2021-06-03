@@ -16,7 +16,7 @@ struct PostResponse: Codable {
     let items: [Post]
     let profiles: [Profile]
     let groups: [Group]
-    let nextFrom: String
+    let nextFrom: String?
 }
 
 struct Post: Codable {

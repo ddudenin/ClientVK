@@ -54,7 +54,7 @@ final class NewsFeedTableViewController: UITableViewController {
         var blocksData = [[PostBlock]]()
         var posts = [PostData]()
         
-        self.nextFrom = response.nextFrom
+        self.nextFrom = response.nextFrom ?? ""
         
         for post in response.items {
             var content = [PostBlock]()
@@ -136,6 +136,7 @@ final class NewsFeedTableViewController: UITableViewController {
         
         self.tableView.register(UINib(nibName: "NewsFeedAuthorTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedAuthorCell")
         self.tableView.register(UINib(nibName: "NewsFeedTextTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedTextCell")
+        self.tableView.register(UINib(nibName: "NewsFeedSingleImageTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedSingleImagesCell")
         self.tableView.register(UINib(nibName: "NewsFeedImagesTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedImagesCell")
         self.tableView.register(UINib(nibName: "NewsFeedFooterTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedFooterCell")
         
@@ -183,10 +184,19 @@ final class NewsFeedTableViewController: UITableViewController {
             
             return cell
         case .photos:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedImagesCell", for: indexPath) as! NewsFeedImagesTableViewCell
+            var cell = UITableViewCell()
             
-            // Configure the cell...
-            cell.configure(withPost: post)
+            if post.photos.count == 1 {
+                cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedSingleImagesCell", for: indexPath)
+                
+                // Configure the cell...
+                (cell as! NewsFeedSingleImageTableViewCell).configure(withPost: post)
+            } else {
+                cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedImagesCell", for: indexPath)
+                
+                // Configure the cell...
+                (cell as! NewsFeedImagesTableViewCell).configure(withPost: post)
+            }
             
             return cell
         case .footer:
@@ -261,8 +271,11 @@ final class NewsFeedTableViewController: UITableViewController {
                 self.postsData = data.posts + self.postsData
                 self.sectionBlocks = data.sections + self.sectionBlocks
                 
-                let indexSet = IndexSet(integersIn: 0..<data.posts.count)
-                self.tableView.insertSections(indexSet, with: .automatic)
+                
+                DispatchQueue.main.async {
+                    let indexSet = IndexSet(integersIn: 0..<data.posts.count)
+                    self.tableView.insertSections(indexSet, with: .automatic)
+                }
             }
         }
     }
@@ -291,9 +304,11 @@ extension NewsFeedTableViewController: UITableViewDataSourcePrefetching {
                     self.postsData.append(contentsOf: data.posts)
                     self.sectionBlocks.append(contentsOf: data.sections)
                     
-                    let newCount = self.postsData.count + data.posts.count
-                    let indexSet = IndexSet(integersIn: self.postsData.count..<newCount)
-                    self.tableView.insertSections(indexSet, with: .automatic)
+                    DispatchQueue.main.async {
+                        let newCount = self.postsData.count + data.posts.count
+                        let indexSet = IndexSet(integersIn: self.postsData.count..<newCount)
+                        self.tableView.insertSections(indexSet, with: .automatic)
+                    }
                     
                     self.isLoading = false
                 }
@@ -303,6 +318,6 @@ extension NewsFeedTableViewController: UITableViewDataSourcePrefetching {
 }
 
 protocol NewsSource {
-   var title: String { get }
-   var imageUrl: String { get }
+    var title: String { get }
+    var imageUrl: String { get }
 }
