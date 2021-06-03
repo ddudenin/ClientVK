@@ -2,7 +2,7 @@
 //  SignInButton.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 4/11/21.
+//  Created by Дмитрий Дуденин on 11.04.2021.
 
 import UIKit
 

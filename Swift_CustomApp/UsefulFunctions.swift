@@ -2,20 +2,12 @@
 //  UsefulFunctions.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 3/23/21.
+//  Created by Дмитрий Дуденин on 23.03.2021.
 //
 
 import Foundation
 import UIKit
 import RealmSwift
-
-//Instead of SDWebImage
-func GetImage(fromURL url: String) -> UIImage? {
-    guard let imgURL = URL(string: url) else { return .none }
-    guard let imgData = try? Data(contentsOf: imgURL) else { return .none }
-    
-    return UIImage(data: imgData)
-}
 
 func convertCountToString<T: BinaryInteger>(count number: T) -> String {
     let unitAbbreviations = ["K", "M", "B"]

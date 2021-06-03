@@ -2,11 +2,10 @@
 //  AvatarView.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/3/21.
+//  Created by Дмитрий Дуденин on 03.02.2021.
 //
 
 import UIKit
-import SDWebImage
 
 @IBDesignable
 final class AvatarView: UIView {
@@ -38,6 +37,6 @@ final class AvatarView: UIView {
     }
     
     func setImage(fromURL url: String) {
-        self.photoImageView.sd_setImage(with: URL(string: url))
+        self.photoImageView.setImage(at: url, placeholderImage: UIImage(systemName: "person.fill"))
     }
 }

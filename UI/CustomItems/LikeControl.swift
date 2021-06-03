@@ -2,7 +2,7 @@
 //  LikeControl.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/4/21.
+//  Created by Дмитрий Дуденин on 04.02.2021.
 //
 
 import UIKit

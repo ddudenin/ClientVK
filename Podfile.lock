@@ -1,40 +1,34 @@
 PODS:
-  - PromiseKit (6.14.0):
-    - PromiseKit/CorePromise (= 6.14.0)
-    - PromiseKit/Foundation (= 6.14.0)
-    - PromiseKit/UIKit (= 6.14.0)
-  - PromiseKit/CorePromise (6.14.0)
-  - PromiseKit/Foundation (6.14.0):
+  - PromiseKit (6.15.2):
+    - PromiseKit/CorePromise (= 6.15.2)
+    - PromiseKit/Foundation (= 6.15.2)
+    - PromiseKit/UIKit (= 6.15.2)
+  - PromiseKit/CorePromise (6.15.2)
+  - PromiseKit/Foundation (6.15.2):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.14.0):
+  - PromiseKit/UIKit (6.15.2):
     - PromiseKit/CorePromise
   - Realm (10.7.6):
     - Realm/Headers (= 10.7.6)
   - Realm/Headers (10.7.6)
   - RealmSwift (10.7.6):
     - Realm (= 10.7.6)
-  - SDWebImage (5.11.1):
-    - SDWebImage/Core (= 5.11.1)
-  - SDWebImage/Core (5.11.1)
 
 DEPENDENCIES:
   - PromiseKit (~> 6.14)
   - RealmSwift (~> 10.7)
-  - SDWebImage (~> 5.11)
 
 SPEC REPOS:
   trunk:
     - PromiseKit
     - Realm
     - RealmSwift
-    - SDWebImage
 
 SPEC CHECKSUMS:
-  PromiseKit: ec5a544f2c7ddf078e50b88f30cd862dbe587489
+  PromiseKit: b11e20e02977f69571038a631a467e010eb43206
   Realm: ed860452717c8db8f4bf832b6807f7f2ce708839
   RealmSwift: e31c4ddbcc42ac879313d656b86f9ca539f6f4f4
-  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: 3d3103343c206f9089a37b0a221e148e832e006f
+PODFILE CHECKSUM: ea4c65f5b7468f1afff141e6925aa4e976773a71
 
 COCOAPODS: 1.10.1

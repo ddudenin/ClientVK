@@ -2,11 +2,10 @@
 //  FriendPhotoCollectionViewCell.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 30.01.2021.
+//  Created by Дмитрий Дуденин on 30.01.2021.
 //
 
 import UIKit
-import SDWebImage
 
 final class FriendPhotoCollectionViewCell: UICollectionViewCell {
     
@@ -26,6 +25,6 @@ final class FriendPhotoCollectionViewCell: UICollectionViewCell {
         }
         
         guard let urlString = photo.sizes.last?.url else { return }
-        self.photoImageView.sd_setImage(with: URL(string: urlString))
+        self.photoImageView.setImage(at: urlString, placeholderImage: UIImage(systemName: "photo.fill"))
     }
 }

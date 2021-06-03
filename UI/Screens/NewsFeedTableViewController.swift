@@ -2,7 +2,7 @@
 //  NewsFeedTableViewController.swift
 //  Swift_CustomApp
 //
-//  Created by Дмитрий on 2/10/21.
+//  Created by Дмитрий Дуденин on 10.02.2021.
 //
 
 import UIKit
@@ -47,7 +47,7 @@ final class NewsFeedTableViewController: UITableViewController {
                     
                     var author = Author()
                     
-                    let index = post.sourceID
+                    let index = post.sourceId
                     
                     if index > 0 {
                         if let profile = response.profiles.first(where: {$0.id == index}) {
@@ -117,7 +117,9 @@ final class NewsFeedTableViewController: UITableViewController {
         self.toTopButton.addTarget(self, action: #selector(scrollToTopHandle(_:)), for: .touchUpInside)
         self.toTopButton.alpha = 0
         
-        self.view.addSubview(self.toTopButton)
+        DispatchQueue.main.async {
+            self.view.addSubview(self.toTopButton)
+        }
     }
     
     override func viewDidLoad() {
@@ -132,7 +134,7 @@ final class NewsFeedTableViewController: UITableViewController {
         
         loadData()
         
-        setupFloatingButton()
+        self.setupFloatingButton()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -81,7 +81,11 @@ class ParseDataOperation: Operation {
         
         if let data = operation.data {
             do {
-                self.groups = try JSONDecoder().decode(GroupsJSONData.self, from: data).response.items
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                self.groups = try decoder
+                    .decode(GroupsJSONData.self, from: data)
+                    .response.items
             } catch {
                 print(error.localizedDescription)
             }
