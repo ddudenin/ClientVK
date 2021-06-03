@@ -17,7 +17,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
             guard let friend = self.friend else { return nil }
             
             let photos: Results<Photo>? = self.realmManager?.getObjects()
-            return photos?.filter("ownerID = %@", friend.id)
+            return photos?.filter("ownerId = %@", friend.id)
         }
         
         set { }

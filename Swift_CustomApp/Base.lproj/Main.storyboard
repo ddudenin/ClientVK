@@ -393,11 +393,11 @@
             </objects>
             <point key="canvasLocation" x="4261" y="978"/>
         </scene>
-        <!--Communities-->
+        <!--Groups-->
         <scene sceneID="EXh-Tb-eiQ">
             <objects>
                 <navigationController id="TzR-It-oph" customClass="CustomNavigationController" customModule="Swift_CustomApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Communities" image="person.3.fill" catalog="system" id="MzT-uX-UhC"/>
+                    <tabBarItem key="tabBarItem" title="Groups" image="person.3.fill" catalog="system" id="MzT-uX-UhC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4QJ-o5-uez">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

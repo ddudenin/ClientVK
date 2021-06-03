@@ -20,7 +20,7 @@ class FriendsTableViewController: UITableViewController {
             
             guard !self.searchText.isEmpty else { return friends }
             
-            return friends?.filter("firstName CONTAINS %@ OR lastName  CONTAINS %@", self.searchText, self.searchText)
+            return friends?.filter("firstName CONTAINS %@ OR lastName CONTAINS %@", self.searchText, self.searchText)
         }
         
         set { }
@@ -71,7 +71,7 @@ class FriendsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+ 
         if let friends = self.friends, friends.isEmpty {
             loadData()
         }
