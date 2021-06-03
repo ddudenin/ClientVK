@@ -48,6 +48,8 @@ class Size: Object, Codable {
     @objc dynamic var url: String = ""
     @objc dynamic var type: String = ""
     @objc dynamic var width: Int = 0
+    
+    var aspectRatio: CGFloat { return CGFloat(self.height) / CGFloat(self.width) }
 }
 
 enum TypeEnum: String, Codable {

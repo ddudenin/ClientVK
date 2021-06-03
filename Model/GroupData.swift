@@ -17,7 +17,7 @@ struct GroupsResponse: Codable {
     let items: [Group]
 }
 
-class Group: Object, Codable {
+class Group: Object, Codable, NewsSource {
     @objc dynamic var id: Int = -1
     @objc dynamic var name: String = ""
     @objc dynamic var screenName: String = ""
@@ -33,4 +33,7 @@ class Group: Object, Codable {
     override static func primaryKey() -> String? {
         return "id"
     }
+    
+    var title: String { return name }
+    var imageUrl: String { return photo200 }
 }

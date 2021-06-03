@@ -178,7 +178,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadPosts(complition: @escaping (PostResponse) -> ()) {
+    func loadPosts(startFrom: String = "", startTime: Double? = nil, complition: @escaping (PostResponse) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -186,8 +186,13 @@ class NetworkManager {
         urlComponents.queryItems = [
             URLQueryItem(name: "access_token", value: Session.instance.token),
             URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "start_from", value: "\(startFrom)"),
             URLQueryItem(name: "v", value: "5.130")
         ]
+        
+        if let time = startTime {
+            urlComponents.queryItems?.append(URLQueryItem(name: "start_time", value: "\(time)"))
+        }
         
         guard let url = urlComponents.url else { return }
         
