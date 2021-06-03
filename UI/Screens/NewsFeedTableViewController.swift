@@ -226,9 +226,7 @@ final class NewsFeedTableViewController: UITableViewController {
                 return UITableView.automaticDimension
             }
             
-            let tableWidth = tableView.bounds.width
-            let cellHeight = tableWidth * (post.photos.first?.aspectRatio ?? 1)
-            return cellHeight
+            return tableView.bounds.width * post.photos[0].aspectRatio
             
         default:
             return UITableView.automaticDimension
@@ -268,11 +266,10 @@ final class NewsFeedTableViewController: UITableViewController {
             self.preparePostData(response: response) { data in
                 guard !data.posts.isEmpty else { return }
                 
-                self.postsData = data.posts + self.postsData
-                self.sectionBlocks = data.sections + self.sectionBlocks
-                
-                
                 DispatchQueue.main.async {
+                    self.postsData = data.posts + self.postsData
+                    self.sectionBlocks = data.sections + self.sectionBlocks
+                    
                     let indexSet = IndexSet(integersIn: 0..<data.posts.count)
                     self.tableView.insertSections(indexSet, with: .automatic)
                 }
@@ -301,12 +298,13 @@ extension NewsFeedTableViewController: UITableViewDataSourcePrefetching {
                         return
                     }
                     
-                    self.postsData.append(contentsOf: data.posts)
-                    self.sectionBlocks.append(contentsOf: data.sections)
-                    
                     DispatchQueue.main.async {
                         let newCount = self.postsData.count + data.posts.count
                         let indexSet = IndexSet(integersIn: self.postsData.count..<newCount)
+                        
+                        self.postsData.append(contentsOf: data.posts)
+                        self.sectionBlocks.append(contentsOf: data.sections)
+                        
                         self.tableView.insertSections(indexSet, with: .automatic)
                     }
                     
