@@ -80,7 +80,7 @@ final class GroupsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         if let userGroups = self.userGroups, userGroups.isEmpty {
             loadData()
         }

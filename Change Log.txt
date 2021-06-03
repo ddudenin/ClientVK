@@ -117,3 +117,7 @@ Part 3
 
 Workflow для получения данных групп реализован при помощи нескольких связанных Operation
 (FetchDataOperation -> ParseDataOperation -> SaveToRealmOperation)
+
+Part 4
+
+Workflow для получения данных друзей реализован при помощи PromiseKit
