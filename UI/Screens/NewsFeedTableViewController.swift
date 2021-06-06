@@ -38,6 +38,8 @@ final class NewsFeedTableViewController: UITableViewController {
     private var isLoading = false
     private var nextFrom = ""
     
+    private var expandedIndexSet = Set<IndexPath>()
+    
     private lazy var refresherController: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
@@ -54,7 +56,9 @@ final class NewsFeedTableViewController: UITableViewController {
         var blocksData = [[PostBlock]]()
         var posts = [PostData]()
         
-        self.nextFrom = response.nextFrom ?? ""
+        if let nextFrom = response.nextFrom {
+            self.nextFrom = nextFrom
+        }
         
         for post in response.items {
             var content = [PostBlock]()
@@ -211,6 +215,18 @@ final class NewsFeedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        if self.sectionBlocks[indexPath.section][indexPath.row] == .text {
+            if self.expandedIndexSet.contains(indexPath) {
+                self.expandedIndexSet.remove(indexPath)
+            } else {
+                self.expandedIndexSet.insert(indexPath)
+            }
+        }
+        
+        self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        self.tableView.endUpdates()
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -219,15 +235,27 @@ final class NewsFeedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch self.sectionBlocks[indexPath.section][indexPath.row] {
+        case .text:
+            let maxWidth = UITableViewCell().bounds.width - 24
+            let textBlock = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+            let text = self.postsData[indexPath.section].item.text
+            let rect = text.boundingRect(with: textBlock, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)], context: nil)
+            
+            let height = CGFloat(rect.size.height)
+            
+            if height > 200, !self.expandedIndexSet.contains(indexPath) {
+                return 200
+            } else {
+                return UITableView.automaticDimension
+            }
         case .photos:
-            let post = postsData[indexPath.section]
+            let post = self.postsData[indexPath.section]
             
             guard post.photos.count == 1 else {
                 return UITableView.automaticDimension
             }
             
             return tableView.bounds.width * post.photos[0].aspectRatio
-            
         default:
             return UITableView.automaticDimension
         }
@@ -287,8 +315,8 @@ extension NewsFeedTableViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         guard let maxSection = indexPaths.map({ $0.section }).max() else { return }
         
-        if maxSection > self.postsData.count - 3, !isLoading {
-            isLoading = true
+        if maxSection > self.postsData.count - 3, !self.isLoading {
+            self.isLoading = true
             self.networkManager.loadPosts(startFrom: self.nextFrom) { [weak self] (response) in
                 guard let self = self else { return }
                 
@@ -298,13 +326,13 @@ extension NewsFeedTableViewController: UITableViewDataSourcePrefetching {
                         return
                     }
                     
+                    let oldCount = self.postsData.count
+                    
+                    self.postsData.append(contentsOf: data.posts)
+                    self.sectionBlocks.append(contentsOf: data.sections)
+                    
                     DispatchQueue.main.async {
-                        let newCount = self.postsData.count + data.posts.count
-                        let indexSet = IndexSet(integersIn: self.postsData.count..<newCount)
-                        
-                        self.postsData.append(contentsOf: data.posts)
-                        self.sectionBlocks.append(contentsOf: data.sections)
-                        
+                        let indexSet = IndexSet(integersIn: oldCount..<self.postsData.count)
                         self.tableView.insertSections(indexSet, with: .automatic)
                     }
                     
