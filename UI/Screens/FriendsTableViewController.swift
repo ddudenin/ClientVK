@@ -71,7 +71,7 @@ class FriendsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
- 
+        
         if let friends = self.friends, friends.isEmpty {
             loadData()
         }
@@ -109,9 +109,14 @@ class FriendsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: .none)
-        let vc = storyboard.instantiateViewController(withIdentifier: "FriendCollectionView")
-        (vc as? FriendPhotosCollectionViewController)?.friend = self.sections[indexPath.section].items[indexPath.row]
+        //        let storyboard = UIStoryboard(name: "Main", bundle: .none)
+        //        let vc = storyboard.instantiateViewController(withIdentifier: "FriendCollectionView")
+        //        (vc as? FriendPhotosCollectionViewController)?.friend = self.sections[indexPath.section].items[indexPath.row]
+        //        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = AlbumsViewController()
+        vc.friend = self.sections[indexPath.section].items[indexPath.row]
+        vc.modalPresentationStyle = .fullScreen
+        vc.view.backgroundColor = .systemBackground
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
