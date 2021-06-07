@@ -33,12 +33,13 @@ class AlbumsViewController: ASDKViewController<ASDisplayNode> {
     
     override init() {
         let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = 5
         super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
         
         self.collectionNode.delegate = self
         self.collectionNode.dataSource = self
         
-        self.collectionNode.allowsSelection = false
+        self.collectionNode.allowsSelection = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +69,15 @@ extension AlbumsViewController: ASCollectionDelegate, ASCollectionDataSource {
         return {
             PhotoCellNode(album: self.albums[indexPath.row])
         }
+    }
+    
+    func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
+        self.collectionNode.deselectItem(at: indexPath, animated: true)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: .none)
+        let vc = storyboard.instantiateViewController(withIdentifier: "FriendCollectionView")
+        (vc as? FriendPhotosCollectionViewController)?.configure(friend: self.friend, albumId: self.albums[indexPath.row].id)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
