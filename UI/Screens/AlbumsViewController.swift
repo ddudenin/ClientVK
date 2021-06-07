@@ -16,16 +16,16 @@ class AlbumsViewController: ASDKViewController<ASDisplayNode> {
     }
     
     var friend: User?
-    private var photos = [Photo]()
+    private var albums = [Album]()
     
     private let networkManager = NetworkManager.instance
-
+    
     private func loadData() {
         guard let friend = self.friend else { return }
         
-        self.networkManager.loadPhotos(userId: friend.id) { [weak self] (items) in
+        self.networkManager.loadAlbums(userId: friend.id) { [weak self] (items) in
             DispatchQueue.main.async {
-                self?.photos = items
+                self?.albums = items
                 self?.collectionNode.reloadData()
             }
         }
@@ -44,11 +44,11 @@ class AlbumsViewController: ASDKViewController<ASDisplayNode> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.photos.isEmpty {
+        if self.albums.isEmpty {
             loadData()
         }
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,31 +60,37 @@ extension AlbumsViewController: ASCollectionDelegate, ASCollectionDataSource {
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
-        return self.photos.count
+        return self.albums.count
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
         
         return {
-            PhotoCellNode(photo: self.photos[indexPath.row])
+            PhotoCellNode(album: self.albums[indexPath.row])
         }
     }
 }
 
 class PhotoCellNode: ASCellNode {
     
-    let photo: Photo
+    let album: Album
     let imageNode = ASNetworkImageNode()
+    let nameNode = ASTextNode()
     
-    init(photo: Photo) {
-        self.photo = photo
+    init(album: Album) {
+        self.album = album
         super.init()
         
         self.setupSubnodes()
     }
     
     private func setupSubnodes() {
-        self.imageNode.url = URL(string: photo.sizes.first(where: { $0.type == "x"})?.url ?? "")
+        self.nameNode.attributedText = NSAttributedString(string: self.album.title, attributes: [.font: UIFont.systemFont(ofSize: 13)])
+        self.nameNode.backgroundColor = .systemBackground
+        
+        self.addSubnode(self.nameNode)
+        
+        self.imageNode.url = URL(string: album.thumbSrc)
         self.imageNode.shouldRenderProgressImages = true
         self.addSubnode(imageNode)
     }
@@ -92,16 +98,17 @@ class PhotoCellNode: ASCellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = UIScreen.main.bounds.width - 24
-        let height = width * (photo.sizes.first(where: { $0.type == "x"})?.aspectRatio ?? 1)
-        
+        let height = width
         self.imageNode.style.preferredSize = CGSize(width: width, height: height)
-        let insets = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12), child: self.imageNode)
         
-        return ASStackLayoutSpec(
-            direction: .horizontal,
-            spacing: 12,
-            justifyContent: .spaceBetween,
-            alignItems: .center,
-            children: [insets])
+        let avatarNodeWithInsets = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12), child: self.imageNode)
+        
+        let nameNodeWithInsets = ASCenterLayoutSpec(centeringOptions: .X, sizingOptions: [], child: self.nameNode)
+        
+        let stack = ASStackLayoutSpec()
+        stack.spacing = 8
+        stack.direction = .vertical
+        stack.children = [avatarNodeWithInsets, nameNodeWithInsets]
+        return stack
     }
 }
