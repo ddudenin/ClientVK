@@ -22,7 +22,7 @@ class User: Object, Codable {
     @objc dynamic var id: Int = -1
     @objc dynamic var lastName: String = ""
     @objc dynamic var canAccessClosed: Bool = false
-    @objc dynamic var photo200_Orig: String = ""
+    @objc dynamic var photo200Orig: String = ""
     @objc dynamic var trackCode: String = ""
     
     var fullName: String  {

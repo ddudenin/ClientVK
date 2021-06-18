@@ -30,7 +30,7 @@ final class NewsFeedImagesTableViewCell: UITableViewCell {
     }
     
     func configure(withPost post: PostData) {
-        self.imagesURL = post.photos
+        self.imagesURL = post.photos.map { $0.url }
         self.imagesCollectionView.reloadData()
         self.imagesCollectionView.layoutIfNeeded()
     }

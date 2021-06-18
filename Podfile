@@ -8,5 +8,6 @@ target 'Swift_CustomApp' do
   # Pods for Swift_CustomApp
   pod 'RealmSwift', '~> 10.7'
   pod 'PromiseKit', '~> 6.14'
+  pod 'Texture', '~> 3.0'
 
 end

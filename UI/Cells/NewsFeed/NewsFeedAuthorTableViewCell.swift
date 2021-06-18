@@ -33,9 +33,9 @@ final class NewsFeedAuthorTableViewCell: UITableViewCell {
     }
     
     func configure(withPost post: PostData, timeAgo date: String) {
-        self.createdByLabel.text = post.author.name
+        self.createdByLabel.text = post.source.title
         self.timeAgoLabel.text = date
-        self.profileImageView.setImage(at: post.author.avatarURL, placeholderImage: UIImage(systemName: "person.fill"))
+        self.profileImageView.setImage(at: post.source.imageUrl, placeholderImage: UIImage(systemName: "person.fill"))
     }
     
     override func layoutSubviews() {

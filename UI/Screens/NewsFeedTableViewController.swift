@@ -35,6 +35,11 @@ final class NewsFeedTableViewController: UITableViewController {
     
     private var timeAgoTextCache: [Int : String] = [:]
     
+    private var isLoading = false
+    private var nextFrom = ""
+    
+    private var expandedIndexSet = Set<IndexPath>()
+    
     private lazy var refresherController: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
@@ -47,72 +52,66 @@ final class NewsFeedTableViewController: UITableViewController {
     private var isScrollOnTop = true
     private var startYPos: CGFloat = 0
     
-    private func preparePostData(response: PostResponse) {
-        self.sectionBlocks = []
-        self.postsData = []
+    private func preparePostData(response: PostResponse, complition: @escaping ((posts: [PostData], sections: [[PostBlock]])) -> ()) {
+        var blocksData = [[PostBlock]]()
+        var posts = [PostData]()
         
-        let dispatchGroup = DispatchGroup()
-        let syncQueue = DispatchQueue(label: "DocumentStoreSyncQueue", attributes: .concurrent)
+        if let nextFrom = response.nextFrom {
+            self.nextFrom = nextFrom
+        }
         
         for post in response.items {
-            DispatchQueue.global().async(group: dispatchGroup) {
-                syncQueue.async(flags: .barrier) {
-                    var blocks = [PostBlock]()
-                    
-                    var author = Author()
-                    
-                    let index = post.sourceId
-                    
-                    if index > 0 {
-                        if let profile = response.profiles.first(where: {$0.id == index}) {
-                            author = Author(name: profile.fullName, avatarURL: profile.photo100)
-                        }
-                    } else {
-                        if let group = response.groups.first(where: {$0.id == -index}) {
-                            author = Author(name: group.name, avatarURL: group.photo200)
-                        }
+            var content = [PostBlock]()
+            
+            let index = post.sourceId
+            
+            var photos = [Size]()
+            
+            if let attachments = post.attachments, !attachments.isEmpty {
+                for item in attachments {
+                    if let photo = item.photo?.sizes.first(where: { $0.type == "x" }) {
+                        photos.append(photo)
                     }
-                    
-                    var photosURL = [String]()
-                    
-                    if let attachments = post.attachments, !attachments.isEmpty {
-                        for item in attachments {
-                            if let url = item.photo?.sizes.last?.url {
-                                photosURL.append(url)
-                            }
-                        }
-                    }
-                    
-                    self.postsData.append(PostData(item: post, author: author, photos: photosURL))
-                    
-                    blocks = [.author]
-                    
-                    if(!post.text.isEmpty) {
-                        blocks.append(.text)
-                    }
-                    
-                    if !photosURL.isEmpty {
-                        blocks.append(.photos)
-                    }
-                    
-                    blocks.append(.footer)
-                    
-                    self.sectionBlocks.append(blocks)
                 }
             }
+            
+            if index > 0 {
+                if let profile = response.profiles.first(where: {$0.id == index}) {
+                    posts.append(PostData(source: profile, item: post, photos: photos))
+                }
+            } else {
+                if let group = response.groups.first(where: {$0.id == -index}) {
+                    posts.append(PostData(source: group, item: post, photos: photos))
+                }
+            }
+            
+            content = [.author]
+            
+            if(!post.text.isEmpty) {
+                content.append(.text)
+            }
+            
+            if !photos.isEmpty {
+                content.append(.photos)
+            }
+            
+            content.append(.footer)
+            
+            blocksData.append(content)
         }
         
-        dispatchGroup.notify(queue: DispatchQueue.main) {
-            self.tableView.reloadData()
-        }
+        complition((posts, blocksData))
     }
     
     private func loadData(completion: (() -> Void)? = nil) {
         self.networkManager.loadPosts() { [weak self] (response) in
             DispatchQueue.main.async {
-                self?.preparePostData(response: response)
-                self?.tableView.reloadData()
-                completion?()
+                self?.preparePostData(response: response) { data in
+                    self?.postsData = data.posts
+                    self?.sectionBlocks = data.sections
+                    self?.tableView.reloadData()
+                    completion?()
+                }
             }
         }
     }
@@ -141,10 +140,12 @@ final class NewsFeedTableViewController: UITableViewController {
         
         self.tableView.register(UINib(nibName: "NewsFeedAuthorTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedAuthorCell")
         self.tableView.register(UINib(nibName: "NewsFeedTextTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedTextCell")
+        self.tableView.register(UINib(nibName: "NewsFeedSingleImageTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedSingleImagesCell")
         self.tableView.register(UINib(nibName: "NewsFeedImagesTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedImagesCell")
         self.tableView.register(UINib(nibName: "NewsFeedFooterTableViewCell", bundle: .none), forCellReuseIdentifier: "NewsFeedFooterCell")
         
         self.tableView.refreshControl = self.refresherController
+        self.tableView.prefetchDataSource = self
         
         loadData()
         
@@ -187,10 +188,19 @@ final class NewsFeedTableViewController: UITableViewController {
             
             return cell
         case .photos:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedImagesCell", for: indexPath) as! NewsFeedImagesTableViewCell
+            var cell = UITableViewCell()
             
-            // Configure the cell...
-            cell.configure(withPost: post)
+            if post.photos.count == 1 {
+                cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedSingleImagesCell", for: indexPath)
+                
+                // Configure the cell...
+                (cell as! NewsFeedSingleImageTableViewCell).configure(withPost: post)
+            } else {
+                cell = tableView.dequeueReusableCell(withIdentifier: "NewsFeedImagesCell", for: indexPath)
+                
+                // Configure the cell...
+                (cell as! NewsFeedImagesTableViewCell).configure(withPost: post)
+            }
             
             return cell
         case .footer:
@@ -205,10 +215,50 @@ final class NewsFeedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        if self.sectionBlocks[indexPath.section][indexPath.row] == .text {
+            if self.expandedIndexSet.contains(indexPath) {
+                self.expandedIndexSet.remove(indexPath)
+            } else {
+                self.expandedIndexSet.insert(indexPath)
+            }
+        }
+        
+        self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        self.tableView.endUpdates()
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 5.0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch self.sectionBlocks[indexPath.section][indexPath.row] {
+        case .text:
+            let maxWidth = UITableViewCell().bounds.width - 24
+            let textBlock = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+            let text = self.postsData[indexPath.section].item.text
+            let rect = text.boundingRect(with: textBlock, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)], context: nil)
+            
+            let height = CGFloat(rect.size.height)
+            
+            if height > 200, !self.expandedIndexSet.contains(indexPath) {
+                return 200
+            } else {
+                return UITableView.automaticDimension
+            }
+        case .photos:
+            let post = self.postsData[indexPath.section]
+            
+            guard post.photos.count == 1 else {
+                return UITableView.automaticDimension
+            }
+            
+            return tableView.bounds.width * post.photos[0].aspectRatio
+        default:
+            return UITableView.automaticDimension
+        }
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -231,12 +281,69 @@ final class NewsFeedTableViewController: UITableViewController {
     }
     
     @objc func refresh(_ sender: UIRefreshControl) {
-        loadData() { [weak self] in
-            self?.refresherController.endRefreshing()
+        self.refreshControl?.beginRefreshing()
+        let mostFreshNewsDate = self.postsData.first?.item.date ?? Int(Date().timeIntervalSince1970)
+        self.networkManager.loadPosts(startTime: Double(mostFreshNewsDate + 1)) { [weak self] response in
+            
+            DispatchQueue.main.async {
+                self?.refreshControl?.endRefreshing()
+            }
+            
+            guard let self = self else { return }
+            
+            self.preparePostData(response: response) { data in
+                guard !data.posts.isEmpty else { return }
+                
+                DispatchQueue.main.async {
+                    self.postsData = data.posts + self.postsData
+                    self.sectionBlocks = data.sections + self.sectionBlocks
+                    
+                    let indexSet = IndexSet(integersIn: 0..<data.posts.count)
+                    self.tableView.insertSections(indexSet, with: .automatic)
+                }
+            }
         }
     }
     
     @objc func scrollToTopHandle(_ sender: UIButton) {
         self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
+}
+
+extension NewsFeedTableViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let maxSection = indexPaths.map({ $0.section }).max() else { return }
+        
+        if maxSection > self.postsData.count - 3, !self.isLoading {
+            self.isLoading = true
+            self.networkManager.loadPosts(startFrom: self.nextFrom) { [weak self] (response) in
+                guard let self = self else { return }
+                
+                self.preparePostData(response: response) { data in
+                    if(data.posts.isEmpty) {
+                        self.isLoading = false
+                        return
+                    }
+                    
+                    let oldCount = self.postsData.count
+                    
+                    self.postsData.append(contentsOf: data.posts)
+                    self.sectionBlocks.append(contentsOf: data.sections)
+                    
+                    DispatchQueue.main.async {
+                        let indexSet = IndexSet(integersIn: oldCount..<self.postsData.count)
+                        self.tableView.insertSections(indexSet, with: .automatic)
+                    }
+                    
+                    self.isLoading = false
+                }
+            }
+        }
+    }
+}
+
+protocol NewsSource {
+    var title: String { get }
+    var imageUrl: String { get }
 }

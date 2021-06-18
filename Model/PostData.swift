@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct PostJSONData: Codable {
     let response: PostResponse
@@ -15,7 +16,7 @@ struct PostResponse: Codable {
     let items: [Post]
     let profiles: [Profile]
     let groups: [Group]
-    let nextFrom: String
+    let nextFrom: String?
 }
 
 struct Post: Codable {
@@ -42,7 +43,7 @@ struct Attachment: Codable {
     let photo: Photo?
 }
 
-struct Profile: Codable {
+struct Profile: Codable, NewsSource {
     let firstName: String
     let id: Int
     let lastName: String
@@ -54,20 +55,14 @@ struct Profile: Codable {
     let onlineMobile, onlineApp: Int?
     let deactivated: String?
     
-    var fullName: String  {
-        return firstName + " " + lastName
-    }
-}
-
-struct Author {
-    var name: String = ""
-    var avatarURL: String = ""
+    var title: String { return "\(firstName) \(lastName)" }
+    var imageUrl: String { return photo100 }
 }
 
 struct PostData {
+    var source: NewsSource
     var item: Post
-    var author: Author
-    var photos: [String]
+    var photos: [Size]
 }
 
 

@@ -20,7 +20,7 @@ class FriendsTableViewController: UITableViewController {
             
             guard !self.searchText.isEmpty else { return friends }
             
-            return friends?.filter("firstName CONTAINS %@ OR lastName  CONTAINS %@", self.searchText, self.searchText)
+            return friends?.filter("firstName CONTAINS %@ OR lastName CONTAINS %@", self.searchText, self.searchText)
         }
         
         set { }
@@ -108,10 +108,10 @@ class FriendsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: .none)
-        let vc = storyboard.instantiateViewController(withIdentifier: "FriendCollectionView")
-        (vc as? FriendPhotosCollectionViewController)?.friend = self.sections[indexPath.section].items[indexPath.row]
+        let vc = AlbumsViewController()
+        vc.friend = self.sections[indexPath.section].items[indexPath.row]
+        vc.modalPresentationStyle = .fullScreen
+        vc.view.backgroundColor = .systemBackground
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

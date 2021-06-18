@@ -10,14 +10,15 @@ import RealmSwift
 
 final class FriendPhotosCollectionViewController: UICollectionViewController {
     
-    var friend: User?
+    private var friend: User?
+    private var albumID: Int = -1
     
     private var photos: Results<Photo>? {
         get {
             guard let friend = self.friend else { return nil }
             
             let photos: Results<Photo>? = self.realmManager?.getObjects()
-            return photos?.filter("ownerID = %@", friend.id)
+            return photos?.filter("albumId = %@ AND ownerId = %@", self.albumID, friend.id)
         }
         
         set { }
@@ -60,6 +61,11 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func configure(friend user: User?, albumId id: Int) {
+        self.friend = user
+        self.albumID = id
     }
     
     override func viewDidLoad() {

@@ -67,7 +67,7 @@ class NetworkManager {
             URLQueryItem(name: "v", value: "5.130")
         ]
         
-        guard let url = urlComponents.url else { return .value([User]())}
+        guard let url = urlComponents.url else { return .value([])}
         
         let session = URLSession.shared
         
@@ -106,6 +106,42 @@ class NetworkManager {
                         .decode(PhotosJSONData.self, from: data)
                         .response.items
                     complition(photos)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        dataTask.resume()
+        
+    }
+    
+    func loadAlbums(userId: Int, complition: @escaping ([Album]) -> ()) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.vk.com"
+        urlComponents.path = "/method/photos.getAlbums"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "access_token", value: Session.instance.token),
+            URLQueryItem(name: "owner_id", value: "\(userId)"),
+            URLQueryItem(name: "need_system", value: "1"),
+            URLQueryItem(name: "need_covers", value: "1"),
+            URLQueryItem(name: "v", value: "5.130")
+        ]
+        
+        guard let url = urlComponents.url else { return }
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                do {
+                    let albums = try self.decoder
+                        .decode(AlbumsJSONData.self, from: data)
+                        .response.items
+                    complition(albums)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -178,7 +214,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadPosts(complition: @escaping (PostResponse) -> ()) {
+    func loadPosts(startFrom: String = "", startTime: Double? = nil, complition: @escaping (PostResponse) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -186,8 +222,13 @@ class NetworkManager {
         urlComponents.queryItems = [
             URLQueryItem(name: "access_token", value: Session.instance.token),
             URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "start_from", value: "\(startFrom)"),
             URLQueryItem(name: "v", value: "5.130")
         ]
+        
+        if let time = startTime {
+            urlComponents.queryItems?.append(URLQueryItem(name: "start_time", value: "\(time)"))
+        }
         
         guard let url = urlComponents.url else { return }
         
