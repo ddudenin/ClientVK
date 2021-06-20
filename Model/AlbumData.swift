@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct AlbumsJSONData: Codable {
     let response: AlbumResponse
@@ -22,5 +23,14 @@ struct Album: Codable {
     let itemDescription: String?
     let created, updated: Int?
     let size: Int
-    let thumbSrc: String
+    let sizes: [Thumb]
+}
+
+class Thumb: Codable {
+    var height: Int = 0
+    var src: String = ""
+    var type: String = ""
+    var width: Int = 0
+    
+    var aspectRatio: CGFloat { return CGFloat(self.height) / CGFloat(self.width) }
 }

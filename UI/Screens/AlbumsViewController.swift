@@ -57,17 +57,17 @@ class AlbumsViewController: ASDKViewController<ASDisplayNode> {
 
 extension AlbumsViewController: ASCollectionDelegate, ASCollectionDataSource {
     func numberOfSections(in collectionNode: ASCollectionNode) -> Int {
-        return 1
+        return self.albums.count
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
-        return self.albums.count
+        return 1
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
         
         return {
-            PhotoCellNode(album: self.albums[indexPath.row])
+            PhotoCellNode(album: self.albums[indexPath.section])
         }
     }
     
@@ -87,6 +87,8 @@ class PhotoCellNode: ASCellNode {
     let imageNode = ASNetworkImageNode()
     let nameNode = ASTextNode()
     
+    static var imageSideSize: CGFloat = UIScreen.main.bounds.width - 24
+    
     init(album: Album) {
         self.album = album
         super.init()
@@ -97,19 +99,15 @@ class PhotoCellNode: ASCellNode {
     private func setupSubnodes() {
         self.nameNode.attributedText = NSAttributedString(string: self.album.title, attributes: [.font: UIFont.systemFont(ofSize: 13)])
         self.nameNode.backgroundColor = .systemBackground
-        
         self.addSubnode(self.nameNode)
         
-        self.imageNode.url = URL(string: album.thumbSrc)
+        self.imageNode.url = URL(string: album.sizes.first(where: { $0.type == "x" })?.src ?? "")
         self.imageNode.shouldRenderProgressImages = true
         self.addSubnode(imageNode)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        
-        let width = UIScreen.main.bounds.width - 24
-        let height = width
-        self.imageNode.style.preferredSize = CGSize(width: width, height: height)
+        self.imageNode.style.preferredSize = CGSize(width: Self.imageSideSize, height: Self.imageSideSize)
         
         let avatarNodeWithInsets = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12), child: self.imageNode)
         
