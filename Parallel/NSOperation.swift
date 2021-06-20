@@ -84,7 +84,7 @@ class ParseDataOperation: Operation {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 self.groups = try decoder
-                    .decode(GroupsJSONData.self, from: data)
+                    .decode(GroupsRequestData.self, from: data)
                     .response.items
             } catch {
                 print(error.localizedDescription)

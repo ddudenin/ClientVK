@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-struct PhotosJSONData: Codable {
+struct PhotosRequestData: Codable {
     let response: PhotosResponse
 }
 

@@ -97,7 +97,7 @@ class PhotoCellNode: ASCellNode {
     }
     
     private func setupSubnodes() {
-        self.nameNode.attributedText = NSAttributedString(string: self.album.title, attributes: [.font: UIFont.systemFont(ofSize: 13)])
+        self.nameNode.attributedText = NSAttributedString(string: self.album.title, attributes: [.font: UIFont.systemFont12])
         self.nameNode.backgroundColor = .systemBackground
         self.addSubnode(self.nameNode)
         

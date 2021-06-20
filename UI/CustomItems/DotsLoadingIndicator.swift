@@ -39,8 +39,15 @@ public final class DotsLoadingIndicator : UIView {
     
     override public var tintColor: UIColor! {
         didSet {
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+            self.tintColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+            let color = UIColor.rgba(r, g, b, alpha: a)
+            
             for layer in self.dotLayers {
-                layer.fillColor = self.tintColor.cgColor
+                layer.fillColor = color.cgColor
             }
         }
     }

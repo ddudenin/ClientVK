@@ -41,7 +41,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let friends = try self.decoder
-                        .decode(FriendsJSONData.self, from: data)
+                        .decode(FriendsRequestData.self, from: data)
                         .response.items
                     complition(friends)
                 } catch {
@@ -78,7 +78,7 @@ class NetworkManager {
             session.dataTask(.promise, with: url)
         }.compactMap {
             return try self.decoder
-                .decode(FriendsJSONData.self, from: $0.data)
+                .decode(FriendsRequestData.self, from: $0.data)
                 .response.items
         }
     }
@@ -103,7 +103,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let photos = try self.decoder
-                        .decode(PhotosJSONData.self, from: data)
+                        .decode(PhotosRequestData.self, from: data)
                         .response.items
                     complition(photos)
                 } catch {
@@ -140,7 +140,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let albums = try self.decoder
-                        .decode(AlbumsJSONData.self, from: data)
+                        .decode(AlbumsRequestData.self, from: data)
                         .response.items
                     complition(albums)
                 } catch {
@@ -201,7 +201,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let groups = try self.decoder
-                        .decode(GroupsJSONData.self, from: data)
+                        .decode(GroupsRequestData.self, from: data)
                         .response.items
                     complition(groups)
                 } catch {
@@ -239,7 +239,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let response = try self.decoder
-                        .decode(PostJSONData.self, from: data)
+                        .decode(PostRequestData.self, from: data)
                         .response
                     complition(response)
                 } catch {

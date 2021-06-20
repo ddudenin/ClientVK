@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-struct GroupsJSONData: Codable {
+struct GroupsRequestData: Codable {
     let response: GroupsResponse
 }
 

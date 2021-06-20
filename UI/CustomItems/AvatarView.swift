@@ -25,7 +25,14 @@ final class AvatarView: UIView {
     
     @IBInspectable var shadowColor: UIColor = .cyan {
         didSet {
-            self.layer.shadowColor = shadowColor.cgColor
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+            self.shadowColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+            let color = UIColor.rgba(r, g, b, alpha: a)
+            
+            self.layer.shadowColor = color.cgColor
         }
     }
     

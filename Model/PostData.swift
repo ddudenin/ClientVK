@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct PostJSONData: Codable {
+struct PostRequestData: Codable {
     let response: PostResponse
 }
 

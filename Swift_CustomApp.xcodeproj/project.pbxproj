@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A1B9575265EBE7C00AB3CD6 /* PhotoCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B9574265EBE7C00AB3CD6 /* PhotoCacheService.swift */; };
+		0A269BFF267F434F000FF0F4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A269BFE267F434F000FF0F4 /* Extensions.swift */; };
 		0A36212F266EBA370004B61A /* AlbumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36212E266EBA370004B61A /* AlbumData.swift */; };
 		0A78005226696B96004614DB /* NewsFeedSingleImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78005026696B96004614DB /* NewsFeedSingleImageTableViewCell.swift */; };
 		0A78005326696B96004614DB /* NewsFeedSingleImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A78005126696B96004614DB /* NewsFeedSingleImageTableViewCell.xib */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		0A1B9574265EBE7C00AB3CD6 /* PhotoCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCacheService.swift; sourceTree = "<group>"; };
+		0A269BFE267F434F000FF0F4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0A36212E266EBA370004B61A /* AlbumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumData.swift; sourceTree = "<group>"; };
 		0A78005026696B96004614DB /* NewsFeedSingleImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedSingleImageTableViewCell.swift; sourceTree = "<group>"; };
 		0A78005126696B96004614DB /* NewsFeedSingleImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFeedSingleImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -153,6 +155,15 @@
 				0A1B9574265EBE7C00AB3CD6 /* PhotoCacheService.swift */,
 			);
 			path = CacheService;
+			sourceTree = "<group>";
+		};
+		0A269BFD267F432E000FF0F4 /* Fundamental */ = {
+			isa = PBXGroup;
+			children = (
+				398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */,
+				0A269BFE267F434F000FF0F4 /* Extensions.swift */,
+			);
+			path = Fundamental;
 			sourceTree = "<group>";
 		};
 		0A4B705E264DB82B00C03B74 /* NewsFeed */ = {
@@ -323,6 +334,7 @@
 				39312D4C260146D9002997E0 /* Network */,
 				0A1B9573265EBE1400AB3CD6 /* CacheService */,
 				8B193BC325C5AF6A0043AF16 /* Model */,
+				0A269BFD267F432E000FF0F4 /* Fundamental */,
 				8B4ED2BF25BC92AE00485879 /* Swift_CustomApp */,
 				8B4ED2BE25BC92AE00485879 /* Products */,
 				394E9F642603D99500895183 /* Frameworks */,
@@ -346,7 +358,6 @@
 				8B4ED2C925BC92AF00485879 /* Assets.xcassets */,
 				8B4ED2CB25BC92AF00485879 /* LaunchScreen.storyboard */,
 				8B4ED2CE25BC92AF00485879 /* Info.plist */,
-				398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */,
 			);
 			path = Swift_CustomApp;
 			sourceTree = "<group>";
@@ -516,6 +527,7 @@
 				394E9F692603DA7400895183 /* VKLoginWebViewController.swift in Sources */,
 				393766F725D471D500FFB8D5 /* NewsFeedTableViewController.swift in Sources */,
 				0AD39A8C264DD29E0052721D /* NewsFeedFooterTableViewCell.swift in Sources */,
+				0A269BFF267F434F000FF0F4 /* Extensions.swift in Sources */,
 				393766F025D4267B00FFB8D5 /* FriendSectionHeader.swift in Sources */,
 				8B193BD325C5CDE10043AF16 /* FriendPhotosCollectionViewController.swift in Sources */,
 				0A78005226696B96004614DB /* NewsFeedSingleImageTableViewCell.swift in Sources */,
