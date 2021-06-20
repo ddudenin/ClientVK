@@ -128,6 +128,7 @@ class NetworkManager {
             URLQueryItem(name: "owner_id", value: "\(userId)"),
             URLQueryItem(name: "need_system", value: "1"),
             URLQueryItem(name: "need_covers", value: "1"),
+            URLQueryItem(name: "photo_sizes", value: "1"),
             URLQueryItem(name: "v", value: "5.130")
         ]
         
