@@ -10,7 +10,7 @@ import RealmSwift
 
 final class PhotosCarouselCollectionViewController: UICollectionViewController {
     
-    var photos: Results<RLMPhoto>?
+    var photos = [PhotoDisplayItem]()
     var index = 0
     
     override func viewDidLoad() {
@@ -33,16 +33,13 @@ extension PhotosCarouselCollectionViewController: UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photos?.count ?? 0
+        return self.photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let photo = self.photos?[indexPath.row] else {
-            return UICollectionViewCell()
-        }
-        
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselPhotoCell", for: indexPath) as! CarouselPhotoCollectionViewCell
         
+        let photo = self.photos[indexPath.row]
         cell.configure(withPhoto: photo)
         
         return cell

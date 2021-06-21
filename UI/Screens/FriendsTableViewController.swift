@@ -39,11 +39,9 @@ class FriendsTableViewController: UITableViewController {
     private func calculateSectionsData() {
         guard let friends = self.friends else { return }
         
-        let items = friends.map { UserDisplayItemFactory.make(for: $0) }
-        
-        let sectionsData = Dictionary(grouping: items, by: { String($0.fullName.prefix(1)) })
+        let sectionsData = Dictionary(grouping: friends, by: { String($0.lastName.prefix(1)) }).compactMapValues { $0.map { UserDisplayItemFactory.make(for: $0) } }
         let keys = sectionsData.keys.sorted()
-        self.sections = keys.map{ Section(name: $0, items: sectionsData[$0] ?? []) }
+        self.sections = keys.map { Section(name: $0, items: sectionsData[$0] ?? []) }
     }
     
     private func loadData() {

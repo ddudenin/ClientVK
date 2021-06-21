@@ -14,6 +14,8 @@ final class GroupsTableViewController: UITableViewController {
     
     private var searchText = ""
     
+    private var groupDisplayItems = [GroupDisplayItem]()
+    
     private var userGroups: Results<RLMGroup>? {
         get {
             let groups: Results<RLMGroup>? = self.realmManager?.getObjects()
@@ -81,8 +83,14 @@ final class GroupsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let userGroups = self.userGroups, userGroups.isEmpty {
+        guard let userGroups = self.userGroups else { return }
+        
+        if userGroups.isEmpty {
             loadData()
+        } else {
+            self.groupDisplayItems = userGroups.map {
+                GroupDisplayItemFactory.make(for: $0)
+            }
         }
     }
     
@@ -104,14 +112,11 @@ final class GroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let group = self.userGroups?[indexPath.row] else {
-            return UITableViewCell()
-        }
-        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsTableViewCell
         
         // Configure the cell...
-        cell.configure(withGroup: GroupDisplayItemFactory.make(for: group))
+        let group = self.groupDisplayItems[indexPath.row]
+        cell.configure(withGroup: group)
         
         return cell
     }
@@ -129,6 +134,8 @@ final class GroupsTableViewController: UITableViewController {
             } catch {
                 print(error.localizedDescription)
             }
+            
+            self.groupDisplayItems.remove(at: indexPath.row)
         }
     }
     
@@ -143,6 +150,13 @@ extension GroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText
+
+        if let userGroups = self.userGroups {
+            self.groupDisplayItems = userGroups.map {
+                GroupDisplayItemFactory.make(for: $0)
+            }
+        }
+        
         self.tableView.reloadData()
     }
 }

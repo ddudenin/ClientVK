@@ -22,9 +22,8 @@ final class CarouselPhotoCollectionViewCell: UICollectionViewCell {
         self.photoImageView.image = nil
     }
     
-    func configure(withPhoto photo: RLMPhoto) {
-        guard let urlString = photo.sizes.last?.url else { return }
-        self.photoImageView.setImage(at: urlString, placeholderImage: UIImage(systemName: "photo.fill"))
+    func configure(withPhoto photo: PhotoDisplayItem) {
+        self.photoImageView.setImage(at: photo.photoURL, placeholderImage: UIImage(systemName: "photo.fill"))
         self.clipsToBounds = false
     }
 }
