@@ -111,7 +111,7 @@ final class GroupsTableViewController: UITableViewController {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsTableViewCell
         
         // Configure the cell...
-        cell.configure(withGroup: group)
+        cell.configure(withGroup: GroupDisplayItemFactory.make(for: group))
         
         return cell
     }

@@ -14,10 +14,10 @@ struct PhotosRequestData: Codable {
 
 struct PhotosResponse: Codable {
     let count: Int
-    let items: [Photo]
+    let items: [RLMPhoto]
 }
 
-class Photo: Object, Codable {
+class RLMPhoto: Object, Codable {
     @objc dynamic var albumId: Int = -1
     @objc dynamic var date: Int = 0
     @objc dynamic var id: Int = -1

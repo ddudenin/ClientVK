@@ -13,11 +13,11 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     private var friend: RLMUser?
     private var albumID: Int = -1
     
-    private var photos: Results<Photo>? {
+    private var photos: Results<RLMPhoto>? {
         get {
             guard let friend = self.friend else { return nil }
             
-            let photos: Results<Photo>? = self.realmManager?.getObjects()
+            let photos: Results<RLMPhoto>? = self.realmManager?.getObjects()
             return photos?.filter("albumId = %@ AND ownerId = %@", self.albumID, friend.id)
         }
         
@@ -120,7 +120,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         }
         
         // Configure the cell
-        cell.configure(withPhoto: photo, handler: handle)
+        cell.configure(withPhoto: PhotoDisplayItemFactory.make(for: photo), handler: handle)
         
         return cell
     }

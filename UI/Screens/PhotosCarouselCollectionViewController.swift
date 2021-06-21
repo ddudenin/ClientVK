@@ -10,7 +10,7 @@ import RealmSwift
 
 final class PhotosCarouselCollectionViewController: UICollectionViewController {
     
-    var photos: Results<Photo>?
+    var photos: Results<RLMPhoto>?
     var index = 0
     
     override func viewDidLoad() {

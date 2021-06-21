@@ -30,8 +30,8 @@ final class FriendsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withUser user: RLMUser) {
+    func configure(withUser user: UserDisplayItem) {
         self.fullNameLabel.text = user.fullName
-        self.avatarView.setImage(fromURL: user.photo200Orig)
+        self.avatarView.setImage(fromURL: user.avatarURL)
     }
 }

@@ -40,7 +40,7 @@ struct Views: Codable {
 
 struct Attachment: Codable {
     let type: String
-    let photo: Photo?
+    let photo: RLMPhoto?
 }
 
 struct Profile: Codable, NewsSource {

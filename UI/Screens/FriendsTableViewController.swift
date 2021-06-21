@@ -28,7 +28,7 @@ class FriendsTableViewController: UITableViewController {
     
     private struct Section {
         let name: String
-        let items: [RLMUser]
+        let items: [UserDisplayItem]
     }
     
     private var sections = [Section]()
@@ -38,7 +38,10 @@ class FriendsTableViewController: UITableViewController {
     
     private func calculateSectionsData() {
         guard let friends = self.friends else { return }
-        let sectionsData = Dictionary(grouping: friends, by: { String($0.lastName.prefix(1)) })
+        
+        let items = friends.map { UserDisplayItemFactory.make(for: $0) }
+        
+        let sectionsData = Dictionary(grouping: items, by: { String($0.fullName.prefix(1)) })
         let keys = sectionsData.keys.sorted()
         self.sections = keys.map{ Section(name: $0, items: sectionsData[$0] ?? []) }
     }
@@ -109,7 +112,13 @@ class FriendsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
         let vc = AlbumsViewController()
-        vc.friend = self.sections[indexPath.section].items[indexPath.row]
+        
+        let fullName = self.sections[indexPath.section].items[indexPath.row].fullName
+        guard let friend = self.friends?.first(where: { $0.fullName == fullName }) else {
+            return
+        }
+        
+        vc.friend = friend
         vc.modalPresentationStyle = .fullScreen
         vc.view.backgroundColor = .systemBackground
         self.navigationController?.pushViewController(vc, animated: true)

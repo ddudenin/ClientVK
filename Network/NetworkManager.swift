@@ -83,7 +83,7 @@ class NetworkManager {
         }
     }
     
-    func loadPhotos(userId: Int, complition: @escaping ([Photo]) -> ()) {
+    func loadPhotos(userId: Int, complition: @escaping ([RLMPhoto]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
