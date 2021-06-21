@@ -12,7 +12,7 @@ final class SearchGroupTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
     
-    private var searchGroups = [Group]()
+    private var searchGroups = [RLMGroup]()
     
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance

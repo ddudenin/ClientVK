@@ -15,7 +15,7 @@ struct PostRequestData: Codable {
 struct PostResponse: Codable {
     let items: [Post]
     let profiles: [Profile]
-    let groups: [Group]
+    let groups: [RLMGroup]
     let nextFrom: String?
 }
 

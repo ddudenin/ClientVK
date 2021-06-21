@@ -10,7 +10,7 @@ import RealmSwift
 
 final class FriendPhotosCollectionViewController: UICollectionViewController {
     
-    private var friend: User?
+    private var friend: RLMUser?
     private var albumID: Int = -1
     
     private var photos: Results<Photo>? {
@@ -63,7 +63,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         }
     }
     
-    func configure(friend user: User?, albumId id: Int) {
+    func configure(friend user: RLMUser?, albumId id: Int) {
         self.friend = user
         self.albumID = id
     }

@@ -74,7 +74,7 @@ class FetchDataOperation: AsyncOperation {
 }
 
 class ParseDataOperation: Operation {
-    var groups = [Group]()
+    var groups = [RLMGroup]()
     
     override func main() {
         guard let operation = self.dependencies.first as? FetchDataOperation else { return }

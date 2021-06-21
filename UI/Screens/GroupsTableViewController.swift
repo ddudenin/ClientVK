@@ -14,9 +14,9 @@ final class GroupsTableViewController: UITableViewController {
     
     private var searchText = ""
     
-    private var userGroups: Results<Group>? {
+    private var userGroups: Results<RLMGroup>? {
         get {
-            let groups: Results<Group>? = self.realmManager?.getObjects()
+            let groups: Results<RLMGroup>? = self.realmManager?.getObjects()
             
             guard !self.searchText.isEmpty else { return groups }
             

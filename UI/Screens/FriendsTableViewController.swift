@@ -14,9 +14,9 @@ class FriendsTableViewController: UITableViewController {
     
     private var searchText: String = ""
     
-    private var friends: Results<User>? {
+    private var friends: Results<RLMUser>? {
         get {
-            let friends: Results<User>? = realmManager?.getObjects()
+            let friends: Results<RLMUser>? = realmManager?.getObjects()
             
             guard !self.searchText.isEmpty else { return friends }
             
@@ -28,7 +28,7 @@ class FriendsTableViewController: UITableViewController {
     
     private struct Section {
         let name: String
-        let items: [User]
+        let items: [RLMUser]
     }
     
     private var sections = [Section]()
