@@ -41,6 +41,10 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
                     print(error.localizedDescription)
                 }
                 
+                self?.photosDiaplayItems = items.map {
+                    PhotoDisplayItemFactory.make(for: $0)
+                }
+                
                 self?.collectionView.reloadData()
             }
         }
@@ -79,9 +83,6 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
         self.title = self.friend?.fullName
         
-        guard let userPhoto = self.photos else { return }
-        self.photosDiaplayItems = userPhoto.map { PhotoDisplayItemFactory.make(for: $0) }
-        
         signToPhotosChanges()
     }
     
@@ -92,6 +93,10 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         
         if userPhoto.isEmpty {
             loadData()
+        } else {
+            self.photosDiaplayItems = userPhoto.map {
+                PhotoDisplayItemFactory.make(for: $0)
+            }
         }
     }
     

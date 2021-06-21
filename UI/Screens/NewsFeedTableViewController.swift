@@ -161,7 +161,7 @@ final class NewsFeedTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let post = postsData[indexPath.section]
+        let post = self.postsData[indexPath.section]
         
         switch self.sectionBlocks[indexPath.section][indexPath.row] {
         case .author:

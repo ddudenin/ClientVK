@@ -38,7 +38,8 @@ final class SearchGroupTableViewController: UITableViewController {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsTableViewCell
         
         // Configure the cell...
-        cell.configure(withGroup: self.groupDisplayItems[indexPath.row])
+        let group = self.groupDisplayItems[indexPath.row]
+        cell.configure(withGroup: group)
         
         return cell
     }
