@@ -8,7 +8,7 @@
 import UIKit
 
 enum UserDisplayItemFactory {
-    static func make(for user: RLMUser) -> UserDisplayItem {
+    static func make(for user: UserDTO) -> UserDisplayItem {
         let fullName = user.fullName
         let avatarURL = user.photo200Orig
         

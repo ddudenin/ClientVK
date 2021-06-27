@@ -15,7 +15,7 @@ class AlbumsViewController: ASDKViewController<ASDisplayNode> {
         return self.node as! ASCollectionNode
     }
     
-    var friend: RLMUser?
+    var friend: UserDTO?
     private var albums = [Album]()
     
     private let networkManager = NetworkManager.instance
