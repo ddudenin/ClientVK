@@ -105,7 +105,7 @@ class FriendsTableViewController: UITableViewController {
 extension FriendsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        serviceAdapter.loadFriends(complition: { [weak self] items in
+        self.serviceAdapter.loadFriends(complition: { [weak self] items in
             if (!searchText.isEmpty) {
                 self?.friends = items.filter {
                     $0.fullName
