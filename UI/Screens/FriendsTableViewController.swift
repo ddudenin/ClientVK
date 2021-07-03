@@ -20,7 +20,8 @@ class FriendsTableViewController: UITableViewController {
     
     private var sections = [Section]()
     
-    private let serviceAdapter = ServiceAdapter()
+    private let serviceAdapter: INetworkService = ServiceAdapter()
+    private var proxy: ProxyNetworkService? = nil
     
     private func calculateSectionsData() {
         let sectionsData = Dictionary(grouping: self.friends, by: { String($0.lastName.prefix(1)) }).compactMapValues { $0.map { UserDisplayItemFactory.make(for: $0) } }
@@ -34,13 +35,15 @@ class FriendsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "FriendsTableViewCell", bundle: .none), forCellReuseIdentifier: "FriendCell")
         self.tableView.register(UINib(nibName: "FriendSectionHeader", bundle: .none), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
+        self.proxy = ProxyNetworkService(base: self.serviceAdapter)
+        
         self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        serviceAdapter.loadFriends(complition: { [weak self] items in
+
+        self.proxy?.loadFriends(complition: { [weak self] items in
             self?.friends = items
             self?.calculateSectionsData()
             
@@ -105,7 +108,7 @@ class FriendsTableViewController: UITableViewController {
 extension FriendsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.serviceAdapter.loadFriends(complition: { [weak self] items in
+        self.proxy?.loadFriends(complition: { [weak self] items in
             if (!searchText.isEmpty) {
                 self?.friends = items.filter {
                     $0.fullName

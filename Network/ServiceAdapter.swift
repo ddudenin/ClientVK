@@ -25,7 +25,7 @@ struct GroupDTO {
     let photo200: String
 }
 
-class ServiceAdapter {
+class ServiceAdapter: INetworkService {
     
     let networkManager = NetworkManager.instance
     let realmManager = RealmManager.instance
@@ -33,12 +33,6 @@ class ServiceAdapter {
     private var groupsToken: NotificationToken?
     
     func loadFriends(complition: @escaping ([UserDTO]) -> ()) {
-        var friends: Results<RLMUser>? = self.realmManager?.getObjects()
-        
-        if let _ = friends?.count {
-            getUserData(users: friends, complition: complition)
-        }
-        
         self.networkManager.friendsForecast()
             .map { friends in
                 do {
@@ -51,13 +45,12 @@ class ServiceAdapter {
                 print(error.localizedDescription)
             }
             .finally {
-                friends = self.realmManager?.getObjects()
+                let friends: Results<RLMUser>? = self.realmManager?.getObjects()
                 self.getUserData(users: friends, complition: complition)
             }
     }
     
-    private func getUserData(users: Results<RLMUser>?,
-                             complition: @escaping ([UserDTO]) -> ())
+    func getUserData(users: Results<RLMUser>?, complition: @escaping ([UserDTO]) -> ())
     {
         self.usersToken = users?.observe { [weak self] (change) in
             guard let self = self else { return }
@@ -82,36 +75,29 @@ class ServiceAdapter {
     }
     
     func loadGroups(complition: @escaping ([GroupDTO]) -> ()) {
-        var groups: Results<RLMGroup>? = self.realmManager?.getObjects()
+        let queue = OperationQueue()
         
-        if let _ = groups?.count {
-            getGroupData(groups: groups, complition: complition)
-        } else {
-            let queue = OperationQueue()
-            
-            let fetchOP = FetchDataOperation()
-            queue.addOperation(fetchOP)
-            
-            let parseOP = ParseDataOperation()
-            parseOP.addDependency(fetchOP)
-            queue.addOperation(parseOP)
-            
-            let saveOP = SaveToRealmOperation()
-            saveOP.addDependency(parseOP)
-            OperationQueue.main.addOperation(saveOP)
-            
-            let completionOperation = BlockOperation {
-                groups = self.realmManager?.getObjects()
-                self.getGroupData(groups: groups, complition: complition)
-            }
-            
-            completionOperation.addDependency(saveOP)
-            OperationQueue.main.addOperation(completionOperation)
+        let fetchOP = FetchDataOperation()
+        queue.addOperation(fetchOP)
+        
+        let parseOP = ParseDataOperation()
+        parseOP.addDependency(fetchOP)
+        queue.addOperation(parseOP)
+        
+        let saveOP = SaveToRealmOperation()
+        saveOP.addDependency(parseOP)
+        OperationQueue.main.addOperation(saveOP)
+        
+        let completionOperation = BlockOperation {
+            let groups: Results<RLMGroup>? = self.realmManager?.getObjects()
+            self.getGroupData(groups: groups, complition: complition)
         }
+        
+        completionOperation.addDependency(saveOP)
+        OperationQueue.main.addOperation(completionOperation)
     }
     
-    private func getGroupData(groups: Results<RLMGroup>?,
-                             complition: @escaping ([GroupDTO]) -> ())
+    func getGroupData(groups: Results<RLMGroup>?, complition: @escaping ([GroupDTO]) -> ())
     {
         self.usersToken = groups?.observe { [weak self] (change) in
             guard let self = self else { return }

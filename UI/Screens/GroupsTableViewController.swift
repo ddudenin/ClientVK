@@ -18,11 +18,14 @@ final class GroupsTableViewController: UITableViewController {
     
     private var userGroups = [GroupDTO]()
     private var serviceAdapter = ServiceAdapter()
+    private var proxy: ProxyNetworkService? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UINib(nibName: "GroupsTableViewCell", bundle: .none), forCellReuseIdentifier: "GroupCell")
+        
+        self.proxy = ProxyNetworkService(base: self.serviceAdapter)
         
         self.searchBar.delegate = self
     }
@@ -30,7 +33,7 @@ final class GroupsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.serviceAdapter.loadGroups(complition: { [weak self] items in
+        self.proxy?.loadGroups(complition: { [weak self] items in
             self?.userGroups = items
             self?.groupDisplayItems = items.map {
                 GroupDisplayItemFactory.make(for: $0)
@@ -84,7 +87,7 @@ final class GroupsTableViewController: UITableViewController {
                 print(error.localizedDescription)
             }
             
-            self.serviceAdapter.loadGroups(complition: { [weak self] items in
+            self.proxy?.loadGroups(complition: { [weak self] items in
                 self?.userGroups = items
                 self?.groupDisplayItems = items.map {
                     GroupDisplayItemFactory.make(for: $0)
@@ -107,7 +110,7 @@ final class GroupsTableViewController: UITableViewController {
 extension GroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.serviceAdapter.loadGroups(complition: { [weak self] items in
+        self.proxy?.loadGroups(complition: { [weak self] items in
             if (!searchText.isEmpty) {
                 self?.userGroups = items.filter {
                     $0.name
