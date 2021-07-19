@@ -30,9 +30,9 @@ final class GroupsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(withGroup group: Group) {
+    func configure(withGroup group: GroupDisplayItem) {
         self.nameLabel.text = group.name
-        self.photoImageView.setImage(at: group.photo50, placeholderImage: UIImage(systemName: "person.2.fill"))
+        self.photoImageView.setImage(at: group.avatarURL, placeholderImage: UIImage(systemName: "person.2.fill"))
     }
     
     func animate() {

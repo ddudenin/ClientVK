@@ -43,7 +43,7 @@ final class NewsFeedTableViewController: UITableViewController {
     private lazy var refresherController: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .systemBlue
-        refreshControl.attributedTitle = NSAttributedString(string: "Update", attributes: [.font: UIFont.systemFont(ofSize: 12)])
+        refreshControl.attributedTitle = NSAttributedString(string: "Update", attributes: [.font: UIFont.systemFont12])
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return refreshControl
     }()
@@ -161,7 +161,7 @@ final class NewsFeedTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let post = postsData[indexPath.section]
+        let post = self.postsData[indexPath.section]
         
         switch self.sectionBlocks[indexPath.section][indexPath.row] {
         case .author:
@@ -239,7 +239,7 @@ final class NewsFeedTableViewController: UITableViewController {
             let maxWidth = UITableViewCell().bounds.width - 24
             let textBlock = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
             let text = self.postsData[indexPath.section].item.text
-            let rect = text.boundingRect(with: textBlock, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)], context: nil)
+            let rect = text.boundingRect(with: textBlock, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: UIFont.systemFont15], context: nil)
             
             let height = CGFloat(rect.size.height)
             

@@ -8,16 +8,16 @@
 import Foundation
 import RealmSwift
 
-struct GroupsJSONData: Codable {
+struct GroupsRequestData: Codable {
     let response: GroupsResponse
 }
 
 struct GroupsResponse: Codable {
     let count: Int
-    let items: [Group]
+    let items: [RLMGroup]
 }
 
-class Group: Object, Codable, NewsSource {
+class RLMGroup: Object, Codable, NewsSource {
     @objc dynamic var id: Int = -1
     @objc dynamic var name: String = ""
     @objc dynamic var screenName: String = ""

@@ -12,7 +12,8 @@ final class SearchGroupTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
     
-    private var searchGroups = [Group]()
+    private var searchGroups = [RLMGroup]()
+    private var groupDisplayItems = [GroupDisplayItem]()
     
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance
@@ -37,7 +38,8 @@ final class SearchGroupTableViewController: UITableViewController {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsTableViewCell
         
         // Configure the cell...
-        cell.configure(withGroup: self.searchGroups[indexPath.row])
+        let group = self.groupDisplayItems[indexPath.row]
+        cell.configure(withGroup: group)
         
         return cell
     }
@@ -62,6 +64,7 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         
         self.networkManager.loadGroups(searchText: searchText) { [weak self] (items) in
             self?.searchGroups = items
+            self?.groupDisplayItems = items.map { GroupDisplayItemFactory.make(for: $0) }
             
             DispatchQueue.main.async {
                 self?.tableView.reloadData()

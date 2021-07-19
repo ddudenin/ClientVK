@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-struct PostJSONData: Codable {
+struct PostRequestData: Codable {
     let response: PostResponse
 }
 
 struct PostResponse: Codable {
     let items: [Post]
     let profiles: [Profile]
-    let groups: [Group]
+    let groups: [RLMGroup]
     let nextFrom: String?
 }
 
@@ -40,7 +40,7 @@ struct Views: Codable {
 
 struct Attachment: Codable {
     let type: String
-    let photo: Photo?
+    let photo: RLMPhoto?
 }
 
 struct Profile: Codable, NewsSource {

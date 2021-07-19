@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct AlbumsJSONData: Codable {
+struct AlbumsRequestData: Codable {
     let response: AlbumResponse
 }
 

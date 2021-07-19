@@ -11,19 +11,40 @@ class SignInButton: UIButton {
     
     @IBInspectable var bgColor: UIColor = UIColor.lightGray {
         didSet {
-            self.backgroundColor = self.bgColor
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+            self.bgColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+            let color = UIColor.rgba(r, g, b, alpha: a)
+            
+            self.backgroundColor = color
         }
     }
     
     @IBInspectable var borderColor: UIColor = UIColor.lightGray {
         didSet {
-            self.layer.borderColor = self.borderColor.cgColor
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+            self.borderColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+            let color = UIColor.rgba(r, g, b, alpha: a)
+            
+            self.layer.borderColor = color.cgColor
         }
     }
     
     @IBInspectable var textColor: UIColor = UIColor.lightGray {
         didSet {
-            self.setTitleColor(self.textColor, for: .normal)
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+            self.textColor.getRed(&r, green: &g, blue: &b, alpha: &a)
+            let color = UIColor.rgba(r, g, b, alpha: a)
+            
+            self.setTitleColor(color, for: .normal)
         }
     }
     
@@ -46,7 +67,7 @@ class SignInButton: UIButton {
     private func setupButton() {
         self.layer.cornerRadius = 20.0
         self.layer.borderWidth = 0.0
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        self.titleLabel?.font = UIFont.systemFont15Bold
         self.setImage(UIImage(systemName: "chevron.forward.circle"), for: .normal)
         self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 12)
     }

@@ -6,58 +6,27 @@
 //
 
 import UIKit
-import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
     
     @IBOutlet private var searchBar: UISearchBar!
-    
-    private var searchText: String = ""
-    
-    private var friends: Results<User>? {
-        get {
-            let friends: Results<User>? = realmManager?.getObjects()
-            
-            guard !self.searchText.isEmpty else { return friends }
-            
-            return friends?.filter("firstName CONTAINS %@ OR lastName CONTAINS %@", self.searchText, self.searchText)
-        }
-        
-        set { }
-    }
+
+    private var friends = [UserDTO]()
     
     private struct Section {
         let name: String
-        let items: [User]
+        let items: [UserDisplayItem]
     }
     
     private var sections = [Section]()
     
-    private let networkManager = NetworkManager.instance
-    private let realmManager = RealmManager.instance
+    private let serviceAdapter: INetworkService = ServiceAdapter()
+    private var proxy: ProxyNetworkService? = nil
     
     private func calculateSectionsData() {
-        guard let friends = self.friends else { return }
-        let sectionsData = Dictionary(grouping: friends, by: { String($0.lastName.prefix(1)) })
+        let sectionsData = Dictionary(grouping: self.friends, by: { String($0.lastName.prefix(1)) }).compactMapValues { $0.map { UserDisplayItemFactory.make(for: $0) } }
         let keys = sectionsData.keys.sorted()
-        self.sections = keys.map{ Section(name: $0, items: sectionsData[$0] ?? []) }
-    }
-    
-    private func loadData() {
-        self.networkManager.friendsForecast()
-            .map { friends in
-                do {
-                    try self.realmManager?.add(objects: friends)
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-            .catch { error in
-                print(error.localizedDescription)
-            }
-            .finally {
-                self.tableView.reloadData()
-            }
+        self.sections = keys.map { Section(name: $0, items: sectionsData[$0] ?? []) }
     }
     
     override func viewDidLoad() {
@@ -66,17 +35,22 @@ class FriendsTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "FriendsTableViewCell", bundle: .none), forCellReuseIdentifier: "FriendCell")
         self.tableView.register(UINib(nibName: "FriendSectionHeader", bundle: .none), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
+        self.proxy = ProxyNetworkService(base: self.serviceAdapter)
+        
         self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let friends = self.friends, friends.isEmpty {
-            loadData()
-        }
-        
-        calculateSectionsData()
+
+        self.proxy?.loadFriends(complition: { [weak self] items in
+            self?.friends = items
+            self?.calculateSectionsData()
+            
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -109,7 +83,13 @@ class FriendsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
         let vc = AlbumsViewController()
-        vc.friend = self.sections[indexPath.section].items[indexPath.row]
+        
+        let fullName = self.sections[indexPath.section].items[indexPath.row].fullName
+        guard let friend = self.friends.first(where: { $0.fullName == fullName }) else {
+            return
+        }
+        
+        vc.friend = friend
         vc.modalPresentationStyle = .fullScreen
         vc.view.backgroundColor = .systemBackground
         self.navigationController?.pushViewController(vc, animated: true)
@@ -128,8 +108,22 @@ class FriendsTableViewController: UITableViewController {
 extension FriendsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchText = searchText
-        calculateSectionsData()
-        self.tableView.reloadData()
+        self.proxy?.loadFriends(complition: { [weak self] items in
+            if (!searchText.isEmpty) {
+                self?.friends = items.filter {
+                    $0.fullName
+                        .lowercased()
+                        .contains(searchText.lowercased())
+                }
+            } else {
+                self?.friends = items
+            }
+            
+            self?.calculateSectionsData()
+            
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
     }
 }

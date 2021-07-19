@@ -14,76 +14,35 @@ final class GroupsTableViewController: UITableViewController {
     
     private var searchText = ""
     
-    private var userGroups: Results<Group>? {
-        get {
-            let groups: Results<Group>? = self.realmManager?.getObjects()
-            
-            guard !self.searchText.isEmpty else { return groups }
-            
-            return groups?.filter("name CONTAINS %@", self.searchText)
-        }
-        
-        set { }
-    }
+    private var groupDisplayItems = [GroupDisplayItem]()
     
-    private let networkManager = NetworkManager.instance
-    private let realmManager = RealmManager.instance
-    private var notificationToken: NotificationToken?
-    
-    private func loadData() {
-        let queue = OperationQueue()
-        
-        let fetchOP = FetchDataOperation()
-        queue.addOperation(fetchOP)
-        
-        let parseOP = ParseDataOperation()
-        parseOP.addDependency(fetchOP)
-        queue.addOperation(parseOP)
-        
-        let saveOP = SaveToRealmOperation()
-        saveOP.addDependency(parseOP)
-        OperationQueue.main.addOperation(saveOP)
-        
-        // reload will be done automatically by NotificationToken
-    }
-    
-    private func signToGroupsChanges() {
-        self.notificationToken = self.userGroups?.observe { [weak self] (change) in
-            switch change {
-            case .initial(let groups):
-                #if DEBUG
-                print("Initialized \(groups.count)")
-                #endif
-            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
-                self?.tableView.beginUpdates()
-                
-                self?.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                self?.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                self?.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                
-                self?.tableView.endUpdates()
-            case .error(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
+    private var userGroups = [GroupDTO]()
+    private var serviceAdapter = ServiceAdapter()
+    private var proxy: ProxyNetworkService? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UINib(nibName: "GroupsTableViewCell", bundle: .none), forCellReuseIdentifier: "GroupCell")
         
-        self.searchBar.delegate = self
+        self.proxy = ProxyNetworkService(base: self.serviceAdapter)
         
-        signToGroupsChanges()
+        self.searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let userGroups = self.userGroups, userGroups.isEmpty {
-            loadData()
-        }
+        self.proxy?.loadGroups(complition: { [weak self] items in
+            self?.userGroups = items
+            self?.groupDisplayItems = items.map {
+                GroupDisplayItemFactory.make(for: $0)
+            }
+            
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,26 +50,19 @@ final class GroupsTableViewController: UITableViewController {
         searchBar(self.searchBar, textDidChange: "")
     }
     
-    deinit {
-        self.notificationToken?.invalidate()
-    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.userGroups?.count ?? 0
+        return self.userGroups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let group = self.userGroups?[indexPath.row] else {
-            return UITableViewCell()
-        }
-        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsTableViewCell
         
         // Configure the cell...
+        let group = self.groupDisplayItems[indexPath.row]
         cell.configure(withGroup: group)
         
         return cell
@@ -122,13 +74,29 @@ final class GroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let userGroups = self.userGroups else { return }
+            let groups: Results<RLMGroup>? = RealmManager.instance?.getObjects()
             
+            let groudID = userGroups[indexPath.row].id
+            let group = groups?.first(where: { $0.id ==  groudID })
+            
+            guard let object = group else { return }
+
             do {
-                try realmManager?.delete(object: userGroups[indexPath.row])
+                try RealmManager.instance?.delete(object: object)
             } catch {
                 print(error.localizedDescription)
             }
+            
+            self.proxy?.loadGroups(complition: { [weak self] items in
+                self?.userGroups = items
+                self?.groupDisplayItems = items.map {
+                    GroupDisplayItemFactory.make(for: $0)
+                }
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            })
         }
     }
     
@@ -142,7 +110,24 @@ final class GroupsTableViewController: UITableViewController {
 extension GroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchText = searchText
-        self.tableView.reloadData()
+        self.proxy?.loadGroups(complition: { [weak self] items in
+            if (!searchText.isEmpty) {
+                self?.userGroups = items.filter {
+                    $0.name
+                        .lowercased()
+                        .contains(searchText.lowercased())
+                }
+            } else {
+                self?.userGroups = items
+            }
+            
+            self?.groupDisplayItems = self?.userGroups.map {
+                GroupDisplayItemFactory.make(for: $0)
+            } ?? []
+
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        })
     }
 }

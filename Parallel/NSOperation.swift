@@ -74,7 +74,7 @@ class FetchDataOperation: AsyncOperation {
 }
 
 class ParseDataOperation: Operation {
-    var groups = [Group]()
+    var groups = [RLMGroup]()
     
     override func main() {
         guard let operation = self.dependencies.first as? FetchDataOperation else { return }
@@ -84,7 +84,7 @@ class ParseDataOperation: Operation {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 self.groups = try decoder
-                    .decode(GroupsJSONData.self, from: data)
+                    .decode(GroupsRequestData.self, from: data)
                     .response.items
             } catch {
                 print(error.localizedDescription)

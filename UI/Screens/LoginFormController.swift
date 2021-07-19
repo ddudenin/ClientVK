@@ -30,11 +30,8 @@ final class LoginFormController: UIViewController {
     }
     
     private func setGradientBackground() {
-        let startColor = UIColor(red: 0.02, green: 0.36, blue: 0.91, alpha: 1.00).cgColor
-        let endColor = UIColor(red: 0.04, green: 0.78, blue: 0.98, alpha: 1.00).cgColor
-        
         let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.colors = [startColor, endColor]
+        gradient.colors = [UIColor.gradientBegin.cgColor, UIColor.gradientEnd.cgColor]
         gradient.locations = [0.0 , 1.0]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)

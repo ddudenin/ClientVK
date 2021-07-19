@@ -8,16 +8,16 @@
 import Foundation
 import RealmSwift
 
-struct FriendsJSONData: Codable {
+struct FriendsRequestData: Codable {
     let response: FriendsResponse
 }
 
 struct FriendsResponse: Codable {
     let count: Int
-    let items: [User]
+    let items: [RLMUser]
 }
 
-class User: Object, Codable {
+class RLMUser: Object, Codable {
     @objc dynamic var firstName: String = ""
     @objc dynamic var id: Int = -1
     @objc dynamic var lastName: String = ""

@@ -21,7 +21,7 @@ class NetworkManager {
         
     }
     
-    func loadFriends(complition: @escaping ([User]) -> ()) {
+    func loadFriends(complition: @escaping ([RLMUser]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -41,7 +41,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let friends = try self.decoder
-                        .decode(FriendsJSONData.self, from: data)
+                        .decode(FriendsRequestData.self, from: data)
                         .response.items
                     complition(friends)
                 } catch {
@@ -55,7 +55,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func friendsForecast() -> Promise<[User]> {
+    func friendsForecast() -> Promise<[RLMUser]> {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -78,12 +78,12 @@ class NetworkManager {
             session.dataTask(.promise, with: url)
         }.compactMap {
             return try self.decoder
-                .decode(FriendsJSONData.self, from: $0.data)
+                .decode(FriendsRequestData.self, from: $0.data)
                 .response.items
         }
     }
     
-    func loadPhotos(userId: Int, complition: @escaping ([Photo]) -> ()) {
+    func loadPhotos(userId: Int, complition: @escaping ([RLMPhoto]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -103,7 +103,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let photos = try self.decoder
-                        .decode(PhotosJSONData.self, from: data)
+                        .decode(PhotosRequestData.self, from: data)
                         .response.items
                     complition(photos)
                 } catch {
@@ -140,7 +140,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let albums = try self.decoder
-                        .decode(AlbumsJSONData.self, from: data)
+                        .decode(AlbumsRequestData.self, from: data)
                         .response.items
                     complition(albums)
                 } catch {
@@ -181,7 +181,7 @@ class NetworkManager {
         dataTask.resume()
     }
     
-    func loadGroups(searchText: String, complition: @escaping ([Group]) -> ()) {
+    func loadGroups(searchText: String, complition: @escaping ([RLMGroup]) -> ()) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
@@ -201,7 +201,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let groups = try self.decoder
-                        .decode(GroupsJSONData.self, from: data)
+                        .decode(GroupsRequestData.self, from: data)
                         .response.items
                     complition(groups)
                 } catch {
@@ -239,7 +239,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let response = try self.decoder
-                        .decode(PostJSONData.self, from: data)
+                        .decode(PostRequestData.self, from: data)
                         .response
                     complition(response)
                 } catch {

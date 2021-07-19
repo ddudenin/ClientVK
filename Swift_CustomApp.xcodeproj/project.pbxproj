@@ -8,7 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		0A1B9575265EBE7C00AB3CD6 /* PhotoCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B9574265EBE7C00AB3CD6 /* PhotoCacheService.swift */; };
+		0A269BFF267F434F000FF0F4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A269BFE267F434F000FF0F4 /* Extensions.swift */; };
+		0A2B27D62680FC9D00B64F7E /* UserDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B27D52680FC9D00B64F7E /* UserDisplayItem.swift */; };
+		0A2B27D92680FE5900B64F7E /* UserDisplayItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B27D82680FE5900B64F7E /* UserDisplayItemFactory.swift */; };
+		0A2B27DC2681044F00B64F7E /* GroupDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B27DB2681044F00B64F7E /* GroupDisplayItem.swift */; };
+		0A2B27DE2681053E00B64F7E /* GroupDisplayItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B27DD2681053E00B64F7E /* GroupDisplayItemFactory.swift */; };
+		0A2B27E22681082400B64F7E /* PhotoDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B27E12681082400B64F7E /* PhotoDisplayItem.swift */; };
+		0A2B27E42681086D00B64F7E /* PhotoDisplayItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B27E32681086D00B64F7E /* PhotoDisplayItemFactory.swift */; };
+		0A2B4CA42690908000D3512E /* Proxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B4CA32690908000D3512E /* Proxy.swift */; };
 		0A36212F266EBA370004B61A /* AlbumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36212E266EBA370004B61A /* AlbumData.swift */; };
+		0A38319D26888F090030813E /* ServiceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A38319C26888F090030813E /* ServiceAdapter.swift */; };
 		0A78005226696B96004614DB /* NewsFeedSingleImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78005026696B96004614DB /* NewsFeedSingleImageTableViewCell.swift */; };
 		0A78005326696B96004614DB /* NewsFeedSingleImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A78005126696B96004614DB /* NewsFeedSingleImageTableViewCell.xib */; };
 		0A84E68F265583A300573796 /* NSOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84E68E265583A300573796 /* NSOperation.swift */; };
@@ -70,7 +79,16 @@
 
 /* Begin PBXFileReference section */
 		0A1B9574265EBE7C00AB3CD6 /* PhotoCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCacheService.swift; sourceTree = "<group>"; };
+		0A269BFE267F434F000FF0F4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0A2B27D52680FC9D00B64F7E /* UserDisplayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDisplayItem.swift; sourceTree = "<group>"; };
+		0A2B27D82680FE5900B64F7E /* UserDisplayItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDisplayItemFactory.swift; sourceTree = "<group>"; };
+		0A2B27DB2681044F00B64F7E /* GroupDisplayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDisplayItem.swift; sourceTree = "<group>"; };
+		0A2B27DD2681053E00B64F7E /* GroupDisplayItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDisplayItemFactory.swift; sourceTree = "<group>"; };
+		0A2B27E12681082400B64F7E /* PhotoDisplayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDisplayItem.swift; sourceTree = "<group>"; };
+		0A2B27E32681086D00B64F7E /* PhotoDisplayItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDisplayItemFactory.swift; sourceTree = "<group>"; };
+		0A2B4CA32690908000D3512E /* Proxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proxy.swift; sourceTree = "<group>"; };
 		0A36212E266EBA370004B61A /* AlbumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumData.swift; sourceTree = "<group>"; };
+		0A38319C26888F090030813E /* ServiceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAdapter.swift; sourceTree = "<group>"; };
 		0A78005026696B96004614DB /* NewsFeedSingleImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedSingleImageTableViewCell.swift; sourceTree = "<group>"; };
 		0A78005126696B96004614DB /* NewsFeedSingleImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFeedSingleImageTableViewCell.xib; sourceTree = "<group>"; };
 		0A84E68E265583A300573796 /* NSOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOperation.swift; sourceTree = "<group>"; };
@@ -155,6 +173,37 @@
 			path = CacheService;
 			sourceTree = "<group>";
 		};
+		0A269BFD267F432E000FF0F4 /* Fundamental */ = {
+			isa = PBXGroup;
+			children = (
+				0A2B27D72680FD7D00B64F7E /* Factories */,
+				0A2B27D42680FC7A00B64F7E /* DisplayItems */,
+				398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */,
+				0A269BFE267F434F000FF0F4 /* Extensions.swift */,
+			);
+			path = Fundamental;
+			sourceTree = "<group>";
+		};
+		0A2B27D42680FC7A00B64F7E /* DisplayItems */ = {
+			isa = PBXGroup;
+			children = (
+				0A2B27D52680FC9D00B64F7E /* UserDisplayItem.swift */,
+				0A2B27DB2681044F00B64F7E /* GroupDisplayItem.swift */,
+				0A2B27E12681082400B64F7E /* PhotoDisplayItem.swift */,
+			);
+			path = DisplayItems;
+			sourceTree = "<group>";
+		};
+		0A2B27D72680FD7D00B64F7E /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				0A2B27D82680FE5900B64F7E /* UserDisplayItemFactory.swift */,
+				0A2B27DD2681053E00B64F7E /* GroupDisplayItemFactory.swift */,
+				0A2B27E32681086D00B64F7E /* PhotoDisplayItemFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		0A4B705E264DB82B00C03B74 /* NewsFeed */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +254,8 @@
 			children = (
 				39312D4D260146FB002997E0 /* Session.swift */,
 				394E9F6E2603F29E00895183 /* NetworkManager.swift */,
+				0A38319C26888F090030813E /* ServiceAdapter.swift */,
+				0A2B4CA32690908000D3512E /* Proxy.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -323,6 +374,7 @@
 				39312D4C260146D9002997E0 /* Network */,
 				0A1B9573265EBE1400AB3CD6 /* CacheService */,
 				8B193BC325C5AF6A0043AF16 /* Model */,
+				0A269BFD267F432E000FF0F4 /* Fundamental */,
 				8B4ED2BF25BC92AE00485879 /* Swift_CustomApp */,
 				8B4ED2BE25BC92AE00485879 /* Products */,
 				394E9F642603D99500895183 /* Frameworks */,
@@ -346,7 +398,6 @@
 				8B4ED2C925BC92AF00485879 /* Assets.xcassets */,
 				8B4ED2CB25BC92AF00485879 /* LaunchScreen.storyboard */,
 				8B4ED2CE25BC92AF00485879 /* Info.plist */,
-				398AA3BA260A8459008B0F14 /* UsefulFunctions.swift */,
 			);
 			path = Swift_CustomApp;
 			sourceTree = "<group>";
@@ -495,28 +546,37 @@
 				397CD8C525CB3DB900432501 /* AvatarView.swift in Sources */,
 				39FFA62C25DDB5CB003B7265 /* DotsLoadingIndicator.swift in Sources */,
 				39C00A7425E2B1CC008FFB25 /* PhotosCarouselCollectionViewController.swift in Sources */,
+				0A2B27D62680FC9D00B64F7E /* UserDisplayItem.swift in Sources */,
 				8B193BDC25C5E8A60043AF16 /* GroupsTableViewController.swift in Sources */,
 				3917BA3325C861B900C48FA6 /* FriendData.swift in Sources */,
 				392A7D6F25E58D8B007A6290 /* CustomPushAnimator.swift in Sources */,
+				0A38319D26888F090030813E /* ServiceAdapter.swift in Sources */,
 				391CB80225D598A800085064 /* PostData.swift in Sources */,
 				0AD3565A266D325900C7086E /* AlbumsViewController.swift in Sources */,
 				394E9F6F2603F29E00895183 /* NetworkManager.swift in Sources */,
 				8B193BCF25C5CBED0043AF16 /* FriendPhotoCollectionViewCell.swift in Sources */,
+				0A2B27DE2681053E00B64F7E /* GroupDisplayItemFactory.swift in Sources */,
 				0AD39A84264DCC850052721D /* NewsFeedTextTableViewCell.swift in Sources */,
 				392A7D7625E58F00007A6290 /* CustomNavigationController.swift in Sources */,
+				0A2B27E22681082400B64F7E /* PhotoDisplayItem.swift in Sources */,
 				39AEA5ED25D83E8200384E1C /* NewsFeedImageCollectionViewCell.swift in Sources */,
 				0A84E68F265583A300573796 /* NSOperation.swift in Sources */,
+				0A2B27D92680FE5900B64F7E /* UserDisplayItemFactory.swift in Sources */,
 				392A7D7B25E5AC27007A6290 /* CustomInteractiveTransition.swift in Sources */,
 				8B193BD825C5E8290043AF16 /* GroupsTableViewCell.swift in Sources */,
 				0AD39A81264DCA720052721D /* NewsFeedAuthorTableViewCell.swift in Sources */,
 				8B4ED2D825BC93A800485879 /* LoginFormController.swift in Sources */,
 				8B193BDF25C5E8C90043AF16 /* SearchGroupTableViewController.swift in Sources */,
 				0A1B9575265EBE7C00AB3CD6 /* PhotoCacheService.swift in Sources */,
+				0A2B27DC2681044F00B64F7E /* GroupDisplayItem.swift in Sources */,
 				39723BD225D7E07900866D33 /* NewsFeedCollectionViewLayout.swift in Sources */,
 				394E9F692603DA7400895183 /* VKLoginWebViewController.swift in Sources */,
 				393766F725D471D500FFB8D5 /* NewsFeedTableViewController.swift in Sources */,
 				0AD39A8C264DD29E0052721D /* NewsFeedFooterTableViewCell.swift in Sources */,
+				0A269BFF267F434F000FF0F4 /* Extensions.swift in Sources */,
+				0A2B27E42681086D00B64F7E /* PhotoDisplayItemFactory.swift in Sources */,
 				393766F025D4267B00FFB8D5 /* FriendSectionHeader.swift in Sources */,
+				0A2B4CA42690908000D3512E /* Proxy.swift in Sources */,
 				8B193BD325C5CDE10043AF16 /* FriendPhotosCollectionViewController.swift in Sources */,
 				0A78005226696B96004614DB /* NewsFeedSingleImageTableViewCell.swift in Sources */,
 				3971559825CC8AA400470CED /* LikeControl.swift in Sources */,

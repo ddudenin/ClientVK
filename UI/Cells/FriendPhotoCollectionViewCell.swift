@@ -24,14 +24,8 @@ final class FriendPhotoCollectionViewCell: UICollectionViewCell {
         self.likeControl.prepareForReuse()
     }
     
-    func configure(withPhoto photo: Photo, handler handle: ((Bool, Int) -> Void)? = nil) {
-        if let likeInfo = photo.likes {
-            self.likeControl.configure(withLikes: likeInfo, handler: handle)
-        } else {
-            self.likeControl.configure(withLikesCount: 0, state: false)
-        }
-        
-        guard let urlString = photo.sizes.last?.url else { return }
-        self.photoImageView.setImage(at: urlString, placeholderImage: UIImage(systemName: "photo.fill"))
+    func configure(withPhoto photo: PhotoDisplayItem, handler handle: ((Bool, Int) -> Void)? = nil) {
+        self.likeControl.configure(withLikes: photo.likes, handler: handle)    
+        self.photoImageView.setImage(at: photo.photoURL, placeholderImage: UIImage(systemName: "photo.fill"))
     }
 }

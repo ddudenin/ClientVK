@@ -10,19 +10,21 @@ import RealmSwift
 
 final class FriendPhotosCollectionViewController: UICollectionViewController {
     
-    private var friend: User?
+    private var friend: UserDTO?
     private var albumID: Int = -1
     
-    private var photos: Results<Photo>? {
+    private var photos: Results<RLMPhoto>? {
         get {
             guard let friend = self.friend else { return nil }
             
-            let photos: Results<Photo>? = self.realmManager?.getObjects()
+            let photos: Results<RLMPhoto>? = self.realmManager?.getObjects()
             return photos?.filter("albumId = %@ AND ownerId = %@", self.albumID, friend.id)
         }
         
         set { }
     }
+    
+    private var photosDiaplayItems = [PhotoDisplayItem]()
     
     private let networkManager = NetworkManager.instance
     private let realmManager = RealmManager.instance
@@ -37,6 +39,10 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
                     try self?.realmManager?.add(objects: items)
                 } catch {
                     print(error.localizedDescription)
+                }
+                
+                self?.photosDiaplayItems = items.map {
+                    PhotoDisplayItemFactory.make(for: $0)
                 }
                 
                 self?.collectionView.reloadData()
@@ -63,7 +69,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         }
     }
     
-    func configure(friend user: User?, albumId id: Int) {
+    func configure(friend user: UserDTO?, albumId id: Int) {
         self.friend = user
         self.albumID = id
     }
@@ -75,8 +81,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         self.collectionView.register(UINib(nibName: "FriendPhotoCollectionViewCell", bundle: .none), forCellWithReuseIdentifier: "FriendPhotoCell")
         
         // Do any additional setup after loading the view.
-        guard let friend = self.friend else { return }
-        self.title = friend.fullName
+        self.title = self.friend?.fullName
         
         signToPhotosChanges()
     }
@@ -84,8 +89,14 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let userPhoto = self.photos, userPhoto.isEmpty {
+        guard let userPhoto = self.photos else { return }
+        
+        if userPhoto.isEmpty {
             loadData()
+        } else {
+            self.photosDiaplayItems = userPhoto.map {
+                PhotoDisplayItemFactory.make(for: $0)
+            }
         }
     }
     
@@ -102,17 +113,16 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let photo = self.photos?[indexPath.row] else {
-            return UICollectionViewCell()
-        }
+        let photo = self.photos?[indexPath.row]
+        let item = self.photosDiaplayItems[indexPath.row]
         
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendPhotoCollectionViewCell
         
         let handle: (Bool, Int) -> Void = { [weak self] (state, count) in
             do {
                 try self?.realmManager?.update {
-                    photo.likes?.userLikes = state ? 1 : 0
-                    photo.likes?.count = count
+                    photo?.likes?.userLikes = state ? 1 : 0
+                    photo?.likes?.count = count
                 }
             } catch {
                 print(error.localizedDescription)
@@ -120,7 +130,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
         }
         
         // Configure the cell
-        cell.configure(withPhoto: photo, handler: handle)
+        cell.configure(withPhoto: item, handler: handle)
         
         return cell
     }
@@ -135,7 +145,7 @@ final class FriendPhotosCollectionViewController: UICollectionViewController {
             return
         }
         
-        carouselVC.photos = self.photos
+        carouselVC.photos = self.photosDiaplayItems
         carouselVC.index = indexPath.row
         
         self.navigationController?.pushViewController(carouselVC, animated: true)
